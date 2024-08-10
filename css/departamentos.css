@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+body {
+    font-family: 'League Spartan', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.titulo{
+    color: #000000;
+    font-size: 50px;
+    text-align: center;
+}
+
+.imgTDP{ 
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: 180px;
+    height: 150px;      
+}
+
+.imgEmpresa{
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    width: 170px;
+    height: 130px;
+}
+
+.btn_contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100%;  /* Establece la altura al 100% del viewport height (vh) */
+    
+}
+
+
+.btnImagen {
+    background-image: url('../img/carpeta.png');
+    background-repeat: no-repeat;
+    background-position: calc(8% - 10px) center; /* Centra la imagen a la izquierda */
+    background-size: 60px 60px;
+    padding-left: 70px; /* Ajusta este valor para dar espacio a la imagen */
+}
+
+button {
+    width: 418px;
+    height: 83px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    position: relative;
+    left: 40px;
+    top: 50px;
+
+    color: #ffffff;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px; /* Espacio entre botones */
+    margin-right: 10px;
+    transition: background-color 0.3s; /* Agregamos una transición suave para el cambio de color */
+
+    /* Hacemos que el botón sea transparente por defecto */
+    background-color: #269174;
+
+    /* Cambiamos el color del botón a azul cuando el cursor pasa sobre él */
+    &:hover {
+        background-color: #2ba987;
+    }
+}
+

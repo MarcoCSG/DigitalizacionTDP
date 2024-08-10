@@ -1,0 +1,65 @@
+.titulo{
+    color: #000000;
+    font-size: 48px;
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    text-align: center;
+}
+
+.subtitulo{
+    color: #120e0e;
+    font-size: 38px;
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    text-align: center;
+}
+
+.imglogoPrincipal {
+        width: 250px;
+        height: 200px;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+.btnMenu{
+    background-image: url('../img/menu.png');
+    background-repeat: no-repeat;
+    background-position: calc(8% - 10px) center; /* Centra la imagen a la izquierda */
+    background-size: 60px 60px;
+    padding-left: 70px; /* Ajusta este valor para dar espacio a la imagen */
+}
+
+.btnSubirInfo{
+    background-image: url('../img/subirIfo.png');
+    background-repeat: no-repeat;
+    background-position: calc(8% - 25px) center; /* Centra la imagen a la izquierda */
+    background-size: 60px 60px;
+    padding-left: 70px; /* Ajusta este valor para dar espacio a la imagen */
+}
+/* Contenedor de los botones para centrar */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Apila los botones verticalmente */
+    margin-top: 50px; /* Espaciado superior para ajustar la posición */
+}
+
+/* Estilo de los botones */
+button {
+    width: 100%;
+    max-width: 328px;
+    height: 100px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #64C27B;
+    color: #191717;
+    text-align: center;
+    font-size: 40px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #29bc95;
+}

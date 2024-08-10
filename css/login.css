@@ -1,0 +1,141 @@
+.titulo{
+    width: 500px;
+    height: 67px;
+    flex-shrink: 0;
+    color: #691B33;
+    font-family: "Shippori Antique", sans-serif;
+    margin-left: 145px;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    left: 200px;
+}
+
+.imgLogoMunicipio{
+        width:400px;
+        height: 230px;
+        flex-shrink: 0;
+        margin-left: 100px; /* Añade esta línea para mover la imagen a la derecha */
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }    
+    .contenido-principal {
+        display: flex;
+    }
+    
+    .formulario-section {
+        display: flex;
+        flex-direction: column;
+        
+    }
+    
+    aside {
+        width: 30%; /* Ajusta el ancho del aside según tus necesidades */
+        box-sizing: border-box;
+        padding: 8px;
+    }
+    
+    .misantla {
+        width: 800px;
+        height: 670px;
+        margin-left: 0px;
+        border-radius: 70px;
+    }
+
+.username{
+    width: 459px;
+    height: 66px;
+    flex-shrink: 0;
+    border-radius: 32px;
+    border: 1px solid #000;
+    background: #FFF;
+    position: relative;
+    left:100px;
+
+    color: #000000;
+    font-size: 28px;
+    font-family:"Shippori Antique", sans-serif;
+    text-align: center;
+}
+
+.password{
+    width: 459px;
+    height: 66px;
+    flex-shrink: 0;
+    border-radius: 32px;
+    border: 1px solid #000;
+    background: #FFF;
+    position: relative;
+    left:100px;
+    top: 10px;
+
+    color: #000000;
+    font-size: 28px;
+    font-family: "Shippori Antique", sans-serif;
+    text-align: center;
+}
+
+.ver{
+    width: 100px;
+    height: 66px;
+    flex-shrink: 0;
+    border-radius: 32px;
+    border: 1px solid #000;
+    background: #D51668;
+    position: relative;
+    left:100px;
+    top: 10px;
+
+    color: #000000;
+    font-size: 18px;
+    font-family: "Shippori Antique", sans-serif;
+    text-align: center;
+}
+
+.btnLogin{
+    width: 400px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #D51668;
+    position: relative;
+    left:130px;
+    top: 30px;
+    
+    color: #000000;
+    text-align: center;
+    font-size: 24px;
+    font-family: "Shippori Antique", sans-serif;
+    margin-bottom: 10px;
+    margin-right: 10px;
+      transition: background-color 0.3s; /* Agregamos una transición suave para el cambio de color */
+    }
+    
+    button:hover {
+        background-color: #A69465; /* Cambia el color al pasar el cursor sobre el botón */
+    }
+::placeholder {
+    color: #ACACAC;
+    font-size: 28px;
+    font-family: "Shippori Antique", sans-serif;
+    text-align: center;
+  }
+
+  .input-container {
+    position: relative;
+    margin-bottom: 10px; /* Ajusta según tus necesidades para dar espacio entre los campos */
+}
+
+.icon-container {
+    position: absolute;
+    top: -35%;
+    transform: translateY(60%);
+    left: 40px; /* Ajusta la distancia del icono desde el borde izquierdo del campo de entrada */
+}
+
+.icon-container img {
+    height: 50px; /* Ajusta la altura del icono según tus necesidades */
+    width: auto; /* Ajusta la anchura automáticamente según la altura */
+    opacity: 0.9;
+}   

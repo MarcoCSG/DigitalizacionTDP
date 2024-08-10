@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" href="img/escudo.png" type="image/x-icon">
+    <script>
+        function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        var toggleButton = document.getElementById("toggleButton");
+    
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            toggleButton.textContent = "Ocultar";
+        } else {
+            passwordInput.type = "password";
+            toggleButton.textContent = "Mostrar";
+        }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Shippori+Antique&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="contenido-principal">
+      <section class="formulario-section">
+        <h1 class="titulo">Digitalización 2022 -2023</h1>
+        <figure>
+            <img class="imgLogoMunicipio" src="img/misantla.png" alt="logo de Cordoba">
+        </figure>
+    
+        <form action="login.php" method="POST">
+            <div class="input-container">
+                <span class="icon-container">
+                    <img src="img/usuario.png" alt="icono usuario">
+                </span>
+                <input class="username" type="text" id="username" name="username" required placeholder="Usuario">
+            </div>
+            <br>
+    
+            <div class="input-container">
+                <span class="icon-container">
+                    <img src="img/password.png" alt="icono contraseña">
+                </span>
+                <input class="password" type="password" id="password" name="password" required placeholder="Contraseña">
+                <button class="ver" id="toggleButton" onclick="togglePasswordVisibility()">Mostrar</button>
+            </div>
+            <br>
+    
+            <button class="btnLogin" type="submit">Iniciar sesión</button>
+        </form>
+    </section>
+    
+    
+        <aside class="aside-derecha">
+        <figure>
+            <img class="misantla" src="img/PAISAJE.jpg" alt="foto de Cordoba">
+        </figure>
+    </aside>
+    </main>
+    
+</body>
+</html>

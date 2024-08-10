@@ -1,0 +1,67 @@
+.titulo{
+    color: #000000;
+    font-size: 48px;
+    font-family:"Shippori Antique", sans-serif;
+    text-align: center;
+}
+
+.imgTDP{ 
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: 180px;
+    height: 150px;      
+}
+
+.imgEmpresa{
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    width: 304px;
+    height: 84px;
+}
+
+.btn_contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:100%;  /* Establece la altura al 100% del viewport height (vh) */
+    
+}
+
+.btnImagen {
+    background-image: url('../img/carpeta.png');
+    background-repeat: no-repeat;
+    background-position: calc(8% - 10px) center; /* Centra la imagen a la izquierda */
+    background-size: 60px 60px;
+    padding-left: 70px; /* Ajusta este valor para dar espacio a la imagen */
+}
+
+
+button {
+    width: 418px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    position: relative;
+    left: 90px;
+    top: 50px;
+
+    color: #000000;
+    text-align: center;
+    font-size: 20px;
+    font-family: "Shippori Antique", sans-serif;
+    margin-bottom: 20px; /* Espacio entre botones */
+    margin-right: 10px;
+    transition: background-color 0.3s; /* Agregamos una transición suave para el cambio de color */
+
+    /* Hacemos que el botón sea transparente por defecto */
+    background-color: #64C27B;
+
+    /* Cambiamos el color del botón a azul cuando el cursor pasa sobre él */
+    &:hover {
+        background-color: #2ba987;
+    }
+}
+

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEPARTAMENTOS</title>
+    <link rel="stylesheet" href="css/departamentos2.css">
+    <link rel="icon" href="img/TDP-NEGRO.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        .search-options {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- BARRA DE NAVEGACION -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>H. AYUNTAMIENTO DE CÓRDOBA</h1>
+            <ul class="sidebar-menu">
+                <li><a href="departamentos2022.html">Resumen documental</a></li>
+                <li><a href="subirInfo.html">Subir Información</a></li>
+                <li><a href="#">Áreas Digitalizadas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO -->
+    <main class="main-content">
+        <section>
+            <figure>
+                <img class="imgTDP" src="img/logoTDP.png" alt="logo">
+            </figure>
+            <h1 class="titulo">DIGITALIZACIÓN MUNICIPAL</h1>
+            <h2 class="subtitulo">SELECCIONE LAS OPCIONES DE BÚSQUEDA</h2>
+
+            <!-- SECCION DE OPCIONES Y CLASIFICACIONES -->
+            <section class="search-options">
+                <div class="form-group">
+                    <label for="area">ÁREA</label>
+                    <select id="area">
+                        <option value="">Seleccione una opción</option>
+                        <option value="presidencia">PRESIDENCIA</option>
+                        <option value="tesoreria">TESORERÍA</option>
+                        <option value="catastro">CATASTRO</option>
+                        <option value="secretaria">SECRETARÍA</option>
+                        <option value="contraloria">CONTRALORÍA</option>
+                        <option value="obras-publicas">OBRAS PÚBLICAS</option>
+                        <option value="regidurias">REGIDURIAS</option>
+                        <option value="areas">TODAS LAS AREAS</option>
+                        <option value="areasUsuarias">AREAS USUARIAS</option>
+                        <option value="Utransparencia">UNIDAD DE TRANSPARENCIA</option>                   
+                    </select>
+                </div>
+
+                <!-- PERIODO -->
+                <div class="form-group" id="periodoContainer" style="display:none;">
+                    <label for="periodo">PERIODO</label>
+                    <select id="periodo">
+                        <option value="">Seleccione un periodo</option>
+                    </select>
+                </div>
+
+                <!-- CLASIFICACION DOCUMENTAL -->
+                <div class="form-group" id="clasificacionContainer" style="display:none;">
+                    <label for="clasificacion">CLASIFICACION DOCUMENTAL BASICA</label>
+                    <select id="clasificacion">
+                        <option value="">Seleccione una clasificación</option>
+                    </select>
+                </div>
+
+                <!-- DOCUMENTOS ENTREGA RECEPCIÓN -->
+                <div class="form-group" id="documentosContainer" style="display:none;">
+                    <label for="entregaRecepcion">DOCUMENTOS ENTREGA RECEPCIÓN</label>
+                    <select id="entregaRecepcion">
+                        <!-- Las opciones se llenarán dinámicamente con JavaScript -->
+                    </select>
+                </div>
+            </section>
+
+            <div class="search-container">
+                <button class="search-button">Buscar</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/formulario.js"></script>
+</body>
+</html>

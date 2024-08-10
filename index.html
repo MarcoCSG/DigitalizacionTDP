@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/TDP-NEGRO.png" type="image/x-icon">
+    <title>Iniciar Sesión</title>
+</head>
+<body>
+    <div class="container">
+        <div class="carousel">
+            <div class="slide img-1 active" style="background-image: url('img/foto1.jpg');">
+                <div class="carousel-caption">
+                    <h5>Digitalización Municipio de Córdoba</h5>
+                    <p>Escanenado documentación oficial de diversas áreas</p>
+                </div>
+            </div>
+            <div class="slide img-2" style="background-image: url('img/foto2.jpg');">
+                <div class="carousel-caption">
+                    <h5>Digitalización Municipio de Ixhuacan de los Reyes</h5>
+                    <p>Escanenado documentación oficial de diversas áreas</p>
+                </div>
+            </div>
+            <div class="slide img-3" style="background-image: url('img/foto3.jpg');">
+                <div class="carousel-caption">
+                    <h5>Digitalización Municipio de Misantla</h5>
+                    <p>Escanenado documentación oficial de diversas áreas</p>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <button type="button" class="active" onclick="showSlide(0)"></button>
+                <button type="button" onclick="showSlide(1)"></button>
+                <button type="button" onclick="showSlide(2)"></button>
+            </div>
+        </div>
+        <div class="form-section">
+            <div class="form-container">
+                <img src="img/LogoTDP.png" alt="Logo">
+                <h1>DIGITALIZACIÓN MUNICIPAL</h1>
+                <form action="login.php" method="POST">
+                    <input type="text" class="form-control" name="username" id="username" required placeholder="Ingresa tu usuario">
+                    <input type="password" class="form-control" id="password" name="password" required placeholder="Ingresa tu contraseña">
+                    <a href="#" class="form-text">¿Haz olvidado tu contraseña?</a>
+                    <button type="submit" class="btn">INICIAR SESIÓN</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel .slide');
+        const indicators = document.querySelectorAll('.carousel-indicators button');
+
+        function showSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+
+        setInterval(nextSlide, 2000); // Cambia de diapositiva cada 5 segundos
+    </script>
+</body>
+</html>

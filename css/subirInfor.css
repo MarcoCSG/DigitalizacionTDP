@@ -1,0 +1,215 @@
+.titulo{
+    color: #000000;
+    font-size: 48px;
+    font-family: Rockwell;
+    text-align: center;
+
+}
+
+.imgSantiago{ 
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  width: 150px;
+  height: 150px;      
+}
+
+.imgEmpresa{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 304px;
+    height: 84px;
+}
+
+.btn_contenedor{
+
+  display: flex;
+  flex-direction:column;
+  justify-content:right;
+  align-items: center;
+  height: 100vh; /* Ajusta la altura según tus necesidades */
+  position: absolute;
+  left: auto;
+  transition: background-color 0.3s;
+}
+
+.area{
+  width: 450px;
+    height: 53px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #FC6736;
+    position: relative;
+    left: 70px;
+    top: 50px;
+
+    color: #000000;
+    text-align: center;
+    font-size: 24px;
+    font-family: Rockwell;
+    margin-bottom: 10px; /* Espacio entre botones */
+    transition: background-color 0.3s;
+}
+
+.clasificacion{
+  width: 450px;
+  height: 53px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #FC6736;
+  position: relative;
+  left: 70px;
+  top: 50px;
+
+  color: #000000;
+  text-align: center;
+  font-size: 24px;
+  font-family: Rockwell;
+  margin-bottom: 10px; /* Espacio entre botones */
+  transition: background-color 0.3s;
+}
+
+.mes{
+  width: 450px;
+    height: 53px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #FC6736;
+  position: relative;
+  left: 70px;
+  top: 50px;
+
+  color: #000000;
+  text-align: center;
+  font-size: 24px;
+  font-family: Rockwell;
+  margin-bottom: 10px; /* Espacio entre botones */
+  transition: background-color 0.3s;
+}
+.subclasificacion{
+  width: 450px;
+    height: 53px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #FC6736;
+  position: relative;
+  left: 70px;
+  top: 50px;
+
+  color: #000000;
+  text-align: center;
+  font-size: 24px;
+  font-family: Rockwell;
+  margin-bottom: 10px; /* Espacio entre botones */
+  transition: background-color 0.3s;
+}
+
+.opcion_4{
+  width: 450px;
+    height: 53px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #FC6736;
+  position: relative;
+  left: 70px;
+  top: 50px;
+
+  color: #000000;
+  text-align: center;
+  font-size: 24px;
+  font-family: Rockwell;
+  margin-bottom: 10px; /* Espacio entre botones */
+  transition: background-color 0.3s;
+}
+
+.folios{
+  width: 450px;
+    height: 53px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #FC6736;
+  position: relative;
+  left: 70px;
+  top: 50px;
+
+  color: #000000;
+  text-align: center;
+  font-size: 24px;
+  font-family: Rockwell;
+  margin-bottom: 10px; /* Espacio entre botones */
+  transition: background-color 0.3s;
+}
+
+.btnGuardar{
+  width: 450px;
+  height: 63px;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background: #FC6736;
+    position: relative;
+    left: 130px;
+    top: 400px;
+
+    color: #000000;
+    text-align: center;
+    font-size: 32px;
+    font-family: Rockwell;
+    transition: background-color 0.3s;
+  }
+  button:hover {
+    background-color: #da663f; /* Cambia el color al pasar el cursor sobre el botón */
+  }
+ 
+
+ #drop-area {
+  width: 601px;
+  height: 300px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  position: relative;
+  left:630px;
+  top: 0px;
+}
+
+#drop-area.highlight {
+  border-color: #999;
+}
+
+/* #drop-area::before {
+  content: "\f093";
+  font-family: FontAwesome;
+  font-size: 40px;
+  color: #b60e0e;
+} */
+
+.upload-text {
+  margin-bottom: 20px;
+}
+
+#file-input {
+  display: none;
+}
+
+#upload-button {
+  width: 450px;
+  height: 53px;
+  background-color: #FC6736;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 32px;
+  cursor: pointer;
+  top: 500px;
+  position: absolute;
+  right: 250px;
+
+}

@@ -1,0 +1,139 @@
+body {
+    font-family: 'Atkinson Hyperlegible', sans-serif;
+    margin: 0;
+    display: flex;
+}
+
+.imgTDP{ 
+    width: 200px;
+        height: 180px;
+        position: absolute;
+        top: 0;
+        right: 0;   
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #468585;
+    color: #fff;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-header h1 {
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin: 20px 0;
+}
+
+.sidebar-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    display: block; /* Asegura que el enlace ocupe todo el espacio del elemento de lista */
+    padding: 10px; /* Espaciado para mejor usabilidad */
+    border-radius: 4px; /* Bordes redondeados para un mejor estilo */
+}
+
+.sidebar-menu a.active {
+    background-color: #356565; /* Color de fondo para la opción seleccionada */
+    font-weight: bold; /* Estilo de fuente para destacar la opción seleccionada */
+}
+
+
+.main-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f5f5;
+}
+
+.titulo {
+    font-size: 24px;
+    text-align: center;
+}
+
+.subtitulo {
+    font-size: 20px;
+    text-align: center;
+}
+
+.search-options {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 100px 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group label {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.form-group select {
+    width: 300px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.documents-list {
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.documents-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.documents-list li {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+}
+
+.search-button {
+    width: 200px;
+    padding: 15px;
+    border-radius: 30px;
+    background: #269174;
+    color: #ffffff;
+    text-align: center;
+    font-size: 20px;
+    font-family: "Shippori Antique", sans-serif;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+.search-button:hover {
+    background-color: #29bc95;
+}

@@ -4,12 +4,19 @@ body {
     display: flex;
 }
 
-.imgTDP{ 
+.imgTDP { 
     width: 200px;
-        height: 180px;
-        position: absolute;
-        top: 0;
-        right: 0;   
+    height: 150px;
+    position: absolute;
+    top: 0;
+    right: 0;   
+}
+
+/* Media query para pantallas de 800px o menos */
+@media (max-width: 800px) {
+    .imgTDP {
+        display: none; /* Ocultar la imagen */
+    }
 }
 
 .sidebar {
@@ -60,17 +67,50 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f5f5f5;
+    background-color: #F4F4F2;
+    width: 100vw; /* Ocupa el ancho completo de la pantalla */
+    min-height: 100vh; /* Ocupa al menos la altura completa de la pantalla */
+    box-sizing: border-box; /* Incluye el padding en el tamaño total */
 }
 
 .titulo {
     font-size: 24px;
     text-align: center;
+    color: #131842;
 }
 
 .subtitulo {
     font-size: 20px;
     text-align: center;
+    color: #131842;
+}
+
+.search-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    display: inline-block;
+    margin: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.search-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
 }
 
 .search-options {
@@ -78,12 +118,15 @@ body {
     justify-content: space-around;
     width: 100%;
     margin: 100px 0;
+    flex-wrap: wrap; /* Permite que las opciones se acomoden en varias líneas si es necesario */
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%; /* Se ajusta al ancho del contenedor */
+    max-width: 500px; /* Limita el ancho máximo */
 }
 
 .form-group label {
@@ -92,10 +135,11 @@ body {
 }
 
 .form-group select {
-    width: 300px;
+    width: 100%; /* Ocupa el 100% del ancho disponible */
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #a9aead;
+    box-sizing: border-box;
 }
 
 .documents-list {
@@ -116,16 +160,21 @@ body {
 
 .search-container {
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Se ajusta al ancho del contenedor */
 }
 
 .search-button {
-    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Ocupa el 100% del ancho disponible */
+    max-width: 300px; /* Limita el ancho máximo */
     padding: 15px;
     border-radius: 30px;
-    background: #269174;
-    color: #ffffff;
+    background: #134B70;
+    color: #EEEEEE;
     text-align: center;
     font-size: 20px;
     font-family: "Shippori Antique", sans-serif;
@@ -134,6 +183,12 @@ body {
     border: none;
 }
 
+.search-button ion-icon {
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+    font-size: 24px; /* Tamaño del ícono */
+    vertical-align: middle; /* Alinea el ícono verticalmente con el texto */
+}
+
 .search-button:hover {
-    background-color: #29bc95;
+    background-color: #508C9B;
 }

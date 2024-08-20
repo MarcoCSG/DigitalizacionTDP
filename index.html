@@ -4,27 +4,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="img/TDP-NEGRO.png" type="image/x-icon">
+    <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
     <title>Iniciar Sesión</title>
 </head>
 <body>
     <div class="container">
         <div class="carousel">
-            <div class="slide img-1 active" style="background-image: url('img/foto1.jpg');">
+            <div class="slide img-1 active" style="background-image: url('img/15.jpg');">
                 <div class="carousel-caption">
                     <h5>Digitalización Municipio de Córdoba</h5>
                     <p>Escanenado documentación oficial de diversas áreas</p>
                 </div>
             </div>
-            <div class="slide img-2" style="background-image: url('img/foto2.jpg');">
+            <div class="slide img-2" style="background-image: url('img/10.jpg');">
                 <div class="carousel-caption">
                     <h5>Digitalización Municipio de Ixhuacan de los Reyes</h5>
                     <p>Escanenado documentación oficial de diversas áreas</p>
                 </div>
             </div>
-            <div class="slide img-3" style="background-image: url('img/foto3.jpg');">
+            <div class="slide img-3" style="background-image: url('img/12.jpg');">
                 <div class="carousel-caption">
                     <h5>Digitalización Municipio de Misantla</h5>
+                    <p>Escanenado documentación oficial de diversas áreas</p>
+                </div>
+            </div>
+            <div class="slide img-4 active" style="background-image: url('img/3.jpg');">
+                <div class="carousel-caption">
+                    <h5>Digitalización Municipio de Córdoba</h5>
                     <p>Escanenado documentación oficial de diversas áreas</p>
                 </div>
             </div>
@@ -32,6 +38,7 @@
                 <button type="button" class="active" onclick="showSlide(0)"></button>
                 <button type="button" onclick="showSlide(1)"></button>
                 <button type="button" onclick="showSlide(2)"></button>
+                <button type="button" onclick="showSlide(3)"></button>
             </div>
         </div>
         <div class="form-section">
@@ -65,7 +72,7 @@
             showSlide(nextIndex);
         }
 
-        setInterval(nextSlide, 2000); // Cambia de diapositiva cada 5 segundos
+        setInterval(nextSlide, 5000); // Cambia de diapositiva cada 5 segundos
     </script>
 </body>
 </html>

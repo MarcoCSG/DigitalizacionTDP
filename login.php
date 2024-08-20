@@ -2,7 +2,7 @@
 session_start();
 
 // Establecer la conexión con la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "dg_misantla");
+$conexion = mysqli_connect("localhost", "root", "", "tdp");
 
 // Verificar la conexión
 if (!$conexion) {

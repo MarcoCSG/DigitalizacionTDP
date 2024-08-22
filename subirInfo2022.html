@@ -15,52 +15,52 @@
             <figure>
                 <img class="imgTDP" src="img/logoTDP.png" alt="logo">
             </figure>
-            <h1 class="titulo">DIGITALIZACIÓN MUNICIPAL</h1>
+            <h1 class="titulo">DIGITALIZACIÓN E-GOBIERNO</h1>
             <h2 class="subtitulo">SELECCIONE LAS OPCIONES PARA SUBIR LA INFORMACIÓN</h2>
 
-            <section class="search-options">
-                <div class="form-group">
-                    <label for="area">ÁREA</label>
-                    <select id="area" name="area">
-                        <option value="">Seleccione una opción</option>
-                        <option value="presidencia">PRESIDENCIA</option>
-                        <option value="sindicatura">SINDICATURA</option>
-                        <option value="secretaria">SECRETARIA</option>
-                        <option value="regidores">REGIDORES</option>
-                        <option value="tesoreria">TESORERIA</option>
-                        <option value="contraloria">CONTRALORIA MUNICIPAL</option>
-                        <option value="obras-publicas">OBRAS PUBLICAS E INFRAESTRUCTURA</option>              
-                    </select>
-                </div>
-
-                <div class="form-group" id="clasificacionContainer" style="display:none;">
-                    <label for="clasificacion">RUBROS DE ÁREA</label>
-                    <select id="clasificacion" name="clasificacion">
-                        <option value="">Seleccione una clasificación</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="documentosContainer" style="display:none;">
-                    <label for="entregaRecepcion">DOCUMENTOS GENERALES DEL ÁREA</label>
-                    <select id="entregaRecepcion" name="documentos">
-                        <option value="">Seleccione un documento</option>
-                    </select>
-                </div>
-
-                <div class="form-group" id="periodoContainer" style="display:none;">
-                    <label for="periodo">PERIODO</label>
-                    <select id="periodo" name="periodo">
-                        <option value="">Seleccione un periodo</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="folios">Cantidad de Folios</label>
-                    <input type="text" id="folios" name="cantidad_folios" placeholder="Ingrese la cantidad de folios">
-                </div>
-            </section>
-
             <form action="upload.php" method="post" enctype="multipart/form-data">
+                <section class="search-options">
+                    <div class="form-group">
+                        <label for="area">ÁREA</label>
+                        <select id="area" name="area">
+                            <option value="">Seleccione una opción</option>
+                            <option value="presidencia">PRESIDENCIA</option>
+                            <option value="sindicatura">SINDICATURA</option>
+                            <option value="secretaria">SECRETARIA</option>
+                            <option value="regidores">REGIDORES</option>
+                            <option value="tesoreria">TESORERIA</option>
+                            <option value="contraloria">CONTRALORIA MUNICIPAL</option>
+                            <option value="obras-publicas">OBRAS PUBLICAS E INFRAESTRUCTURA</option>              
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="clasificacionContainer" style="display:none;">
+                        <label for="clasificacion">RUBROS DE ÁREA</label>
+                        <select id="clasificacion" name="clasificacion">
+                            <option value="">Seleccione una clasificación</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="documentosContainer" style="display:none;">
+                        <label for="entregaRecepcion">DOCUMENTOS GENERALES DEL ÁREA</label>
+                        <select id="entregaRecepcion" name="documentos">
+                            <option value="">Seleccione un documento</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="periodoContainer" style="display:none;">
+                        <label for="periodo">PERIODO</label>
+                        <select id="periodo" name="periodo">
+                            <option value="">Seleccione un periodo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="folios">Cantidad de Folios</label>
+                        <input type="text" id="folios" name="cantidad_folios" placeholder="Ingrese la cantidad de folios">
+                    </div>
+                </section>
+
                 <div class="search-container">
                     <input type="file" name="archivo" id="archivo">
                 </div>

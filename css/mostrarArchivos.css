@@ -12,14 +12,81 @@
   font-family: "Shippori Antique", sans-serif;
   text-align: center;
 }
+ /* Estilos para el formulario de búsqueda */
+ .search-container {
+  margin: 30px 0;
+  display: flex;
+  align-items: center;
+}
+.search-container input[type="text"] {
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  padding: 10px;
+  font-size: 16px;
+  flex: 2;
+  margin-right: 10px;
+}
+.search-container button {
+  padding: 10px 20px;
+  border-radius: 20px; /* Borde redondeado */
+  border: none;
+  background-color: #45bcda;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 16px;
+}
+.search-container button:hover {
+  background-color: #19a7ff;
+}
 
-.imgEmpresa{
+
+.imgEmpresa {
   position: absolute;
   top: 10px;
   right: 5px;
   width: 280px;
   height: 154px;
+  object-fit: contain; /* Asegura que el logo mantenga su proporción */
 }
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 1200px) {
+  .imgEmpresa {
+    width: 220px;
+    height: auto; /* Mantiene la proporción del logo */
+    top: 8px;
+    right: 4px;
+  }
+}
+
+@media (max-width: 992px) {
+  .imgEmpresa {
+    width: 180px;
+    height: auto; /* Mantiene la proporción del logo */
+    top: 6px;
+    right: 3px;
+  }
+}
+
+@media (max-width: 768px) {
+  .imgEmpresa {
+    width: 150px;
+    height: auto; /* Mantiene la proporción del logo */
+    top: 5px;
+    right: 2px;
+  }
+}
+
+@media (max-width: 576px) {
+  .imgEmpresa {
+    width: 120px;
+    height: auto; /* Mantiene la proporción del logo */
+    top: 4px;
+    right: 1px;
+  }
+}
+
 
 .file-box {
     display: flex;

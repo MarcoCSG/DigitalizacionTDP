@@ -4,29 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEPARTAMENTOS</title>
-    <link rel="stylesheet" href="css/departamentos2.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+    <link rel="stylesheet" href="css/subirInfo.css">
     <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-        
-    </style>
 </head>
 <body>
-    <!-- BARRA DE NAVEGACION -->
-    <!-- <nav class="sidebar">
-        <div class="sidebar-header">
-            <ion-icon name="cloud-outline"></ion-icon>
-            <h1>H. AYUNTAMIENTO DE CÓRDOBA</h1>
-            <ul class="sidebar-menu">
-                <li><a href="departamentos2022.html">Resumen documental</a></li>
-                <li><a href="subirInfo.html">Subir Información</a></li>
-                <li><a href="#">Áreas Digitalizadas</a></li>
-            </ul>
-        </div>
-    </nav> -->
-
     <!-- CONTENIDO -->
     <main class="main-content">
         <section>
@@ -34,66 +16,66 @@
                 <img class="imgTDP" src="img/logoTDP.png" alt="logo">
             </figure>
             <h1 class="titulo">DIGITALIZACIÓN MUNICIPAL</h1>
-            <h2 class="subtitulo">SELECCIONE LAS OPCIONES DE BÚSQUEDA</h2>
+            <h2 class="subtitulo">SELECCIONE LAS OPCIONES PARA SUBIR LA INFORMACIÓN</h2>
 
-          <section class="search-options">
-    <div class="form-group">
-        <label for="area">ÁREA</label>
-        <select id="area">
-            <option value="">Seleccione una opción</option>
-            <option value="presidencia">PRESIDENCIA</option>
-            <option value="sindicatura">SINDICATURA</option>
-            <option value="secretaria">SECRETARIA</option>
-            <option value="regidores">REGIDORES</option>
-            <option value="tesoreria">TESORERIA</option>
-            <option value="contraloria">CONTRALORIA MUNICIPAL</option>
-            <option value="obras-publicas">OBRAS PUBLICAS E INFRAESTRUCTURA</option>              
-        </select>
-    </div>
+            <section class="search-options">
+                <div class="form-group">
+                    <label for="area">ÁREA</label>
+                    <select id="area" name="area">
+                        <option value="">Seleccione una opción</option>
+                        <option value="presidencia">PRESIDENCIA</option>
+                        <option value="sindicatura">SINDICATURA</option>
+                        <option value="secretaria">SECRETARIA</option>
+                        <option value="regidores">REGIDORES</option>
+                        <option value="tesoreria">TESORERIA</option>
+                        <option value="contraloria">CONTRALORIA MUNICIPAL</option>
+                        <option value="obras-publicas">OBRAS PUBLICAS E INFRAESTRUCTURA</option>              
+                    </select>
+                </div>
 
-    <!-- CLASIFICACION DOCUMENTAL -->
-    <div class="form-group" id="clasificacionContainer" style="display:none;">
-        <label for="clasificacion">RUBROS DE ÁREA</label>
-        <select id="clasificacion">
-            <option value="">Seleccione una clasificación</option>
-        </select>
-    </div>
+                <div class="form-group" id="clasificacionContainer" style="display:none;">
+                    <label for="clasificacion">RUBROS DE ÁREA</label>
+                    <select id="clasificacion" name="clasificacion">
+                        <option value="">Seleccione una clasificación</option>
+                    </select>
+                </div>
 
-    <!-- DOCUMENTOS ENTREGA RECEPCIÓN -->
-    <div class="form-group" id="documentosContainer" style="display:none;">
-        <label for="entregaRecepcion">DOCUMENTOS GENERALES DEL ÁREA</label>
-        <select id="entregaRecepcion">
-            <option value="">Seleccione un documento</option>
-        </select>
-    </div>
+                <div class="form-group" id="documentosContainer" style="display:none;">
+                    <label for="entregaRecepcion">DOCUMENTOS GENERALES DEL ÁREA</label>
+                    <select id="entregaRecepcion" name="documentos">
+                        <option value="">Seleccione un documento</option>
+                    </select>
+                </div>
 
-    <!-- PERIODO -->
-    <div class="form-group" id="periodoContainer" style="display:none;">
-        <label for="periodo">PERIODO</label>
-        <select id="periodo">
-            <option value="">Seleccione un periodo</option>
-        </select>
-    </div>
-</section>
+                <div class="form-group" id="periodoContainer" style="display:none;">
+                    <label for="periodo">PERIODO</label>
+                    <select id="periodo" name="periodo">
+                        <option value="">Seleccione un periodo</option>
+                    </select>
+                </div>
 
-
+                <div class="form-group">
+                    <label for="folios">Cantidad de Folios</label>
+                    <input type="text" id="folios" name="cantidad_folios" placeholder="Ingrese la cantidad de folios">
+                </div>
             </section>
 
-            <div class="search-container">
-                <button  id="consultaBtn" class="search-button">
-                    <ion-icon name="search-outline"></ion-icon> Buscar
-                </button>
-            </div>
-            
-            <div id="resultado">
-                <!-- Aquí se mostrarán los resultados de la consulta -->
-            </div>
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+                <div class="search-container">
+                    <input type="file" name="archivo" id="archivo">
+                </div>
+
+                <div class="search-container">
+                    <button type="submit" class="save-button">
+                        <ion-icon name="save-outline"></ion-icon> Guardar
+                    </button>
+                </div>
+            </form>
         </section>
     </main>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="js/formulario.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/btn_buscar.js"></script>
 </body>
 </html>

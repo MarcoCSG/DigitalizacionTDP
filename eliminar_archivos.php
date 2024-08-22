@@ -1,6 +1,6 @@
 <?php
 // Paso 1: Conexión a la base de datos
-$conexion = mysqli_connect("localhost", "root", "", "dg_misantla23");
+$conexion = mysqli_connect("localhost", "root", "", "tdp");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (isset($_POST['archivo_id'])) {

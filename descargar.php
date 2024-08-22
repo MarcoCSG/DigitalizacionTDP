@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "dg_misantla23";
+$dbname = "tdp";
 
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];

@@ -7,6 +7,7 @@
     <title>Archivos</title>
     <link rel="stylesheet" href="css/mostrarArchivos.css">
     <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -24,14 +25,31 @@
     $conexion = mysqli_connect("localhost", "root", "", "tdp");
 
     // Paso 2: Obtener los valores de los parámetros de la URL
-    if (isset($_GET['subclasificacion']) && isset($_GET['clasificacion']) && isset($_GET['area'])) {
+    if (isset($_GET['subclasificacion']) && isset($_GET['clasificacion']) && isset($_GET['area']) && isset($_GET['periodo'])) {
         $subclasificacion = $_GET['subclasificacion'];
         $clasificacion = $_GET['clasificacion'];
         $area = $_GET['area'];
+        $periodo = $_GET['periodo'];
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+        // Escapar valores para prevenir inyecciones SQL
+        $subclasificacion = mysqli_real_escape_string($conexion, $subclasificacion);
+        $clasificacion = mysqli_real_escape_string($conexion, $clasificacion);
+        $area = mysqli_real_escape_string($conexion, $area);
+        $periodo = mysqli_real_escape_string($conexion, $periodo);
+        $search = mysqli_real_escape_string($conexion, $search);
 
         // Paso 3: Construir la consulta SQL sin LIMIT
-        $consultaTotal = "SELECT SUM(cantidad_folios) AS total_folios FROM alumbrado WHERE subclasificacion = '$subclasificacion' AND clasificacion = '$clasificacion' AND area = '$area'";
+        $consultaTotal = "SELECT SUM(cantidad_folios) AS total_folios FROM `$area` WHERE subclasificacion = '$subclasificacion' AND clasificacion = '$clasificacion'";
+
+        if ($periodo !== 'anual') {
+            $consultaTotal .= " AND periodo = '$periodo'";
+        }
         
+        if (!empty($search)) {
+            $consultaTotal .= " AND nombre_archivo LIKE '%$search%'";
+        }
+
         // Paso 4: Ejecutar la consulta para obtener la suma total de folios
         $resultadoTotal = mysqli_query($conexion, $consultaTotal);
         $filaTotal = mysqli_fetch_assoc($resultadoTotal);
@@ -41,7 +59,18 @@
         $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
         $filasPorPagina = 10;
         $offset = ($pagina - 1) * $filasPorPagina;
-        $consulta = "SELECT * FROM alumbrado WHERE subclasificacion = '$subclasificacion' AND clasificacion = '$clasificacion' AND area = '$area' LIMIT $offset, $filasPorPagina";
+
+        $consulta = "SELECT * FROM `$area` WHERE subclasificacion = '$subclasificacion' AND clasificacion = '$clasificacion'";
+
+        if ($periodo !== 'anual') {
+            $consulta .= " AND periodo = '$periodo'";
+        }
+
+        if (!empty($search)) {
+            $consulta .= " AND nombre_archivo LIKE '%$search%'";
+        }
+
+        $consulta .= " LIMIT $offset, $filasPorPagina";
 
         // Paso 6: Ejecución de la consulta con LIMIT
         $resultado = mysqli_query($conexion, $consulta);
@@ -49,7 +78,18 @@
         // Paso 7: Mostrar los resultados en una tabla
         ?>
 
-        <h2>Resultados de <?php echo $subclasificacion; ?> en la clasificación <?php echo $clasificacion; ?> del area <?php echo $area; ?></h2>
+        <div class="search-container">
+            <form method="get" action="">
+                <input type="hidden" name="subclasificacion" value="<?php echo htmlspecialchars($subclasificacion); ?>">
+                <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
+                <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
+                <input type="hidden" name="periodo" value="<?php echo htmlspecialchars($periodo); ?>">
+                <input type="text" name="search" placeholder="Buscar por nombre de archivo" value="<?php echo htmlspecialchars($search); ?>">
+                <button type="submit">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </form>
+        </div>
 
         <table>
             <thead>
@@ -65,13 +105,13 @@
                 while ($fila = mysqli_fetch_assoc($resultado)) {
                     ?>
                     <tr>
-                        <td><img src="img/archivo.png" alt="Icono PDF" class="icon"><?php echo $fila['nombre_archivo']; ?></td>
-                        <td><?php echo $fila['cantidad_folios']; ?></td>
-                        <td><a href="descargar.php?id=<?php echo $fila['id']; ?>">Ver</a></td>
+                        <td><img src="img/archivo.png" alt="Icono PDF" class="icon"><?php echo htmlspecialchars($fila['nombre_archivo']); ?></td>
+                        <td><?php echo htmlspecialchars($fila['cantidad_folios']); ?></td>
+                        <td><a href="descargar.php?id=<?php echo htmlspecialchars($fila['id']); ?>">Ver</a></td>
                         <td>
                             <!-- Agregamos un formulario para enviar la solicitud de eliminación -->
                             <form method="post" action="eliminar_archivos.php">
-                                <input type="hidden" name="archivo_id" value="<?php echo $fila['id']; ?>">
+                                <input type="hidden" name="archivo_id" value="<?php echo htmlspecialchars($fila['id']); ?>">
                                 <button class="boton-eliminar" type="submit">Eliminar</button>
                             </form>
                         </td>
@@ -84,20 +124,20 @@
         <div class="paginacion">
             <?php
             // Calcular el número total de páginas
-            $totalFilas = mysqli_num_rows(mysqli_query($conexion, "SELECT * FROM alumbrado WHERE subclasificacion = '$subclasificacion' AND clasificacion = '$clasificacion' AND area = '$area'"));
+            $totalFilas = mysqli_num_rows(mysqli_query($conexion, "SELECT * FROM `$area` WHERE subclasificacion = '$subclasificacion' AND clasificacion = '$clasificacion'" . ($periodo !== 'anual' ? " AND periodo = '$periodo'" : "") . (!empty($search) ? " AND nombre_archivo LIKE '%$search%'" : "")));
             $totalPaginas = ceil($totalFilas / $filasPorPagina);
 
             // Mostrar enlaces a las páginas
             for ($i = 1; $i <= $totalPaginas; $i++) {
                 // Añade la clase 'selected' si la página actual es igual a $i
                 $claseSeleccionada = ($pagina == $i) ? 'selected' : '';
-                echo "<a class='$claseSeleccionada' href='?subclasificacion=$subclasificacion&clasificacion=$clasificacion&area=$area&pagina=$i'>$i</a> ";
+                echo "<a class='$claseSeleccionada' href='?subclasificacion=$subclasificacion&clasificacion=$clasificacion&area=$area&periodo=$periodo&search=" . urlencode($search) . "&pagina=$i'>$i</a> ";
             }
             ?>
         </div>
 
         <!-- Mostrar la suma total de la cantidad de folios -->
-        <p class="totalFolios">Total de Folios: <?php echo $totalFolios; ?></p>
+        <p class="totalFolios">Total de Folios: <?php echo htmlspecialchars($totalFolios); ?></p>
 
     <?php
     } else {

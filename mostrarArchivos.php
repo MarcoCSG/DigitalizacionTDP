@@ -84,7 +84,7 @@
                 <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
                 <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
                 <input type="hidden" name="periodo" value="<?php echo htmlspecialchars($periodo); ?>">
-                <input type="text" name="search" placeholder="Buscar por nombre de archivo" value="<?php echo htmlspecialchars($search); ?>">
+                <input type="text" name="search" placeholder="Buscar archivo" value="<?php echo htmlspecialchars($search); ?>">
                 <button type="submit">
                     <i class="fas fa-search"></i> Buscar
                 </button>
@@ -105,7 +105,7 @@
                 while ($fila = mysqli_fetch_assoc($resultado)) {
                     ?>
                     <tr>
-                        <td><img src="img/archivo.png" alt="Icono PDF" class="icon"><?php echo htmlspecialchars($fila['nombre_archivo']); ?></td>
+                        <td><img src="img/nube.png" alt="Icono PDF" class="icon"><?php echo htmlspecialchars($fila['nombre_archivo']); ?></td>
                         <td><?php echo htmlspecialchars($fila['cantidad_folios']); ?></td>
                         <td><a href="descargar.php?id=<?php echo htmlspecialchars($fila['id']); ?>">Ver</a></td>
                         <td>

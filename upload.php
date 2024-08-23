@@ -19,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Directorios específicos por área
     $directorios = [
-        'presidencia' => 'C:/Users/BC/OneDrive/Escritorio/DIGITALIZACION TDP/PRESIDENCIA/',
-        'sindicatura' => 'C:/Users/BC/OneDrive/Escritorio/DIGITALIZACION TDP/SINDICATURA/',
+        'presidencia' => 'C:/DIGITALIZACION TDP/PRESIDENCIA/',
+        'sindicatura' => 'C:/DIGITALIZACION TDP/SINDICATURA/',
         'secretaria' => 'D:/SECRETARIA/',
         'regidores' => 'D:/REGIDORES/',
         'tesoreria' => 'D:/TESORERIA/',

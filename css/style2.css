@@ -1,34 +1,55 @@
-.titulo{
+.titulo {
     color: #131842;
     font-size: 48px;
     font-family: "Atkinson Hyperlegible", sans-serif;
     text-align: center;
 }
 
-.subtitulo{
+.subtitulo {
     color: #131842;
     font-size: 38px;
     font-family: "Atkinson Hyperlegible", sans-serif;
     text-align: center;
 }
 
-.imglogoPrincipal{ 
-        width: 200px;
-        height: 150px;
-        position: absolute;
-        top: 0;
-        right: 0;   
-    }
-    
-    /* Media query para pantallas de 800px o menos */
-    @media (max-width: 1045px) {
-        .imglogoPrincipal {
-            display: none; /* Ocultar la imagen */
-        }
-    }
-    
+.imglogoPrincipal { 
+    width: 200px;
+    height: 150px;
+    position: absolute;
+    top: 0;
+    right: 0;   
+}
 
-.btnMenu{
+/* Media query para pantallas de 1045px o menos */
+@media (max-width: 1045px) {
+    .imglogoPrincipal {
+        display: none; /* Ocultar la imagen en pantallas pequeñas */
+    }
+
+    .titulo {
+        font-size: 36px; /* Ajustar el tamaño del título */
+    }
+
+    .subtitulo {
+        font-size: 28px; /* Ajustar el tamaño del subtítulo */
+    }
+
+    button {
+        font-size: 24px; /* Reducir el tamaño del texto en los botones */
+        height: 80px; /* Ajustar la altura del botón */
+        padding: 0 15px; /* Ajustar el padding para mantener espacio en pantallas pequeñas */
+    }
+
+    button img {
+        height: 50px; /* Ajustar la altura de la imagen dentro del botón */
+    }
+
+    button span {
+        font-size: 18px; /* Ajustar el tamaño del texto dentro del botón */
+    }
+}
+
+.btnMenu {
     background-image: url('../img/menu.png');
     background-repeat: no-repeat;
     background-position: calc(8% - 10px) center; /* Centra la imagen a la izquierda */
@@ -36,13 +57,14 @@
     padding-left: 70px; /* Ajusta este valor para dar espacio a la imagen */
 }
 
-.btnSubirInfo{
+.btnSubirInfo {
     background-image: url('../img/subirIfo.png');
     background-repeat: no-repeat;
     background-position: calc(8% - 25px) center; /* Centra la imagen a la izquierda */
     background-size: 60px 60px;
     padding-left: 70px; /* Ajusta este valor para dar espacio a la imagen */
 }
+
 /* Contenedor de los botones */
 .button-container {
     display: flex;
@@ -60,7 +82,7 @@ button {
     background: #134B70;
     color: #e4e5f1;
     text-align: left; /* Alinear el texto a la izquierda */
-    font-size: 30px;
+    font-size: 25px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin-bottom: 10px;
     transition: background-color 0.3s;
@@ -77,4 +99,8 @@ button img {
 
 button:hover {
     background-color: #508C9B;
+}
+
+button span {
+    font-size: 30px; /* Tamaño del texto dentro del botón */
 }

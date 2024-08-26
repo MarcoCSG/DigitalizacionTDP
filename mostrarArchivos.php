@@ -19,7 +19,7 @@
             <img class="imgEmpresa" src="img/logoTDP.png" alt="">
         </figure>
     </section>
-    
+
     <?php
     // Paso 1: Conexión a la base de datos
     $conexion = mysqli_connect("localhost", "root", "", "tdp");
@@ -45,7 +45,7 @@
         if ($periodo !== 'anual') {
             $consultaTotal .= " AND periodo = '$periodo'";
         }
-        
+
         if (!empty($search)) {
             $consultaTotal .= " AND nombre_archivo LIKE '%$search%'";
         }
@@ -76,7 +76,7 @@
         $resultado = mysqli_query($conexion, $consulta);
 
         // Paso 7: Mostrar los resultados en una tabla
-        ?>
+    ?>
 
         <div class="search-container">
             <form method="get" action="">
@@ -103,15 +103,16 @@
             <tbody>
                 <?php
                 while ($fila = mysqli_fetch_assoc($resultado)) {
-                    ?>
+                ?>
                     <tr>
                         <td><img src="img/nube.png" alt="Icono PDF" class="icon"><?php echo htmlspecialchars($fila['nombre_archivo']); ?></td>
                         <td><?php echo htmlspecialchars($fila['cantidad_folios']); ?></td>
-                        <td><a href="descargar.php?id=<?php echo htmlspecialchars($fila['id']); ?>">Ver</a></td>
+                        <td><a href="descargar.php?id=<?php echo htmlspecialchars($fila['id']); ?>&area=<?php echo htmlspecialchars($area); ?>">Ver</a></td>
                         <td>
                             <!-- Agregamos un formulario para enviar la solicitud de eliminación -->
                             <form method="post" action="eliminar_archivos.php">
                                 <input type="hidden" name="archivo_id" value="<?php echo htmlspecialchars($fila['id']); ?>">
+                                <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
                                 <button class="boton-eliminar" type="submit">Eliminar</button>
                             </form>
                         </td>

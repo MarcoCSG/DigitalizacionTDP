@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archivos</title>
-    <link rel="stylesheet" href="css/mostrarArchivos.css">
-    <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/mostrarArchivos.css">
+    <link rel="icon" href="../img/TDP-REDONDO.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
@@ -16,13 +16,13 @@
     </main>
     <section>
         <figure>
-            <img class="imgEmpresa" src="img/logoTDP.png" alt="">
+            <img class="imgEmpresa" src="../img/logoTDP.png" alt="">
         </figure>
     </section>
 
     <?php
     // Paso 1: Conexión a la base de datos
-    $conexion = mysqli_connect("localhost", "root", "", "tdp");
+    $conexion = mysqli_connect("localhost", "root", "", "tdp24");
 
     // Paso 2: Obtener los valores de los parámetros de la URL
     if (isset($_GET['subclasificacion']) && isset($_GET['clasificacion']) && isset($_GET['area']) && isset($_GET['periodo'])) {
@@ -110,7 +110,7 @@
                 while ($fila = mysqli_fetch_assoc($resultado)) {
                 ?>
                     <tr>
-                        <td><img src="img/nube.png" alt="Icono PDF" class="icon"><?php echo htmlspecialchars($fila['nombre_archivo']); ?></td>
+                        <td><img src="../img/nube.png" alt="Icono PDF" class="icon"><?php echo htmlspecialchars($fila['nombre_archivo']); ?></td>
                         <td><?php echo htmlspecialchars($fila['cantidad_folios']); ?></td>
                         <td><a href="descargar.php?id=<?php echo htmlspecialchars($fila['id']); ?>&area=<?php echo htmlspecialchars($area); ?>">Ver</a></td>
                         <td>

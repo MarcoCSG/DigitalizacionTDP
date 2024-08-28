@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-03-2024 a las 20:57:39
+-- Tiempo de generación: 27-08-2024 a las 22:41:03
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -18,24 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `dg_santiago`
+-- Base de datos: `tdp`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `proteccionCivil`
+-- Estructura de tabla para la tabla `obrasPublicas`
 --
 
-
-CREATE TABLE `urbano` (
+CREATE TABLE `obrasPublicas` (
   `id` int(11) NOT NULL,
-  `area` varchar(255) NOT NULL,
+  `subclasificacion` varchar(255) NOT NULL,
   `clasificacion` varchar(255) NOT NULL,
-  `subclasificacion` varchar(50) NOT NULL,
-  `ruta_archivo` varchar(255) NOT NULL,
-  `nombre_archivo` text NOT NULL,
-  `cantidad_folios` int(11) DEFAULT NULL
+  `periodo` varchar(255) NOT NULL,
+  `ruta` varchar(255) NOT NULL,
+  `nombre_archivo` varchar(255) NOT NULL,
+  `cantidad_folios` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -43,9 +42,9 @@ CREATE TABLE `urbano` (
 --
 
 --
--- Indices de la tabla `ramo`
+-- Indices de la tabla `obrasPublicas`
 --
-ALTER TABLE `urbano`
+ALTER TABLE `obrasPublicas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53,9 +52,9 @@ ALTER TABLE `urbano`
 --
 
 --
--- AUTO_INCREMENT de la tabla `ramo`
+-- AUTO_INCREMENT de la tabla `obrasPublicas`
 --
-ALTER TABLE `urbano`
+ALTER TABLE `obrasPublicas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

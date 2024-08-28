@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Si la carga es válida, proceder a insertar en la base de datos
     if ($uploadOk && move_uploaded_file($_FILES["archivo"]["tmp_name"], $targetPath)) {
         // Conectar a la base de datos específica según el área
-        $conn = new mysqli("localhost", "root", "", "tdp");
+        $conn = new mysqli("localhost", "root", "", "tdp25");
 
         if ($conn->connect_error) {
             die("Error de conexión a la base de datos: " . $conn->connect_error);

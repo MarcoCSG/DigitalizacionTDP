@@ -13,25 +13,25 @@
             <div class="slide img-1 active" style="background-image: url('img/15.jpg');">
                 <div class="carousel-caption">
                     <h5>Digitalización Municipio de Córdoba</h5>
-                    <p>Escanenado documentación oficial de diversas áreas</p>
+                    <p>Escaneado de documentación oficial de diversas áreas</p>
                 </div>
             </div>
             <div class="slide img-2" style="background-image: url('img/10.jpg');">
                 <div class="carousel-caption">
                     <h5>Digitalización Municipio de Ixhuacan de los Reyes</h5>
-                    <p>Escanenado documentación oficial de diversas áreas</p>
+                    <p>Escaneado de documentación oficial de diversas áreas</p>
                 </div>
             </div>
             <div class="slide img-3" style="background-image: url('img/12.jpg');">
                 <div class="carousel-caption">
                     <h5>Digitalización Municipio de Misantla</h5>
-                    <p>Escanenado documentación oficial de diversas áreas</p>
+                    <p>Escaneado de documentación oficial de diversas áreas</p>
                 </div>
             </div>
-            <div class="slide img-4 active" style="background-image: url('img/3.jpg');">
+            <div class="slide img-4" style="background-image: url('img/3.jpg');">
                 <div class="carousel-caption">
                     <h5>Digitalización Municipio de Córdoba</h5>
-                    <p>Escanenado documentación oficial de diversas áreas</p>
+                    <p>Escaneado de documentación oficial de diversas áreas</p>
                 </div>
             </div>
             <div class="carousel-indicators">
@@ -48,12 +48,13 @@
                 <form action="login.php" method="POST">
                     <input type="text" class="form-control" name="username" id="username" required placeholder="Ingresa tu usuario">
                     <input type="password" class="form-control" id="password" name="password" required placeholder="Ingresa tu contraseña">
-                    <a href="#" class="form-text">¿Haz olvidado tu contraseña?</a>
+                    <a href="#" class="form-text">¿Has olvidado tu contraseña?</a>
                     <button type="submit" class="btn">INICIAR SESIÓN</button>
                 </form>
             </div>
         </div>
     </div>
+
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel .slide');
@@ -73,6 +74,15 @@
         }
 
         setInterval(nextSlide, 5000); // Cambia de diapositiva cada 5 segundos
+
+        // Mostrar alerta si hay un mensaje de error en la URL
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            if (error) {
+                alert(decodeURIComponent(error));
+            }
+        }
     </script>
 </body>
 </html>

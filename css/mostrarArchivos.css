@@ -146,6 +146,26 @@ p {
   margin: 0;
 }
 
+/* Estilos para ocultar columnas al imprimir */
+@media print {
+  .ver-col,
+  .eliminar-col {
+    display: none !important;
+  }
+}
+
+/* Estilos para ocultar elementos al imprimir */
+@media print {
+  .search-container,
+  .search-container * {
+    display: none !important;
+  }
+
+  p {
+    margin-top: 100px; /* Ajusta este valor según sea necesario */
+  }
+}
+
 table {
   border-collapse: collapse;
   width: 100%;

@@ -24,7 +24,7 @@ document.getElementById('area').addEventListener('change', function() {
         let opcionesClasificacion = [];
         if (this.value === 'presidencia') {
             opcionesClasificacion = [
-                {value: 'documentosG', text: 'DOCUMENTOS GENERALES'},
+                {value: 'documentosG', text: 'SECRETARÍA PARTICULAR-PRESIDENCIA'},
             ];
         } else if (this.value === 'sindicatura') {
             opcionesClasificacion = [
@@ -109,270 +109,270 @@ document.getElementById('clasificacion').addEventListener('change', function() {
         let opcionesDocumentos = [];
         if (this.value === 'documentosG') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
     //?SINDICATURA
         } else if (this.value === 'secretariaP') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'juridico') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'patrimonio') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'gobernacion') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
     //!secretaria
         } else if (this.value === 'archivoHistorico') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'actasYacuerdos') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'reclutamiento') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'cronista') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'oficialia') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'registroCivil') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'enlace') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
     //todo:TESORERIA
         } else if (this.value === 'catastro') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'comercio') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'ingresos') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'egresos') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'contabilidad') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'fiscal') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
     //*CONTRALORIA
         } else if (this.value === 'AuObras') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'AuFinanciera') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'AuLegalidad') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'investigacion') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'substanciacion') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
     //! OBRAS PUBLICAS
         } else if (this.value === 'ramo') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'asentamiento') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'planeacion') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'costo') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'caminos') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'licencias') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'supervicion') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'seguimiento') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'mantenimientoUrbano') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];
         } else if (this.value === 'mantenimientoEdificios') {
             opcionesDocumentos = [
-                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIDAS Y RECIBIDAS'},
+                {value: 'SoliciEyR', text: 'SOLICITUDES  ENVIADAS Y RECIBIDAS'},
                 {value: 'gestiones', text: 'GESTIONES INSTITUCIONALES'},
-                {value: 'informes', text: 'INFORMES DE TRASNPARENCIA '},
+                {value: 'informes', text: 'INFORMES DE TRANSPARENCIA '},
                 {value: 'oficios', text: 'OFICIOS ENVIADOS Y RECIBIDOS'},
                 {value: 'otros', text: 'OTROS DOCUMENTALES'},
             ];

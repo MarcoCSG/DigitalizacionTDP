@@ -11,37 +11,38 @@ if (!$conexion) {
 
 // Verificar si se envió el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener los valores enviados desde el formulario
-    $usuario = $_POST["username"];
+    // Obtener y sanitizar los valores enviados desde el formulario
+    $usuario = filter_var($_POST["username"], FILTER_SANITIZE_STRING);
     $contrasena = $_POST["password"];
 
-    // Consulta para verificar el inicio de sesión
-    $consulta = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND contrasena = '$contrasena'";
-    $resultado = mysqli_query($conexion, $consulta);
+    // Consulta para verificar el usuario
+    $consulta = "SELECT contrasena, rol FROM usuarios WHERE usuario = ?";
+    $stmt = mysqli_prepare($conexion, $consulta);
+    mysqli_stmt_bind_param($stmt, "s", $usuario);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $hash_contrasena, $rol);
+    mysqli_stmt_fetch($stmt);
 
-    // Verificar si se encontró un usuario válido
-    if (mysqli_num_rows($resultado) == 1) {
-        // Inicio de sesión exitoso, obtener el rol del usuario
-        $fila = mysqli_fetch_assoc($resultado);
-        $rol = $fila["rol"];
-
-        // Guardar el rol en la sesión
+    // Verificar la contraseña y el rol del usuario
+    if ($hash_contrasena && password_verify($contrasena, $hash_contrasena)) {
+        // Inicio de sesión exitoso, guardar el rol en la sesión
         $_SESSION["rol"] = $rol;
 
         // Redireccionar según el rol del usuario
         if ($rol == "admin") {
-            header("Location: subirInfo.html");
+            header("Location: agregarUser.html");
         } elseif ($rol == "usuario") {
             header("Location: IndexUsuario.html");
-        } 
+        }
         exit();
     } else {
-        // Credenciales inválidas, mostrar un mensaje de error
-        echo "Nombre de usuario o contraseña incorrectos";
+        // Credenciales inválidas, almacenar mensaje de error en la URL
+        header("Location: index.html?error=Contraseña%20incorrecta");
+        exit();
     }
 
-    // Liberar el resultado de la consulta
-    mysqli_free_result($resultado);
+    // Liberar el resultado de la consulta y cerrar la sentencia
+    mysqli_stmt_close($stmt);
 }
 
 // Cerrar la conexión a la base de datos

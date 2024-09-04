@@ -77,5 +77,20 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="js/formulario.js"></script>
+    <!-- Script para mostrar alertas de éxito o error -->
+    <script>
+        // Mostrar alerta si hay un mensaje de error o éxito en la URL
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const success = urlParams.get('success');
+
+            if (error) {
+                alert(decodeURIComponent(error));
+            } else if (success) {
+                alert(decodeURIComponent(success));
+            }
+        }
+    </script>
 </body>
 </html>

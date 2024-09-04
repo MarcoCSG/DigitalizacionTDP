@@ -9,12 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificar que todos los datos requeridos estén presentes
     if (!$area || !$clasificacion || !$subclasificacion || !$periodo || !$cantidad_folios) {
-        if (!$area) echo "El campo 'Área' es obligatorio.<br>";
-        if (!$clasificacion) echo "El campo 'Clasificación' es obligatorio.<br>";
-        if (!$subclasificacion) echo "El campo 'Documentos' es obligatorio.<br>";
-        if (!$periodo) echo "El campo 'Periodo' es obligatorio.<br>";
-        if (!$cantidad_folios) echo "El campo 'Cantidad de folios' es obligatorio.<br>";
-        die("Todos los campos son obligatorios.");
+        $errorMsg = "Todos los campos son obligatorios.";
+        header("Location: subirinfo2025.html?error=" . urlencode($errorMsg));
+        exit();
     }
 
     // Directorios específicos por área
@@ -32,7 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($directorios[$area])) {
         $targetDir = $directorios[$area];
     } else {
-        die("Área no válida seleccionada.");
+        $errorMsg = "Área no válida seleccionada.";
+        header("Location: subirinfo2025.html?error=" . urlencode($errorMsg));
+        exit();
     }
 
     // Procesar archivo
@@ -44,8 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validar el tipo de archivo
     $allowedFileTypes = ['pdf', 'png', 'jpeg', 'jpg', 'xml'];
     if (!in_array($fileType, $allowedFileTypes)) {
-        die("Solo se permiten archivos de imagen (JPG, JPEG, PNG), PDF y XML.");
-        $uploadOk = 0;
+        $errorMsg = "Solo se permiten archivos de imagen (JPG, JPEG, PNG), PDF y XML.";
+        header("Location: subirinfo2025.html?error=" . urlencode($errorMsg));
+        exit();
     }
 
     // Si la carga es válida, proceder a insertar en la base de datos
@@ -54,7 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn = new mysqli("localhost", "root", "", "tdp25");
 
         if ($conn->connect_error) {
-            die("Error de conexión a la base de datos: " . $conn->connect_error);
+            $errorMsg = "Error de conexión a la base de datos: " . $conn->connect_error;
+            header("Location: subirinfo2025.html?error=" . urlencode($errorMsg));
+            exit();
         }
 
         // Preparar la consulta para insertar los datos
@@ -63,17 +65,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sssssi", $clasificacion, $subclasificacion, $periodo, $nombre_archivo, $targetPath, $cantidad_folios);
 
         if ($stmt->execute()) {
-            echo "Archivo subido y clasificado exitosamente. Cantidad de folios: " . $cantidad_folios;
+            $successMsg = "Archivo subido y clasificado exitosamente. Cantidad de folios: " . $cantidad_folios;
+            header("Location: subirinfo2025.html?success=" . urlencode($successMsg));
         } else {
-            echo "Error al clasificar el archivo: " . $stmt->error;
+            $errorMsg = "Error al clasificar el archivo: " . $stmt->error;
+            header("Location: subirinfo2025.html?error=" . urlencode($errorMsg));
         }
 
         $stmt->close();
         $conn->close();
     } else {
-        echo "Error al mover el archivo a la carpeta de destino.";
+        $errorMsg = "Error al mover el archivo a la carpeta de destino.";
+        header("Location: subirinfo2025.html?error=" . urlencode($errorMsg));
     }
 } else {
-    echo "No se recibieron datos del formulario.";
+    $errorMsg = "No se recibieron datos del formulario.";
+    header("Location: subirinfo2025.html?error=" . urlencode($errorMsg));
 }
 ?>

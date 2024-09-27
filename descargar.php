@@ -1,25 +1,17 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "tdp";
+// Incluir el archivo de conexión
+include 'php/conexion.php';
 
 // Verificar que se proporcionan los parámetros necesarios en la URL
 if (isset($_GET['id']) && is_numeric($_GET['id']) && isset($_GET['area'])) {
     $id = $_GET['id'];
     $area = $_GET['area'];
 
-    // Conectar a la base de datos
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Error de conexión a la base de datos: " . $conn->connect_error);
-    }
-
     // Preparar y ejecutar la consulta para obtener la ruta del archivo basado en el área y el ID
     $sql = "SELECT ruta FROM $area WHERE id = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conexion->prepare($sql);
     if ($stmt === false) {
-        die("Error en la preparación de la consulta: " . $conn->error);
+        die("Error en la preparación de la consulta: " . $conexion->error);
     }
 
     $stmt->bind_param("i", $id);
@@ -44,8 +36,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && isset($_GET['area'])) {
     }
 
     $stmt->close();
-    $conn->close();
 } else {
     echo "ID de archivo o área inválidos.";
 }
+
+// Cerrar la conexión
+$conexion->close();
 ?>

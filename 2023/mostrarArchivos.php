@@ -153,6 +153,8 @@
     // Paso 8: Cerrar la conexión
     mysqli_close($conexion);
     ?>
+
+<script src="../js/inactividad.js"></script>
 </body>
 
 </html>

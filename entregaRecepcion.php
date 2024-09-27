@@ -1,3 +1,14 @@
+<?php
+session_start();
+// Verificar si el usuario ha iniciado sesión y tiene un municipio asignado
+if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
+    // Redirigir al inicio de sesión si no está logueado
+    header("Location: index.html");
+    exit();
+}
+
+$municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario logueado
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +28,7 @@
             <figure>
                 <img class="imgTDP" src="img/logoTDP.png" alt="logo">
             </figure>
-            <h1 class="titulo">ENTREGA RECEPCION E-GOBIERNO</h1>
+            <h1 class="titulo">ENTREGA RECEPCION <?php echo htmlspecialchars($municipio); ?></h1>
             <h2 class="subtitulo">SELECCIONE LAS OPCIONES DE BÚSQUEDA</h2>
 
             <section class="search-options">
@@ -61,6 +72,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="js/ER.JS"></script>
-    <script src="js/btn_buscarER.js"></script>
+    <script src="js/btn_ver_ERjs"></script>
+    <script src="js/inactividad.js"></script>
 </body>
 </html>

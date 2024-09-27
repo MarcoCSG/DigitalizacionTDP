@@ -1,0 +1,112 @@
+/* Estilos del formulario */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    font-family: sans-serif;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], 
+input[type="date"],
+textarea {
+    font-family: sans-serif;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #27978e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #31b6a4;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.logo {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.logo img {
+    width: 100px;
+}
+
+.help-button {
+    background-color: #0d5d8b; /* Color */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 5px 10px; /* Espaciado */
+    cursor: pointer; /* Cursor de puntero */
+    margin-left: 10px; /* Espacio a la izquierda */
+    border-radius: 25px; /* Bordes redondeados */
+}
+
+.tooltip {
+    display: none; /* Ocultar tooltip por defecto */
+    background-color: rgb(119, 119, 119);
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 10px; /* Aumentar el espaciado interno */
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    left: 100%; /* Mover tooltip a la derecha del botón */
+    margin-left: 10px; /* Espacio entre el botón y el tooltip */
+    white-space: nowrap; /* Evitar que el texto se rompa en varias líneas */
+}
+
+.help-button:hover + .tooltip {
+    display: block; /* Mostrar tooltip al pasar el cursor */
+    opacity: 1; /* Hacerlo visible */
+}
+
+.tooltip-container {
+    position: relative; /* Para posicionar el tooltip respecto al botón */
+    display: inline-block; /* Para ajustar el tamaño */
+}

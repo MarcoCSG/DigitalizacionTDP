@@ -24,7 +24,7 @@ document.getElementById('area').addEventListener('change', function() {
         let opcionesClasificacion = [];
         if (this.value === 'presidencia') {
             opcionesClasificacion = [
-                {value: 'documentosG', text: 'SECRETARÍA PARTICULAR-PRESIDENCIA'},
+                {value: 'documentosG', text: 'SECRETARÍA'},
             ];
         } else if (this.value === 'sindicatura') {
             opcionesClasificacion = [

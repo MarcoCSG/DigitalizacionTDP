@@ -14,10 +14,10 @@
 
 .imglogoPrincipal { 
     width: 200px;
-    height: 150px;
+    height: 130px;
     position: absolute;
-    top: 0;
-    right: 0;   
+    top: 10px;
+    right: 10px;   
 }
 
 /* Media query para pantallas de 1045px o menos */

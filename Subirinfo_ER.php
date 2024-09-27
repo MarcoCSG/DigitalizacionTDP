@@ -1,11 +1,22 @@
+<?php
+session_start();
+// Verificar si el usuario ha iniciado sesión y tiene un municipio asignado
+if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
+    // Redirigir al inicio de sesión si no está logueado
+    header("Location: index.html");
+    exit();
+}
+
+$municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario logueado
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEPARTAMENTOS</title>
-    <link rel="stylesheet" href="../css/departamentos2.css">
-    <link rel="icon" href="../img/TDP-REDONDO.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/departamentos2.css">
+    <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -15,10 +26,10 @@
     <main class="main-content">
         <section>
             <figure>
-                <img class="imgTDP" src="../img/logoTDP.png" alt="logo">
+                <img class="imgTDP" src="img/logoTDP.png" alt="logo">
             </figure>
-            <h1 class="titulo">ENTREGA RECEPCION E-GOBIERNO</h1>
-            <h2 class="subtitulo">SELECCIONE LAS OPCIONES DE BÚSQUEDA</h2>
+            <h1 class="titulo">FORMATOS ENTREGA RECEPCION <?php echo htmlspecialchars($municipio); ?></h1>
+            <h2 class="subtitulo">SELECCIONE LAS OPCIONES PARA CREAR SU FORMATO</h2>
 
             <section class="search-options">
                 <div class="form-group">
@@ -50,7 +61,7 @@
 
         <div class="search-container">
             <button id="consultaBtn" class="search-button">
-                <ion-icon name="search-outline"></ion-icon> Buscar
+                <ion-icon name="search-outline"></ion-icon> CREAR FORMATO
             </button>
         </div>
         
@@ -62,6 +73,6 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="js/ER.JS"></script>
     <script src="js/btn_buscarER.js"></script>
-    <script src="../js/inactividad.js"></script>
+    <script src="js/inactividad.js"></script>
 </body>
 </html>

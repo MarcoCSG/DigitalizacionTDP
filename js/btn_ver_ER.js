@@ -9,7 +9,7 @@ document.getElementById('consultaBtn').addEventListener('click', function() {
     }
 
     // Construir la URL con los parámetros seleccionados
-    const url = `1.2_manuales.php?area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}`;
+    const url = `mostrarArchivosER.php?area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}`;
 
     // Redirigir a la página de resultados
     window.location.href = url;

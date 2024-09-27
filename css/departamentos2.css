@@ -6,10 +6,10 @@ body {
 
 .imgTDP { 
     width: 200px;
-    height: 150px;
+    height: 100px;
     position: absolute;
-    top: 0;
-    right: 0;   
+    top: 10px;
+    right: 10px;   
 }
 
 /* Media query para pantallas de 800px o menos */

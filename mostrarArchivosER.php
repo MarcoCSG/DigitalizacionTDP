@@ -21,9 +21,9 @@
     </section>
 
     <?php
-    // Paso 1: Conexión a la base de datos
-    $conexion = mysqli_connect("localhost", "root", "", "tdp");
-
+    // Paso 1: Incluir el archivo de conexión a la base de datos
+    include 'php/conexion.php';
+    
     // Paso 2: Obtener los valores de los parámetros de la URL
     if (isset($_GET['clasificacion']) && isset($_GET['area'])) {
         $clasificacion = $_GET['clasificacion'];
@@ -140,6 +140,8 @@
     // Paso 8: Cerrar la conexión
     mysqli_close($conexion);
     ?>
+
+<script src="js/inactividad.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Establecer la conexión con la base de datos
+// Incluir la conexión a la base de datos
 include 'php/conexion.php';
 
 // Verificar si se envió el formulario
@@ -11,18 +11,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena = $_POST["password"];
 
     // Consulta para verificar el usuario y obtener la contraseña, rol y municipio
-    $consulta = "SELECT contrasena, rol, municipio FROM usuarios WHERE usuario = ?";
+    $consulta = "SELECT id, contrasena, rol, municipio FROM usuarios WHERE usuario = ?";
     $stmt = mysqli_prepare($conexion, $consulta);
     mysqli_stmt_bind_param($stmt, "s", $usuario);
     mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $hash_contrasena, $rol, $municipio);
+    mysqli_stmt_bind_result($stmt, $id, $hash_contrasena, $rol, $municipio);
     mysqli_stmt_fetch($stmt);
 
     // Verificar la contraseña y el rol del usuario
     if ($hash_contrasena && password_verify($contrasena, $hash_contrasena)) {
-        // Inicio de sesión exitoso, guardar el rol y el municipio en la sesión
+        // Inicio de sesión exitoso, guardar el rol, municipio y usuario_id en la sesión
         $_SESSION["rol"] = $rol;
         $_SESSION["usuario"] = $usuario;
+        $_SESSION["usuario_id"] = $id; // Agregado para almacenar el ID del usuario
 
         // Si el usuario es normal, almacenar también el municipio
         if ($rol == "usuario") {
@@ -35,12 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: municipios_admin.php");
         } elseif ($rol == "usuario") {
             // Los usuarios normales se redirigen a una página específica para su municipio
-            header("Location: IndexUsuario.php");
+            header("Location: mostrarRegistros.php?area=" . urlencode($municipio) . "&clasificacion=1.2&subclasificacion=tipo1&periodo=anual"); // Ajusta los parámetros según corresponda
         }
         exit();
     } else {
         // Credenciales inválidas, almacenar mensaje de error en la URL
-        header("Location: index.html?error=Contraseña%20incorrecta");
+        header("Location: index.html?error=Credenciales%20incorrectas");
         exit();
     }
 

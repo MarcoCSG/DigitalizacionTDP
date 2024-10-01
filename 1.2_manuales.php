@@ -36,6 +36,10 @@ $clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
 
         <!-- Formulario con método POST y action hacia subirFormato.php -->
         <form method="POST" action="php/subirFormato.php" enctype="multipart/form-data">
+            <!-- Campos Ocultos para area y clasificacion -->
+            <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
+            <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
+
             <div class="form-group">
                 <label for="no">No.</label>
                 <input type="text" id="no" name="no" placeholder="INGRESE EL NUMERO" required>
@@ -104,7 +108,7 @@ $clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
             <div class="button-container">
                 <button type="submit" name="guardar">GUARDAR</button>
                 <button type="button" onclick="document.getElementById('archivo').click();">ANEXAR ARCHIVO</button>
-                <input type="file" id="archivo" name="archivo" style="display:none;">
+                <input type="file" id="archivo" name="archivo" style="display:none;" accept=".pdf">
             </div>
         </form>
     </div>

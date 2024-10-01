@@ -1,32 +1,32 @@
 <?php
 session_start();
+
+// Activar la visualización de errores para depuración (desactivar en producción)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Verificar si el usuario ha iniciado sesión y tiene un municipio asignado
-if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
-    header("Location: index.html");
+if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"]) || !isset($_SESSION["usuario_id"])) {
+    // Mensaje opcional para depuración
+    echo "Sesión no válida. Redirigiendo al inicio de sesión.";
+    // Redirigir al inicio de sesión
+    header("Location: ../index.html");
     exit();
 }
 
-// Obtener parámetros de la URL
-$area = isset($_GET['area']) ? $_GET['area'] : '';
-$clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
-
-// Depuración: mostrar el valor de $area
-var_dump($area); // Muestra el valor de $area
-echo "Área solicitada: " . htmlspecialchars($area); // Asegúrate de que esto no está en HTML aún
-
+$municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario logado
+$usuario_id = $_SESSION["usuario_id"]; // Obtener el ID del usuario
 
 // Incluir configuración de la base de datos
-include 'conexion.php'; // Se asume que este archivo contiene la conexión a la base de datos
-// Listar todas las áreas para depuración
-$result = $conexion->query("SELECT nombre FROM areas");
-if ($result) {
-    echo "<h3>Áreas en la Base de Datos:</h3><ul>";
-    while ($row = $result->fetch_assoc()) {
-        echo "<li>" . htmlspecialchars($row['nombre']) . "</li>";
-    }
-    echo "</ul>";
+include 'conexion.php'; // Se asume que este archivo establece la conexión y asigna a $conexion
+
+// Verificar conexión a la base de datos
+if ($conexion->connect_error) {
+    die("Conexión fallida: " . $conexion->connect_error);
 } else {
-    echo "Error al listar áreas: " . $conexion->error;
+    // Mensaje de éxito (puedes comentarlo en producción)
+    // echo "Conexión a la base de datos exitosa.<br>";
 }
 
 // Procesar el formulario cuando se envíe
@@ -40,7 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
     $responsable = trim($_POST['responsable']);
     $observaciones = trim($_POST['observaciones']);
 
-    // Validar datos (puedes agregar más validaciones según tus necesidades)
+    // Obtener parámetros del formulario
+    $area = isset($_POST['area']) ? $_POST['area'] : '';
+    $clasificacion = isset($_POST['clasificacion']) ? $_POST['clasificacion'] : '';
+
+    // Validar datos
     $errores = [];
     if (empty($no) || !is_numeric($no)) {
         $errores[] = "El campo 'No.' es obligatorio y debe ser numérico.";
@@ -62,42 +66,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
     }
     // 'observaciones' es opcional
 
+    // Manejar la carga del archivo
+    $archivo_subido = false;
+    $ruta_archivo = null;
+
+    if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] !== UPLOAD_ERR_NO_FILE) {
+        // Verificar si hubo errores en la carga
+        if ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
+            $errores[] = "Error al cargar el archivo: " . $_FILES['archivo']['error'];
+        } else {
+            $archivo = $_FILES['archivo'];
+            $fileName = basename($archivo['name']);
+            $fileTmp = $archivo['tmp_name'];
+            $fileType = $archivo['type'];
+            $fileSize = $archivo['size'];
+
+            // Validar el tamaño del archivo (máximo 5MB)
+            if ($fileSize > 505 * 1024 * 1024) {
+                $errores[] = "El archivo es demasiado grande. Tamaño máximo permitido: 5MB.";
+            }
+
+            // Validar el tipo de archivo (solo PDF)
+            $allowedTypes = ['application/pdf'];
+            if (!in_array($fileType, $allowedTypes)) {
+                $errores[] = "Tipo de archivo no permitido. Solo se permiten archivos PDF.";
+            }
+
+            // Definir el directorio de destino
+            $targetDir = '../uploads/'; // Asegúrate de que este directorio exista y tenga permisos de escritura
+            if (!is_dir($targetDir)) {
+                if (!mkdir($targetDir, 0755, true)) {
+                    $errores[] = "No se pudo crear el directorio de destino para los archivos.";
+                }
+            }
+
+            // Generar un nombre único para el archivo para evitar conflictos
+            $uniqueFileName = uniqid() . '_' . preg_replace("/[^A-Za-z0-9_\-\.]/", '_', $fileName);
+            $targetFilePath = $targetDir . $uniqueFileName;
+
+            // Mover el archivo al directorio de destino
+            if (empty($errores)) {
+                if (move_uploaded_file($fileTmp, $targetFilePath)) {
+                    $archivo_subido = true;
+                    // Guardar la ruta relativa para almacenar en la base de datos
+                    $ruta_archivo = 'uploads/' . $uniqueFileName;
+                } else {
+                    $errores[] = "Error al mover el archivo al directorio de destino.";
+                }
+            }
+        }
+    }
+
     if (count($errores) === 0) {
         // Iniciar transacción
         $conexion->begin_transaction();
 
         try {
-            // Obtener el ID del usuario desde la sesión
-            $usuario_nombre = $_SESSION["usuario"];
-
-            // Obtener el ID del usuario
-            $stmt = $conexion->prepare("SELECT id FROM usuarios WHERE usuario = ?");
-            $stmt->bind_param("s", $usuario_nombre);
-            $stmt->execute();
-            $stmt->bind_result($usuario_id);
-            if (!$stmt->fetch()) {
-                throw new Exception("Usuario no encontrado.");
-            }
-            $stmt->close();
-
             // Obtener el ID de área
             $stmt = $conexion->prepare("SELECT id FROM areas WHERE nombre = ?");
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conexion->error);
+            }
             $stmt->bind_param("s", $area);
             $stmt->execute();
             $stmt->bind_result($area_id);
             if (!$stmt->fetch()) {
-                echo "Área solicitada: " . htmlspecialchars($area); // Muestra el área solicitada
+                $stmt->close();
                 throw new Exception("Área no encontrada.");
             }
             $stmt->close();
-            
 
             // Obtener el ID de clasificación
             $stmt = $conexion->prepare("SELECT id FROM clasificaciones WHERE codigo = ? AND area_id = ?");
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conexion->error);
+            }
             $stmt->bind_param("si", $clasificacion, $area_id);
             $stmt->execute();
             $stmt->bind_result($clasificacion_id);
             if (!$stmt->fetch()) {
+                $stmt->close();
                 throw new Exception("Clasificación no encontrada para el área especificada.");
             }
             $stmt->close();
@@ -106,9 +154,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
             $anio = date("Y", strtotime($fecha_autorizacion));
 
             // Insertar en la tabla 'formatos'
-            $stmt = $conexion->prepare("INSERT INTO formatos (usuario_id, clasificacion_id, municipio, anio) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("iisi", $usuario_id, $clasificacion_id, $municipio, $anio);
+            $stmt = $conexion->prepare("INSERT INTO formatos (usuarios_id, clasificaciones_id, municipio, anio, ruta_archivo) VALUES (?, ?, ?, ?, ?)");
+            if (!$stmt) {
+                throw new Exception("Error en la preparación de la consulta: " . $conexion->error);
+            }
+            $stmt->bind_param("iisss", $usuario_id, $clasificacion_id, $municipio, $anio, $ruta_archivo);
             if (!$stmt->execute()) {
+                $stmt->close();
                 throw new Exception("Error al insertar en 'formatos': " . $stmt->error);
             }
             $formato_id = $stmt->insert_id;
@@ -116,18 +168,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
 
             // Insertar en la tabla específica según la clasificación
             $tabla_especifica = "formato_" . str_replace('.', '_', $clasificacion);
-            $tabla_permitidas = ["1_2", "2_1"]; // Lista de tablas específicas permitidas
-            if (in_array(str_replace('.', '_', $clasificacion), $tabla_permitidas)) {
+            $tabla_permitidas = ["formato_1_2", "formato_2_1"]; // Lista de tablas específicas permitidas
+
+            if (in_array($tabla_especifica, $tabla_permitidas)) {
                 if ($clasificacion === '1.2') {
                     $stmt = $conexion->prepare("INSERT INTO formato_1_2 (formato_id, no, denominacion, publicacion_fecha, informacion_al, fecha_autorizacion, responsable, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    if (!$stmt) {
+                        throw new Exception("Error en la preparación de la consulta: " . $conexion->error);
+                    }
                     $stmt->bind_param("iissssss", $formato_id, $no, $denominacion, $publicacion_fecha, $informacion_al, $fecha_autorizacion, $responsable, $observaciones);
                 } elseif ($clasificacion === '2.1') {
+                    // Implementar la lógica para la clasificación '2.1' si es necesario
                     throw new Exception("Implementación para la clasificación '2.1' no está definida.");
                 } else {
                     throw new Exception("Clasificación no soportada.");
                 }
 
                 if (!$stmt->execute()) {
+                    $stmt->close();
                     throw new Exception("Error al insertar en '$tabla_especifica': " . $stmt->error);
                 }
                 $stmt->close();
@@ -139,18 +197,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
             $conexion->commit();
 
             // Redirigir o mostrar un mensaje de éxito
-            echo "<script>alert('Datos guardados exitosamente.'); window.location.href = '1.2_manuales.php?area=" . urlencode($area) . "&clasificacion=" . urlencode($clasificacion) . "';</script>";
+            echo "<script>alert('Datos guardados exitosamente.'); window.location.href = '../1.2_manuales.php?area=" . urlencode($area) . "&clasificacion=" . urlencode($clasificacion) . "';</script>";
 
         } catch (Exception $e) {
             // Deshacer la transacción en caso de error
             $conexion->rollback();
-            echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
+            echo "<script>alert('Error: " . addslashes($e->getMessage()) . "'); window.history.back();</script>";
         }
 
     } else {
         // Mostrar errores de validación
         foreach ($errores as $error) {
-            echo "<script>alert('" . addslashes($error) . "');</script>";
+            echo "<script>alert('" . addslashes($error) . "'); window.history.back();</script>";
         }
     }
 

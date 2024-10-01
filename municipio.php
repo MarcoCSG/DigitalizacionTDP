@@ -35,7 +35,9 @@ $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario loguead
         <!-- <button onclick="location.href='departamentos2022.html'">DIGITALIZACIÓN<img src="img/archivo.png" alt="Icono"></button>
         <button onclick="location.href='subirInfo2022.html'">SUBIR INFORMACIÓN<img src="img/subir.png" alt="Icono"></button> -->
         <button onclick="location.href='entregaRecepcion.php'">ENTREGA RECEPCIÓN<img src="img/entrega.png" alt="Icono"></button>
-        <button onclick="location.href='subirInfo_ER.php'">SUBIR INFORMACIÓN ENTREGA RECEPCIÓN<img src="img/subir.png" alt="Icono"></button>
+        <button onclick="location.href='subirInfo_ER.php'">CREAR FORMATO ER<img src="img/subir.png" alt="Icono"></button>
+        <button onclick="location.href='subirInfo_ER.php'">SUBIR PDF<img src="img/subir.png" alt="Icono"></button>
+
     </div>
     
     <script src="js/inactividad.js"></script>

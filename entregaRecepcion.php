@@ -71,7 +71,7 @@ $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario loguead
     </main>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="js/ER.JS"></script>
+    <script src="js/ER-VER.JS"></script>
     <script src="js/btn_ver_ERjs"></script>
     <script src="js/inactividad.js"></script>
 </body>

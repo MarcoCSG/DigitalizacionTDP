@@ -3,10 +3,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const clasificacionContainer = document.getElementById("clasificacionContainer");
     const clasificacionSelect = document.getElementById("clasificacion");
     const clasificacionSeleccionada = document.getElementById("clasificacionSeleccionada");
+    const anioSelect = document.getElementById("anio"); // Agregar referencia al selector de año
     const clasificaciones = {
         presidencia_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "5.11_archivoTramite.php" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -16,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         tesoreria_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -78,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
         catastro_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -88,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
         secretaria_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -107,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
         contraloria_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
         obraspublicas_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -131,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
         regidores_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -139,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function() {
         ],
         areasUsuarias_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -150,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         Utransparencia_er: [
             // todas las areas
-            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+            { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite" },
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
@@ -161,38 +162,44 @@ document.addEventListener("DOMContentLoaded", function() {
 
     };
 
-  // Muestra clasificaciones según el área seleccionada
+    // Muestra clasificaciones según el área seleccionada
     areaSelect.addEventListener("change", function() {
-    const selectedArea = areaSelect.value;
-    clasificacionSelect.innerHTML = '<option value="">Seleccione una clasificación</option>';
+        const selectedArea = areaSelect.value;
+        clasificacionSelect.innerHTML = '<option value="">Seleccione una clasificación</option>';
 
-    if (selectedArea && clasificaciones[selectedArea]) {
-        clasificacionContainer.style.display = "block";
-        clasificaciones[selectedArea].forEach(function(clasificacion) {
-            const option = document.createElement("option");
-            option.value = clasificacion.valor;  // Asigna el valor único (ID)
-            option.textContent = clasificacion.texto;  // Muestra el texto
-            option.setAttribute("data-form", clasificacion.form);  // Agrega la ruta del formulario como atributo
-            clasificacionSelect.appendChild(option);
-        });
-    } else {
-        clasificacionContainer.style.display = "none";
-    }
-});
+        if (selectedArea && clasificaciones[selectedArea]) {
+            clasificacionContainer.style.display = "block";
+            clasificaciones[selectedArea].forEach(function(clasificacion) {
+                const option = document.createElement("option");
+                option.value = clasificacion.valor;  // Asigna el valor único (ID)
+                option.textContent = clasificacion.texto;  // Muestra el texto
+                if (clasificacion.form) {
+                    option.setAttribute("data-form", clasificacion.form);  // Agrega la ruta del formulario como atributo
+                } else {
+                    option.setAttribute("data-form", "mostrarregistros.php"); // Valor por defecto si no se especifica
+                }
+                clasificacionSelect.appendChild(option);
+            });
+        } else {
+            clasificacionContainer.style.display = "none";
+        }
+    });
 
-document.getElementById('consultaBtn').addEventListener('click', function() {
-    const area = document.getElementById('area').value;
-    const clasificacion = clasificacionSelect.value;
-    const selectedOption = clasificacionSelect.options[clasificacionSelect.selectedIndex];
-    const formulario = selectedOption.getAttribute("data-form");  // Obtiene la ruta del formulario
+    document.getElementById('consultaBtn').addEventListener('click', function() {
+        const area = areaSelect.value;
+        const clasificacion = clasificacionSelect.value;
+        const selectedOption = clasificacionSelect.options[clasificacionSelect.selectedIndex];
+        const formulario = selectedOption.getAttribute("data-form") || "mostrarregistros.php";  // Obtiene la ruta del formulario o usa por defecto
 
-    if (!area || !clasificacion) {
-        alert('Por favor seleccione el área y la clasificación.');
-        return;
-    }
+        const anio = new Date().getFullYear(); // Obtener el año actual
 
-    // Redirige al formulario específico basado en la clasificación
-    const url = `${formulario}?area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}`;
-    window.location.href = url;
-});
+        if (!area || !clasificacion) {
+            alert('Por favor seleccione el área y la clasificación.');
+            return;
+        }
+
+        // Construir la URL con los parámetros seleccionados
+        const url = `${formulario}?area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}`;
+        window.location.href = url;
+    });
 });

@@ -1,14 +1,20 @@
 <?php
 session_start();
+
 // Verificar si el usuario ha iniciado sesión y tiene un municipio asignado
 if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
-    // Redirigir al inicio de sesión si no está logueado
     header("Location: index.html");
     exit();
 }
 
-$municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario logueado
+$municipio = $_SESSION["municipio"];
+$anio = isset($_GET['anio']) ? intval($_GET['anio']) : date('Y'); // Obtener el año de la URL, o el año actual por defecto
+
+// Filtrar funciones o datos basados en el año
+echo "<h1>año: $anio</h1>";
+
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,9 +40,9 @@ $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario loguead
     <div class="button-container">
         <!-- <button onclick="location.href='departamentos2022.html'">DIGITALIZACIÓN<img src="img/archivo.png" alt="Icono"></button>
         <button onclick="location.href='subirInfo2022.html'">SUBIR INFORMACIÓN<img src="img/subir.png" alt="Icono"></button> -->
-        <button onclick="location.href='entregaRecepcion.php'">ENTREGA RECEPCIÓN<img src="img/entrega.png" alt="Icono"></button>
-        <button onclick="location.href='subirInfo_ER.php'">CREAR FORMATO ER<img src="img/subir.png" alt="Icono"></button>
-        <button onclick="location.href='subirInfo_ER.php'">SUBIR PDF<img src="img/subir.png" alt="Icono"></button>
+        <button onclick="location.href='entregaRecepcion.php?anio=2022'">ENTREGA RECEPCIÓN<img src="img/entrega.png" alt="Icono"></button>
+        <button onclick="location.href='subirInfo_ER.php?anio=2022'">CREAR FORMATO ER<img src="img/subir.png" alt="Icono"></button>
+        <button onclick="location.href='subirInfo_ER.php?anio=2022'">SUBIR PDF<img src="img/subir.png" alt="Icono"></button>
 
     </div>
     

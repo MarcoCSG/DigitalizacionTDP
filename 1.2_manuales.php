@@ -35,10 +35,8 @@ $clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
         <h3 id="clasificacionSeleccionada">Área: <?php echo htmlspecialchars($area); ?> | Clasificación: <?php echo htmlspecialchars($clasificacion); ?></h3>
 
         <!-- Formulario con método POST y action hacia subirFormato.php -->
-        <form method="POST" action="php/subirFormato.php" enctype="multipart/form-data">
-            <!-- Campos Ocultos para area y clasificacion -->
-            <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
-            <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
+        <form method="POST" action="php/subirFormato.php">
+            <!-- Se eliminan los campos ocultos de area y clasificacion -->
 
             <div class="form-group">
                 <label for="no">No.</label>
@@ -54,8 +52,7 @@ $clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
                 <textarea id="denominacion" name="denominacion" placeholder="Ingrese información" required></textarea>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El nombre y tipo del documento de que se trate. Ejemplo: Manual General de Organización, Manual de Procedimientos de la
-                    Tesorería o Manual de Servicios.</span>
+                    <span class="tooltip">El nombre y tipo del documento de que se trate. Ejemplo: Manual General de Organización, Manual de Procedimientos de la Tesorería o Manual de Servicios.</span>
                 </div>
             </div>
 
@@ -91,8 +88,7 @@ $clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
                 <textarea id="responsable" name="responsable" placeholder="Ingrese información" required></textarea>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación
-                    soporte.</span>
+                    <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
                 </div>
             </div>
 
@@ -107,10 +103,9 @@ $clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
 
             <div class="button-container">
                 <button type="submit" name="guardar">GUARDAR</button>
-                <button type="button" onclick="document.getElementById('archivo').click();">ANEXAR ARCHIVO</button>
-                <input type="file" id="archivo" name="archivo" style="display:none;" accept=".pdf">
             </div>
         </form>
+
     </div>
 </body>
 </html>

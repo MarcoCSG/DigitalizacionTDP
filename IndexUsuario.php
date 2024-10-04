@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 // Verificar si el usuario ha iniciado sesión y tiene un municipio asignado
 if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
     // Redirigir al inicio de sesión si no está logueado
@@ -10,7 +9,6 @@ if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
 
 $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario logueado
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,13 +32,13 @@ $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario loguead
         </main>
     </section>
     <div class="button-container">
-        <button onclick="location.href='municipio.php'">2022<img src="img/ayuntamiento.png" alt="Icono"></button>
-        <button onclick="location.href='2023/municipio.html'">2023<img src="img/ayuntamiento.png" alt="Icono"></button>
-        <button onclick="location.href='2024/municipio.html'">2024<img src="img/ayuntamiento.png" alt="Icono"></button>
-        <button onclick="location.href='2025/municipio.html'">2025<img src="img/ayuntamiento.png" alt="Icono"></button>
+        <!-- Se pasa el valor del año como parámetro en la URL -->
+        <button onclick="location.href='municipio.php?anio=2022'">2022<img src="img/ayuntamiento.png" alt="Icono"></button>
+        <button onclick="location.href='municipio.php?anio=2023'">2023<img src="img/ayuntamiento.png" alt="Icono"></button>
+        <button onclick="location.href='municipio.php?anio=2024'">2024<img src="img/ayuntamiento.png" alt="Icono"></button>
+        <button onclick="location.href='municipio.php?anio=2025'">2025<img src="img/ayuntamiento.png" alt="Icono"></button>
     </div>
     
     <script src="js/inactividad.js"></script>
 </body>
 </html>
-4

@@ -1,13 +1,18 @@
 <?php
 session_start();
+
 // Verificar si el usuario ha iniciado sesión y tiene un municipio asignado
 if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
-    // Redirigir al inicio de sesión si no está logueado
     header("Location: index.html");
     exit();
 }
 
-$municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario logueado
+$municipio = $_SESSION["municipio"];
+$anio = isset($_GET['anio']) ? intval($_GET['anio']) : date('Y'); // Obtener el año de la URL, o el año actual por defecto
+
+// Filtrar funciones o datos basados en el año
+echo "<h1>año: $anio</h1>";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +77,7 @@ $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario loguead
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="js/ER-VER.JS"></script>
-    <script src="js/btn_ver_ERjs"></script>
+    <!-- <script src="js/btn_ver_ERjs"></script> -->
     <script src="js/inactividad.js"></script>
 </body>
 </html>

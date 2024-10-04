@@ -35,8 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Los administradores pueden acceder a todo, redirigir a su panel
             header("Location: municipios_admin.php");
         } elseif ($rol == "usuario") {
-            // Los usuarios normales se redirigen a una página específica para su municipio
-            header("Location: mostrarRegistros.php?area=" . urlencode($municipio) . "&clasificacion=1.2&subclasificacion=tipo1&periodo=anual"); // Ajusta los parámetros según corresponda
+            header("Location: IndexUsuario.php"); // Ajusta los parámetros según corresponda
         }
         exit();
     } else {

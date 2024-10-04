@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const areaSelect = document.getElementById("area");
     const clasificacionContainer = document.getElementById("clasificacionContainer");
     const clasificacionSelect = document.getElementById("clasificacion");
-    const clasificacionSeleccionada = document.getElementById("clasificacionSeleccionada");
+
     const clasificaciones = {
         presidencia_er: [
             // todas las areas
@@ -161,38 +161,48 @@ document.addEventListener("DOMContentLoaded", function() {
 
     };
 
-  // Muestra clasificaciones según el área seleccionada
-    areaSelect.addEventListener("change", function() {
-    const selectedArea = areaSelect.value;
-    clasificacionSelect.innerHTML = '<option value="">Seleccione una clasificación</option>';
+     // Mostrar clasificaciones según el área seleccionada
+     areaSelect.addEventListener("change", function() {
+        const selectedArea = areaSelect.value;
+        clasificacionSelect.innerHTML = '<option value="">Seleccione una clasificación</option>';
 
-    if (selectedArea && clasificaciones[selectedArea]) {
-        clasificacionContainer.style.display = "block";
-        clasificaciones[selectedArea].forEach(function(clasificacion) {
-            const option = document.createElement("option");
-            option.value = clasificacion.valor;  // Asigna el valor único (ID)
-            option.textContent = clasificacion.texto;  // Muestra el texto
-            option.setAttribute("data-form", clasificacion.form);  // Agrega la ruta del formulario como atributo
-            clasificacionSelect.appendChild(option);
-        });
-    } else {
-        clasificacionContainer.style.display = "none";
-    }
-});
+        if (selectedArea && clasificaciones[selectedArea]) {
+            clasificacionContainer.style.display = "block";
+            clasificaciones[selectedArea].forEach(function(clasificacion) {
+                const option = document.createElement("option");
+                option.value = clasificacion.valor;  // Asigna el valor único (ID)
+                option.textContent = clasificacion.texto;  // Muestra el texto
+                if (clasificacion.form) {
+                    option.setAttribute("data-form", clasificacion.form);  // Agrega la ruta del formulario como atributo
+                }
+                clasificacionSelect.appendChild(option);
+            });
+        } else {
+            clasificacionContainer.style.display = "none";
+        }
+    });
 
-document.getElementById('consultaBtn').addEventListener('click', function() {
-    const area = document.getElementById('area').value;
-    const clasificacion = clasificacionSelect.value;
-    const selectedOption = clasificacionSelect.options[clasificacionSelect.selectedIndex];
-    const formulario = selectedOption.getAttribute("data-form");  // Obtiene la ruta del formulario
+    // Manejar la redirección al hacer clic en el botón
+    document.getElementById('consultaBtn').addEventListener('click', function() {
+        const area = areaSelect.value;
+        const clasificacion = clasificacionSelect.value;
+        const selectedOption = clasificacionSelect.options[clasificacionSelect.selectedIndex];
+        const formulario = selectedOption.getAttribute("data-form");  // Obtiene la ruta del formulario
 
-    if (!area || !clasificacion) {
-        alert('Por favor seleccione el área y la clasificación.');
-        return;
-    }
+        const anio = 2022; // Año fijo
 
-    // Redirige al formulario específico basado en la clasificación
-    const url = `${formulario}?area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}`;
-    window.location.href = url;
-});
+        if (!area || !clasificacion) { // Validar que se hayan seleccionado área y clasificación
+            alert('Por favor seleccione el área y la clasificación.');
+            return;
+        }
+
+        if (formulario) {
+            // Redirige al formulario específico basado en la clasificación, incluyendo el año fijo
+            const url = `${formulario}?area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&anio=${anio}`;
+            window.location.href = url;
+        } else {
+            // Manejar casos donde no hay un formulario específico definido
+            alert('No se ha definido un formulario para la clasificación seleccionada.');
+        }
+    });
 });

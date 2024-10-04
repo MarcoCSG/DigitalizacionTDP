@@ -10,7 +10,7 @@ if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
 $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario logueado
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,6 +54,7 @@ $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario loguead
                     <label for="clasificacion">CLASIFICACIONES ENTREGA RECEPCION</label>
                     <select id="clasificacion">
                         <option value="">Seleccione una clasificación</option>
+                        <!-- Opciones dinámicas -->
                     </select>
                 </div>
             </section>

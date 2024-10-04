@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 
 // Activar la visualización de errores para depuración (desactivar en producción)
@@ -8,10 +8,7 @@ error_reporting(E_ALL);
 
 // Verificar si el usuario ha iniciado sesión y tiene un municipio asignado
 if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"]) || !isset($_SESSION["usuario_id"])) {
-    // Mensaje opcional para depuración
-    echo "Sesión no válida. Redirigiendo al inicio de sesión.";
-    // Redirigir al inicio de sesión
-    header("Location: ../index.html");
+    echo "<script>alert('Sesión no válida. Redirigiendo al inicio de sesión.'); window.location.href = '../index.html';</script>";
     exit();
 }
 
@@ -24,9 +21,6 @@ include 'conexion.php'; // Se asume que este archivo establece la conexión y as
 // Verificar conexión a la base de datos
 if ($conexion->connect_error) {
     die("Conexión fallida: " . $conexion->connect_error);
-} else {
-    // Mensaje de éxito (puedes comentarlo en producción)
-    // echo "Conexión a la base de datos exitosa.<br>";
 }
 
 // Procesar el formulario cuando se envíe
@@ -40,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
     $responsable = trim($_POST['responsable']);
     $observaciones = trim($_POST['observaciones']);
 
-    // Obtener parámetros del formulario
+    // Obtener parámetros del formulario (campos ocultos)
     $area = isset($_POST['area']) ? $_POST['area'] : '';
     $clasificacion = isset($_POST['clasificacion']) ? $_POST['clasificacion'] : '';
 
@@ -66,56 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
     }
     // 'observaciones' es opcional
 
-    // Manejar la carga del archivo
-    $archivo_subido = false;
-    $ruta_archivo = null;
-
-    if (isset($_FILES['archivo']) && $_FILES['archivo']['error'] !== UPLOAD_ERR_NO_FILE) {
-        // Verificar si hubo errores en la carga
-        if ($_FILES['archivo']['error'] !== UPLOAD_ERR_OK) {
-            $errores[] = "Error al cargar el archivo: " . $_FILES['archivo']['error'];
-        } else {
-            $archivo = $_FILES['archivo'];
-            $fileName = basename($archivo['name']);
-            $fileTmp = $archivo['tmp_name'];
-            $fileType = $archivo['type'];
-            $fileSize = $archivo['size'];
-
-            // Validar el tamaño del archivo (máximo 5MB)
-            if ($fileSize > 505 * 1024 * 1024) {
-                $errores[] = "El archivo es demasiado grande. Tamaño máximo permitido: 5MB.";
-            }
-
-            // Validar el tipo de archivo (solo PDF)
-            $allowedTypes = ['application/pdf'];
-            if (!in_array($fileType, $allowedTypes)) {
-                $errores[] = "Tipo de archivo no permitido. Solo se permiten archivos PDF.";
-            }
-
-            // Definir el directorio de destino
-            $targetDir = '../uploads/'; // Asegúrate de que este directorio exista y tenga permisos de escritura
-            if (!is_dir($targetDir)) {
-                if (!mkdir($targetDir, 0755, true)) {
-                    $errores[] = "No se pudo crear el directorio de destino para los archivos.";
-                }
-            }
-
-            // Generar un nombre único para el archivo para evitar conflictos
-            $uniqueFileName = uniqid() . '_' . preg_replace("/[^A-Za-z0-9_\-\.]/", '_', $fileName);
-            $targetFilePath = $targetDir . $uniqueFileName;
-
-            // Mover el archivo al directorio de destino
-            if (empty($errores)) {
-                if (move_uploaded_file($fileTmp, $targetFilePath)) {
-                    $archivo_subido = true;
-                    // Guardar la ruta relativa para almacenar en la base de datos
-                    $ruta_archivo = 'uploads/' . $uniqueFileName;
-                } else {
-                    $errores[] = "Error al mover el archivo al directorio de destino.";
-                }
-            }
-        }
-    }
+    // Asignar el año fijo 2022
+    $anio = "2022";
 
     if (count($errores) === 0) {
         // Iniciar transacción
@@ -150,15 +96,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
             }
             $stmt->close();
 
-            // Obtener el año de la fecha de autorización
-            $anio = date("Y", strtotime($fecha_autorizacion));
-
-            // Insertar en la tabla 'formatos'
-            $stmt = $conexion->prepare("INSERT INTO formatos (usuarios_id, clasificaciones_id, municipio, anio, ruta_archivo) VALUES (?, ?, ?, ?, ?)");
+            // Insertar en la tabla 'formatos' (incluyendo el area_id)
+            $stmt = $conexion->prepare("INSERT INTO formatos (usuarios_id, clasificaciones_id, area_id, municipio, anio, ruta_archivo) VALUES (?, ?, ?, ?, ?, NULL)");
             if (!$stmt) {
                 throw new Exception("Error en la preparación de la consulta: " . $conexion->error);
             }
-            $stmt->bind_param("iisss", $usuario_id, $clasificacion_id, $municipio, $anio, $ruta_archivo);
+            $stmt->bind_param("iiiss", $usuario_id, $clasificacion_id, $area_id, $municipio, $anio);
             if (!$stmt->execute()) {
                 $stmt->close();
                 throw new Exception("Error al insertar en 'formatos': " . $stmt->error);
@@ -179,7 +122,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
                     $stmt->bind_param("iissssss", $formato_id, $no, $denominacion, $publicacion_fecha, $informacion_al, $fecha_autorizacion, $responsable, $observaciones);
                 } elseif ($clasificacion === '2.1') {
                     // Implementar la lógica para la clasificación '2.1' si es necesario
-                    throw new Exception("Implementación para la clasificación '2.1' no está definida.");
+                    $stmt = $conexion->prepare("INSERT INTO formato_2_1 (formato_id, no, denominacion, publicacion_fecha, informacion_al, fecha_autorizacion, responsable, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                    if (!$stmt) {
+                        throw new Exception("Error en la preparación de la consulta: " . $conexion->error);
+                    }
+                    $stmt->bind_param("iissssss", $formato_id, $no, $denominacion, $publicacion_fecha, $informacion_al, $fecha_autorizacion, $responsable, $observaciones);
                 } else {
                     throw new Exception("Clasificación no soportada.");
                 }
@@ -197,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
             $conexion->commit();
 
             // Redirigir o mostrar un mensaje de éxito
-            echo "<script>alert('Datos guardados exitosamente.'); window.location.href = '../1.2_manuales.php?area=" . urlencode($area) . "&clasificacion=" . urlencode($clasificacion) . "';</script>";
+            echo "<script>alert('Datos guardados exitosamente.'); window.location.href = '../1.2_manuales.php?area=" . urlencode($area) . "&clasificacion=" . urlencode($clasificacion) . "&anio=2022';</script>";
 
         } catch (Exception $e) {
             // Deshacer la transacción en caso de error

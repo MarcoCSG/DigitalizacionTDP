@@ -12,6 +12,16 @@ $municipio = $_SESSION["municipio"]; // Obtener el municipio del usuario logado
 // Obtener parámetros de la URL
 $area = isset($_GET['area']) ? $_GET['area'] : '';
 $clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
+
+// Para depuración: Mostrar los valores obtenidos
+// echo "Área: " . htmlspecialchars($area) . "<br>";
+// echo "Clasificación: " . htmlspecialchars($clasificacion) . "<br>";
+
+// Validar que area y clasificacion no estén vacíos
+if (empty($area) || empty($clasificacion)) {
+    echo "<script>alert('Área o clasificación no especificadas.'); window.location.href = 'pagina_principal.php';</script>";
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -36,7 +46,9 @@ $clasificacion = isset($_GET['clasificacion']) ? $_GET['clasificacion'] : '';
 
         <!-- Formulario con método POST y action hacia subirFormato.php -->
         <form method="POST" action="php/subirFormato.php">
-            <!-- Se eliminan los campos ocultos de area y clasificacion -->
+            <!-- Campos ocultos para area y clasificacion -->
+            <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
+            <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
 
             <div class="form-group">
                 <label for="no">No.</label>

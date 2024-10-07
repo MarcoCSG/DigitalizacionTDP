@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Construir la URL con los parámetros seleccionados
-        const url = `${formulario}?area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}`;
+        const url = `${formulario}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}`;
         window.location.href = url;
     });
 });

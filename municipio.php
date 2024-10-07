@@ -10,8 +10,6 @@ if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
 $municipio = $_SESSION["municipio"];
 $anio = isset($_GET['anio']) ? intval($_GET['anio']) : date('Y'); // Obtener el año de la URL, o el año actual por defecto
 
-// Filtrar funciones o datos basados en el año
-echo "<h1>año: $anio</h1>";
 
 ?>
 

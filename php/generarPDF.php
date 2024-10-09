@@ -99,27 +99,47 @@ $responsable = $datos[0]['responsable'] ?? 'No disponible';
 // Generar el PDF
 // Generar el PDF
 $pdf = new FPDF('L', 'mm', 'A4');
+$pdf->SetMargins(15, 15, 15); // Márgenes: izquierda, arriba, derecha
 $pdf->AddPage();
+
+// Dibujar el rectángulo que engloba todo el contenido con el margen especificado
+$pdf->Rect(15, 15, 270, 180); // (x, y, ancho, alto)
+
+// Dibujar las líneas de margen para dividir el contenido
+$pdf->Line(15, 86, 285, 86); // Línea horizontal superior 1
+$pdf->Line(15, 95, 285, 95); // Línea horizontal superior 2
+$pdf->Line(15, 105, 285, 105); // Línea horizontal inferior
+
+// Definir la fuente del encabezado principal
 $pdf->SetFont('Arial', 'B', 16);
 
 // Agregar imágenes en las esquinas superiores
-$pdf->Image('../img/logoMisantla.png', 10, 10, 30); // Esquina superior izquierda
-$pdf->Image('../img/logoTDP.png', 260, 10, 30); // Esquina superior derecha
+$pdf->Image('../img/logoMisantla.png', 20, 20, 30); // Esquina superior izquierda con ajuste de posición según el margen
+$pdf->Image('../img/logoTDP.png', 250, 20, 30); // Esquina superior derecha con ajuste de posición según el margen
 
 // Centrar el título del ayuntamiento
-$pdf->Cell(0, 10, 'AYUNTAMIENTO DE MISANTLA, VER.', 0, 1, 'C');
+$pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', 'AYUNTAMIENTO DE MISANTLA, VER.'), 0, 1, 'C');
 $pdf->Ln(5);
 
 // Subtítulo del reporte
 $pdf->SetFont('Arial', 'B', 14);
-$pdf->Cell(0, 10, '1.2 RELACIÓN DE MANUALES ADMINISTRATIVOS', 0, 1, 'C');
+$pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '1.2 RELACIÓN DE MANUALES ADMINISTRATIVOS'), 0, 1, 'C');
 $pdf->Ln(10);
 
-// Encabezados de tabla
-$ancho_columnas = ['No.' => 15, 'DENOMINACIÓN' => 80, 'FECHA' => 35, 'OBSERVACIONES' => 60, 'PUBLICACIÓN Y FECHA' => 40];
+// Encabezados de tabla en color gris
+$ancho_columnas = [
+    'No.' => 15, 
+    'DENOMINACIÓN' => 80, 
+    'FECHA' => 40, 
+    'OBSERVACIONES' => 70, 
+    'PUBLICACIÓN Y FECHA' => 65
+];
+
 $pdf->SetFont('Arial', 'B', 10);
+$pdf->SetFillColor(192, 192, 192); // Color gris
+
 foreach ($ancho_columnas as $columna => $ancho) {
-    $pdf->Cell($ancho, 10, $columna, 1, 0, 'C', true);
+    $pdf->Cell($ancho, 10, iconv('UTF-8', 'ISO-8859-1', $columna), 1, 0, 'C', true); // Usar iconv en encabezados y color de relleno gris
 }
 $pdf->Ln();
 
@@ -127,35 +147,57 @@ $pdf->Ln();
 $pdf->SetFont('Arial', '', 10);
 foreach ($datos as $row) {
     if ($pdf->GetY() > 190) $pdf->AddPage();
-    $pdf->Cell($ancho_columnas['No.'], 10, $row['no'], 1, 0, 'C'); // Centrar
-    $pdf->Cell($ancho_columnas['DENOMINACIÓN'], 10, iconv('UTF-8', 'ISO-8859-1',$row['denominacion']), 1, 0, 'C'); // Centrar
-    $pdf->Cell($ancho_columnas['FECHA'], 10, $row['fecha_autorizacion'], 1, 0, 'C'); // Centrar
-    $pdf->Cell($ancho_columnas['OBSERVACIONES'], 10,iconv('UTF-8', 'ISO-8859-1',$row['observaciones']), 1, 0, 'C'); // Centrar
-    $pdf->Cell($ancho_columnas['PUBLICACIÓN Y FECHA'], 10, $row['publicacion_fecha'], 1, 0, 'C'); // Centrar
+
+    $pdf->Cell($ancho_columnas['No.'], 10, iconv('UTF-8', 'ISO-8859-1', $row['no']), 1, 0, 'C');
+    $pdf->Cell($ancho_columnas['DENOMINACIÓN'], 10, iconv('UTF-8', 'ISO-8859-1', $row['denominacion']), 1, 0, 'C');
+    $pdf->Cell($ancho_columnas['FECHA'], 10, iconv('UTF-8', 'ISO-8859-1', $row['fecha_autorizacion']), 1, 0, 'C');
+    $pdf->Cell($ancho_columnas['OBSERVACIONES'], 10, iconv('UTF-8', 'ISO-8859-1', $row['observaciones']), 1, 0, 'C');
+    $pdf->Cell($ancho_columnas['PUBLICACIÓN Y FECHA'], 10, iconv('UTF-8', 'ISO-8859-1', $row['publicacion_fecha']), 1, 0, 'C');
+
     $pdf->Ln();
 }
 
 // Salto de línea para información adicional
-$pdf->Ln(10);
+$pdf->Ln(5);
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(40, 10, 'INFORMACIÓN AL:', 0, 0, 'L'); // Justificar a la izquierda
+$pdf->Cell(40, 10, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L'); // Justificar a la izquierda
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1',$info_al), 0, 1, 'L'); // Mostrar información al
+$pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', $info_al), 0, 1, 'L'); // Mostrar información al
 
+// Sección de información con ajuste de alineación
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(40, 10, 'RESPONSABLE DE LA INFORMACIÓN:', 0, 0, 'L'); // Justificar a la izquierda
+$pdf->Cell(70, 10, iconv('UTF-8', 'ISO-8859-1', 'RESPONSABLE DE LA INFORMACIÓN:'), 0, 0, 'L'); // Aumentar el ancho para alinear el texto
 $pdf->SetFont('Arial', '', 10);
-$pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1',$responsable), 0, 1, 'L'); // Mostrar responsable de la información
-$pdf->Ln(10); // Espacio para firmas
+$pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', $responsable), 0, 1, 'L'); // Mantener el valor más cercano al título anterior
 
-// Información del encargado en la misma fila
-$pdf->Cell(0, 10, 'ELABORÓ: L.C. TÓMAS RAFAEL FUENTES SÁNCHEZ', 0, 0, 'L'); // Centrar
-$pdf->Cell(0, 10, 'AUTORIZA: L.C.C. HEBER JOHANAN BALÁN CÁCERES', 0, 1, 'R'); // Centrar
-$pdf->Cell(0, 10, 'ENCARGADO DE LOS TRABAJOS', 0, 0, 'L'); // Centrar
-$pdf->Cell(0, 10, 'REPRESENTANTE LEGAL', 0, 1, 'R'); // Centrar
+$pdf->Ln(8); // Espacio adicional para separar las líneas de firma
+// Sección de firmas ajustada y espaciada
+$pdf->SetFont('Arial', 'B', 10);
+
+// Colocación de títulos "ELABORÓ" y "AUTORIZÓ" centrados y con más espacio
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'ELABORÓ:'), 0, 0, 'C'); // Centrado en la primera columna (izquierda)
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'AUTORIZÓ:'), 0, 1, 'C'); // Centrado en la segunda columna (derecha)
+
+$pdf->Ln(8); // Espacio adicional para separar las líneas de firma
+
+// Líneas de firmas centradas en cada columna
+$pdf->Cell(135, 10, '_______________________________', 0, 0, 'C'); // Línea de firma de ELABORÓ
+$pdf->Cell(135, 10, '_______________________________', 0, 1, 'C'); // Línea de firma de AUTORIZÓ
+
+$pdf->Ln(4); // Espacio entre la línea de firma y el nombre
+
+// Nombres de las personas centrados en cada columna
+$pdf->SetFont('Arial', '', 10);
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'L.C. TOMÁS RAFAEL FUENTES SÁNCHEZ'), 0, 0, 'C'); // Nombre de ELABORÓ centrado
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'ING. MARCO CÉSAR SALOMÓN GONZÁLEZ'), 0, 1, 'C'); // Nombre de AUTORIZÓ centrado
+
+// Cargos de las personas centrados en cada columna y en negritas
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C'); // Cargo de ELABORÓ centrado en negritas
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 1, 'C'); // Cargo de AUTORIZÓ centrado en negritas
 
 // Salvar el PDF
-$pdf->Output('D', 'reporte.pdf');   
+$pdf->Output('D', 'reporte.pdf');
 
 
 ?>

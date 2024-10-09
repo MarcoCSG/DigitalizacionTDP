@@ -89,13 +89,13 @@ $query = "SELECT
             f1.responsable, 
             f1.observaciones, 
             u.usuario AS nombre_usuario
-          FROM 
+            FROM 
             formatos f
-          JOIN 
+            JOIN 
             formato_1_2 f1 ON f.id = f1.formato_id
-          JOIN 
+            JOIN 
             usuarios u ON f.usuarios_id = u.id
-          WHERE 
+            WHERE 
             u.usuario = ? AND 
             f.municipio = ? AND 
             f.anio = ?";
@@ -146,9 +146,9 @@ $result = $stmt->get_result();
 
 // Obtener el total de registros para calcular el número de páginas
 $query_count = "SELECT COUNT(*) as total FROM formatos f
-               JOIN formato_1_2 f1 ON f.id = f1.formato_id
-               JOIN usuarios u ON f.usuarios_id = u.id
-               WHERE u.usuario = ? AND f.municipio = ? AND f.anio = ?";
+            JOIN formato_1_2 f1 ON f.id = f1.formato_id
+            JOIN usuarios u ON f.usuarios_id = u.id
+            WHERE u.usuario = ? AND f.municipio = ? AND f.anio = ?";
 
 $types_count = "ssi";
 $params_count = [$usuario, $municipio, $anio];
@@ -189,6 +189,7 @@ $stmt_count->close();
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -200,12 +201,13 @@ $stmt_count->close();
     <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
 </head>
+
 <body>
     <div class="header">
         <h1 class="titulo">FORMATO ENTREGA RECEPCION</h1>
         <img src="img/logoTDP.png" alt="Logo Empresa" class="imgEmpresa">
     </div>
-    
+
     <?php
     // Mostrar mensajes de éxito o error
     if (isset($_GET['mensaje'])) {
@@ -215,7 +217,7 @@ $stmt_count->close();
         echo "<div class='error'>" . htmlspecialchars($_GET['error']) . "</div>";
     }
     ?>
-    
+
     <div class="search-container">
         <form method="get" action="mostrarRegistros.php">
             <input type="text" name="search" placeholder="Buscar archivo..." value="<?php echo htmlspecialchars($search); ?>">
@@ -229,9 +231,9 @@ $stmt_count->close();
             <button type="submit">Buscar</button>
         </form>
     </div>
-    
+
     <h2 class="subtitulo">
-        <?php 
+        <?php
         if ($clasificacion_codigo !== null) {
             // Obtener el nombre completo de la clasificación
             $stmt_nombre = $conexion->prepare("SELECT nombre FROM clasificaciones WHERE codigo = ? AND area_id = ?");
@@ -241,23 +243,24 @@ $stmt_count->close();
             $stmt_nombre->bind_param("si", $clasificacion_codigo, $area_id);
             $stmt_nombre->execute();
             $result_nombre = $stmt_nombre->get_result();
-    
+
             if ($row_nombre = $result_nombre->fetch_assoc()) {
                 echo htmlspecialchars($row_nombre['nombre']);
             } else {
                 echo "Clasificación no encontrada";
             }
-    
+
             $stmt_nombre->close();
         } else {
             echo "Todas las Clasificaciones";
         }
         ?>
     </h2>
-    
+
     <?php
     // Mostrar los resultados filtrados
     if ($result->num_rows > 0) {
+        echo "<div class='tabla-contenedor'>"; // Div para contener la tabla
         echo "<table>
                 <thead>
                     <tr>
@@ -269,10 +272,12 @@ $stmt_count->close();
                         <th>Responsable</th>
                         <th>Observaciones</th>
                         <th>Acciones</th>
+                        <th>Reporte</th>
                     </tr>
                 </thead>
                 <tbody>";
         while ($row = $result->fetch_assoc()) {
+            //echo "ID del formato: " . htmlspecialchars($row['formato_id']); // Línea de depuración
             // Construir los parámetros de la URL para mantener los filtros al editar o eliminar
             $params = [
                 'area' => $area_nombre,
@@ -293,15 +298,20 @@ $stmt_count->close();
                     <td>" . htmlspecialchars($row['observaciones']) . "</td>
                     <td class='acciones'>
                         <a href='php/editarRegistro.php?id=" . urlencode($row['formato_id']) . "&$query_string'>Editar</a> | 
-                        <a href='php/eliminarRegistro.php?id=" . urlencode($row['formato_id']) . "&$query_string' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'>Eliminar</a>
+                        <a href='php/eliminarRegistro.php?id=" . urlencode($row['formato_id']) . "&$query_string' class='boton-eliminar' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'> Eliminar</a>
                     </td>
-                  </tr>";
+                     <td>
+                        <a href='php/generarPDF.php?formato_id=" . urlencode($row['formato_id']) . "&$query_string' target='_blank'>Imprimir PDF</a>
+                    </td>
+                    </tr>";
         }
         echo "</tbody></table>";
+        echo "</div>"; // Cerrar el div de la tabla
     
         // Paginación
         if ($total_paginas > 1) {
             echo "<div class='paginacion'>";
+    
             // Enlaces de navegación: Primero, Anterior
             if ($pagina_actual > 1) {
                 echo "<a href='?pagina=1&search=" . urlencode($search) . "&anio=" . urlencode($anio) . "&area=" . urlencode($area_nombre) . "&clasificacion=" . urlencode($clasificacion_codigo) . "'>&laquo; Primero</a>";
@@ -318,10 +328,11 @@ $stmt_count->close();
             }
     
             for ($i = $inicio; $i <= $fin; $i++) {
-                if ($i == $pagina_actual) {
-                    echo "<strong>$i</strong>";
+                // Mostrar el enlace de la página actual
+                if ($i === $pagina_actual) {
+                    echo "<span class='pagina-actual'>" . $i . "</span>";
                 } else {
-                    echo "<a href='?pagina=$i&search=" . urlencode($search) . "&anio=" . urlencode($anio) . "&area=" . urlencode($area_nombre) . "&clasificacion=" . urlencode($clasificacion_codigo) . "'>$i</a>";
+                    echo "<a href='?pagina=" . $i . "&search=" . urlencode($search) . "&anio=" . urlencode($anio) . "&area=" . urlencode($area_nombre) . "&clasificacion=" . urlencode($clasificacion_codigo) . "'>" . $i . "</a>";
                 }
             }
     
@@ -329,17 +340,18 @@ $stmt_count->close();
                 echo "<span>...</span>";
             }
     
-            // Enlaces de navegación: Siguiente, Último
+            // Enlace Siguiente, Último
             if ($pagina_actual < $total_paginas) {
                 echo "<a href='?pagina=" . ($pagina_actual + 1) . "&search=" . urlencode($search) . "&anio=" . urlencode($anio) . "&area=" . urlencode($area_nombre) . "&clasificacion=" . urlencode($clasificacion_codigo) . "'>Siguiente &rsaquo;</a>";
-                echo "<a href='?pagina=$total_paginas&search=" . urlencode($search) . "&anio=" . urlencode($anio) . "&area=" . urlencode($area_nombre) . "&clasificacion=" . urlencode($clasificacion_codigo) . "'>Último &raquo;</a>";
+                echo "<a href='?pagina=" . $total_paginas . "&search=" . urlencode($search) . "&anio=" . urlencode($anio) . "&area=" . urlencode($area_nombre) . "&clasificacion=" . urlencode($clasificacion_codigo) . "'>Último &raquo;</a>";
             }
     
-            echo "</div>";
+            echo "</div>"; // Cerrar el div de paginación
         }
     } else {
-        echo "<p>No se encontraron registros con los criterios seleccionados.</p>";
+        echo "<div class='mensaje'>No se encontraron registros.</div>";
     }
     ?>
+    
 </body>
 </html>

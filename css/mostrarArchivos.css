@@ -249,3 +249,72 @@ h2 {
   background-color: #62cb95;
   color: white;
 }
+
+/* Estilo del botón de imprimir */
+.btn-imprimir {
+  
+  background-color: #485763; /* Color de fondo */
+  color: #ffffff; /* Color de texto */
+  border: none; /* Sin bordes */
+  padding: 10px 20px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  border-radius: 5px; /* Bordes redondeados */
+  margin-bottom: 15px; /* Espaciado con la tabla */
+}
+.btn-imprimir:hover {
+  background-color: #3e5b7c; /* Color de fondo al pasar el ratón */
+}
+
+.firma {
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.firma input[type="text"] {
+  border: none;
+  border-bottom: 1px solid #000;
+  width: 150px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.tabla-contenedor {
+  padding: 20px;
+  background-color: #f9f9f9; /* Cambia el color de fondo según tus necesidades */
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #c9c1c1; /* Cambia el estilo del borde según tus necesidades */
+}
+
+.table th {
+  background-color: #758ba3; /* Color de fondo para encabezados */
+  color: white; /* Color de texto para encabezados */
+}
+
+.paginacion {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.paginacion a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.pagina-actual {
+  font-weight: bold;
+  color: #333;
+}

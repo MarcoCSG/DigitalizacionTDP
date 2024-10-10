@@ -142,7 +142,7 @@ $conexion->close();
             <input type="text" name="denominacion" id="denominacion" value="<?php echo htmlspecialchars($registro['denominacion']); ?>" required>
             
             <label for="publicacion_fecha">Fecha de Publicación:</label>
-            <input type="date" name="publicacion_fecha" id="publicacion_fecha" value="<?php echo htmlspecialchars($registro['publicacion_fecha']); ?>" required>
+            <input type="text" name="publicacion_fecha" id="publicacion_fecha" value="<?php echo htmlspecialchars($registro['publicacion_fecha']); ?>" required>
             
             <label for="informacion_al">Información Al:</label>
             <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>

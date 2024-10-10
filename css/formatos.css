@@ -75,38 +75,72 @@ button:hover {
     width: 100px;
 }
 
-.help-button {
-    background-color: #0d5d8b; /* Color */
-    color: white; /* Texto blanco */
-    border: none; /* Sin borde */
-    padding: 5px 10px; /* Espaciado */
-    cursor: pointer; /* Cursor de puntero */
-    margin-left: 10px; /* Espacio a la izquierda */
-    border-radius: 25px; /* Bordes redondeados */
+/* Estilo general del grupo de formulario */
+.form-group {
+    display: block; /* Permitir que el label esté arriba y la entrada abajo */
+    margin-bottom: 15px; /* Espacio entre los campos */
 }
 
+/* Estilo del label */
+.form-group label {
+    display: inline-block; /* Asegura que el label esté en su propia línea */
+    font-weight: bold; /* Hacer el texto del label en negrita */
+    margin-bottom: 5px; /* Espacio inferior del label */
+}
+
+/* Estilo del contenedor del tooltip */
+.tooltip-container {
+    display: inline-block; /* Para alinear con el label */
+    position: relative; /* Tooltip relacionado con el botón */
+    margin-left: 5px; /* Espacio entre el label y el tooltip */
+}
+
+/* Estilo del botón de ayuda */
+.help-button {
+    background-color: #0d5d8b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    border-radius: 25px;
+}
+
+/* Estilo del tooltip */
 .tooltip {
-    display: none; /* Ocultar tooltip por defecto */
+    display: none;
     background-color: rgb(119, 119, 119);
     color: #fff;
     text-align: center;
     border-radius: 5px;
-    padding: 5px 10px; /* Aumentar el espaciado interno */
+    padding: 5px 10px;
     position: absolute;
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s;
-    left: 100%; /* Mover tooltip a la derecha del botón */
-    margin-left: 10px; /* Espacio entre el botón y el tooltip */
-    white-space: nowrap; /* Evitar que el texto se rompa en varias líneas */
+    left: 100%;
+    margin-left: 10px;
+    white-space: nowrap;
 }
 
+/* Mostrar el tooltip al pasar el cursor */
 .help-button:hover + .tooltip {
-    display: block; /* Mostrar tooltip al pasar el cursor */
-    opacity: 1; /* Hacerlo visible */
+    display: block;
+    opacity: 1;
 }
 
-.tooltip-container {
-    position: relative; /* Para posicionar el tooltip respecto al botón */
-    display: inline-block; /* Para ajustar el tamaño */
+/* Estilo de los campos de entrada y textarea */
+input[type="text"], textarea {
+    display: block; /* Mostrar en su propia línea */
+    width: 100%; /* Ancho completo */
+    padding: 8px;
+    margin-top: 5px; /* Espacio superior del input respecto al label */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Contenedor de los botones */
+.button-container {
+    text-align: center;
+    margin-top: 20px;
 }

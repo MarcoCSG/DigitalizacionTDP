@@ -250,20 +250,6 @@ h2 {
   color: white;
 }
 
-/* Estilo del botón de imprimir */
-.btn-imprimir {
-  
-  background-color: #485763; /* Color de fondo */
-  color: #ffffff; /* Color de texto */
-  border: none; /* Sin bordes */
-  padding: 10px 20px; /* Espaciado interno */
-  cursor: pointer; /* Cambia el cursor al pasar por encima */
-  border-radius: 5px; /* Bordes redondeados */
-  margin-bottom: 15px; /* Espaciado con la tabla */
-}
-.btn-imprimir:hover {
-  background-color: #3e5b7c; /* Color de fondo al pasar el ratón */
-}
 
 .firma {
   text-align: center;
@@ -317,4 +303,22 @@ h2 {
 .pagina-actual {
   font-weight: bold;
   color: #333;
+}
+
+.imprimir-pdf-btn {
+  margin-bottom: 20px;
+  text-align: right;
+  font-family: "Shippori Antique", sans-serif;
+}
+
+.imprimir-pdf-btn a {
+  background-color: #187542;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.imprimir-pdf-btn a:hover {
+  background-color: #4d8350;
 }

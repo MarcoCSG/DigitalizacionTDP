@@ -46,25 +46,38 @@ textarea {
     box-sizing: border-box;
 }
 
-button {
-    background-color: #27978e;
+/* Centrar el botón dentro de su contenedor */
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra el botón */
+    margin-top: 20px;
+}
+
+/* Estilos del botón */
+#save-btn {
+    background-color: #3f5d6e;
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: flex; /* Para alinear el texto y el ícono */
+    align-items: center;
+    gap: 10px; /* Espacio entre el ícono y el texto */
 }
 
-button:hover {
-    background-color: #31b6a4;
+/* Estilos al pasar el ratón sobre el botón */
+#save-btn:hover {
+    background-color: #547daf;
 }
 
-.button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+/* Estilos del ícono */
+#save-btn i {
+    font-size: 16px; /* Tamaño del ícono */
 }
+
+
 
 .logo {
     text-align: right;

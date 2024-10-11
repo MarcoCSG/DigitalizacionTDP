@@ -34,6 +34,7 @@ if (empty($area) || empty($clasificacion)) {
     <link rel="stylesheet" href="css/formatos.css">
     <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
     <script src="js/mapeoER.js" defer></script> <!-- Cambia aquí -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
@@ -150,10 +151,10 @@ if (empty($area) || empty($clasificacion)) {
             </div>
 
             <div class="button-container">
-            <button type="submit" name="guardar">GUARDAR</button> <!-- Cambiado para ser un botón de tipo submit -->
+                <button id="save-btn" type="submit" name="guardar">
+                    <i class="fas fa-save"></i> GUARDAR
+                </button>
             </div>
-
-
 </body>
 
 </html>

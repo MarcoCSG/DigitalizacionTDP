@@ -264,7 +264,7 @@ $stmt_count->close();
     </h2>
 
     <div class="imprimir-pdf-btn">
-            <a href="php/generarPDF.php?<?php echo http_build_query(['search' => $search, 'anio' => $anio, 'area' => $area_nombre, 'clasificacion' => $clasificacion_codigo]); ?>" target="_blank">Imprimir PDF</a>
+            <a href="php/generarPDF5_11.php?<?php echo http_build_query(['search' => $search, 'anio' => $anio, 'area' => $area_nombre, 'clasificacion' => $clasificacion_codigo]); ?>" target="_blank">Imprimir PDF</a>
         </div>
 
 
@@ -280,7 +280,7 @@ $stmt_count->close();
                         <th>Serie Documental</th>
                         <th>Clave</th>
                         <th>Descripción del Contenido</th>
-                        <th>Resguardado</th>
+                        <th>Resguardo</th>
                         <th>Confidencial</th>
                         <th>Vigencia Documental</th>
                         <th>Área Responsable</th>

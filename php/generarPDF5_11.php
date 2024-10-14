@@ -12,6 +12,14 @@ class PDF extends FPDF
     // Anchos de columnas
     public $ancho_columnas = [];
 
+    // Propiedades para almacenar el municipio y rutas de logos
+    public $municipio;
+    public $logoPath;
+
+    // Propiedades para almacenar los nombres de firmas
+    public $elaboro;
+    public $autorizo;
+
     // Encabezado de página
     function Header()
     {
@@ -21,20 +29,41 @@ class PDF extends FPDF
         // Fuente del encabezado principal
         $this->SetFont('Arial', 'B', 18);
 
-        // Agregar imágenes en las esquinas superiores
-        $this->Image('../img/logoMisantla.png', 15, 15, 40); // Esquina superior izquierda
-        $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 15 - 31, 15, 31); // Esquina superior derecha
+        // Tamaño específico para los logos (en mm)
+        $logo_ancho = 30;
+        $logo_alto = 30;
+
+        // Determinar la ruta del logo según el municipio
+        if (isset($this->logoPath) && file_exists($this->logoPath)) {
+            // Agregar el logo del municipio en la esquina superior izquierda con tamaño específico
+            $this->Image($this->logoPath, 22, 18, $logo_ancho, $logo_alto);
+        } else {
+            // Logo por defecto si no se encuentra el logo específico del municipio
+            $this->Image('../img/ayuntamiento.png', 15, 15, $logo_ancho, $logo_alto); // Asegúrate de tener un logo por defecto
+        }
+
+        // Agregar logo fijo en la esquina superior derecha con tamaño específico
+        $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
 
         // Salto de línea después de las imágenes
-        $this->Ln(10);
+        $this->Ln($logo_alto - 20); // Ajuste basado en la altura del logo (30 mm de altura - 25 mm)
+
+        // Verificar si el municipio está definido
+        if (isset($this->municipio)) {
+            // Formatear el nombre del ayuntamiento dinámicamente
+            $titulo_ayuntamiento = '' . strtoupper($this->municipio) . '';
+        } else {
+            // Valor por defecto si no se define el municipio
+            $titulo_ayuntamiento = 'AYUNTAMIENTO';
+        }
 
         // Centrar el título del ayuntamiento
-        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', 'AYUNTAMIENTO DE MISANTLA, VER.'), 0, 1, 'C');
+        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', $titulo_ayuntamiento), 0, 1, 'C');
         $this->Ln(5);
 
         // Subtítulo del reporte
         $this->SetFont('Arial', 'B', 16);
-        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '5.11 RELACIÓN DE MANUALES ADMINISTRATIVOS'), 0, 1, 'C');
+        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '5.11 RELACIÓN DE ARCHIVO DE TRÁMITE'), 0, 1, 'C');
         $this->Ln(10);
 
         // Definir la fuente del encabezado de la tabla
@@ -43,15 +72,15 @@ class PDF extends FPDF
 
         // Definir anchos de columnas ajustados al ancho de la página
         $ancho_columnas = [
-            'No.' => 10,                  // Proporción para 'No.'
-            'Nombre del Expediente' => 45, // Proporción para 'Nombre del Expediente'
-            'Serie Documental' => 35,      // Proporción para 'Serie Documental'
-            'Clave' => 25,                 // Proporción para 'Clave'
-            'Descripción del Contenido' => 50, // Proporción para 'Descripción del Contenido'
-            'Resguardo' => 20,           // Proporción para 'Resguardado'
-            'Confidencial' => 22,          // Proporción para 'Confidencial'
-            'Vigencia Documental' => 35,   // Proporción para 'Vigencia Documental'
-            'Responsable' => 25  
+            'No.' => 10,                      // Proporción para 'No.'
+            'Nombre del Expediente' => 45,    // Proporción para 'Nombre del Expediente'
+            'Serie Documental' => 35,         // Proporción para 'Serie Documental'
+            'Clave' => 25,                    // Proporción para 'Clave'
+            'Descripción del Contenido' => 50,// Proporción para 'Descripción del Contenido'
+            'Resguardo' => 20,                // Proporción para 'Resguardado'
+            'Confidencial' => 22,             // Proporción para 'Confidencial'
+            'Vigencia Documental' => 35,      // Proporción para 'Vigencia Documental'
+            'Responsable' => 25
         ];
 
         // Guardar los anchos de columnas en una propiedad de la clase
@@ -67,16 +96,16 @@ class PDF extends FPDF
         $this->Rect(15, 15, $this->GetPageWidth() - 30, $this->GetPageHeight() - 30); // Ajustado al ancho de la página
     }
 
-    // Pie de página
-    function Footer()
-    {
-        // Posición: 15 mm desde el final
-        $this->SetY(-15);
-        // Fuente
-        $this->SetFont('Arial', 'I', 8);
-        // Número de página
-        $this->Cell(0, 10, '' . $this->PageNo() . '/{nb}', 0, 0, 'C');
-    }
+    // // Pie de página
+    // function Footer()
+    // {
+    //     // Posición: 15 mm desde el final
+    //     $this->SetY(-15);
+    //     // Fuente
+    //     $this->SetFont('Arial', 'I', 8);
+    //     // Número de página
+    //     $this->Cell(0, 10, 'Página ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+    // }
 }
 
 // Verificar si el usuario ha iniciado sesión
@@ -93,8 +122,24 @@ $area_nombre = isset($_GET['area']) ? trim($_GET['area']) : null;
 $clasificacion_codigo = isset($_GET['clasificacion']) ? trim($_GET['clasificacion']) : null;
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
+// Obtener los nombres de "Elaboró" y "Autorizó" desde GET
+$elaboro = isset($_GET['elaboro']) ? htmlspecialchars(trim($_GET['elaboro']), ENT_QUOTES, 'UTF-8') : 'ELABORÓ';
+$autorizo = isset($_GET['autorizo']) ? htmlspecialchars(trim($_GET['autorizo']), ENT_QUOTES, 'UTF-8') : 'AUTORIZÓ';
+
+// Definir la correspondencia entre municipios y sus logos
+$logo_mapping = [
+    'H.AYUNTAMIENTO DE MISANTLA, VER' => '../img/logoMisantla.png',
+    'H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
+    'H.AYUNTAMIENTO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
+    // Agrega más municipios y sus logos aquí según sea necesario
+];
+
+// Determinar la ruta del logo basado en el municipio del usuario
+$logoPath = isset($logo_mapping[$municipio]) ? $logo_mapping[$municipio] : '../img/ayuntamiento.png'; // Asegúrate de tener un logo por defecto
+
 // Función para obtener datos filtrados
-function obtenerDatos($conexion, $usuario, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search){
+function obtenerDatos($conexion, $usuario, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search)
+{
     $area_id = null;
     $clasificacion_id = null;
     $params = [$usuario, $municipio, $anio];
@@ -174,6 +219,13 @@ $responsable = $datos[0]['responsable'] ?? 'No disponible';
 // Crear instancia de la clase PDF
 $pdf = new PDF('L', 'mm', 'A4');
 $pdf->AliasNbPages(); // Para mostrar el total de páginas en el pie de página
+
+// Asignar las propiedades a la instancia de la clase PDF
+$pdf->municipio = $municipio;
+$pdf->logoPath = $logoPath;
+$pdf->elaboro = $elaboro;
+$pdf->autorizo = $autorizo;
+
 $pdf->AddPage();
 
 // Definir la fuente para las filas de la tabla
@@ -220,6 +272,7 @@ $pdf->SetFont('Arial', '', 11);
 $pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', $responsable), 0, 2, 'L'); // Mantener el valor más cercano al título anterior
 
 $pdf->Ln(8); // Espacio adicional para separar las líneas de firma
+
 // Sección de firmas ajustada y espaciada
 $pdf->SetFont('Arial', 'B', 11);
 
@@ -233,12 +286,14 @@ $pdf->Ln(8); // Espacio adicional para separar las líneas de firma
 $pdf->Cell(135, 10, '_______________________________', 0, 0, 'C'); // Línea de firma de ELABORÓ
 $pdf->Cell(135, 10, '_______________________________', 0, 1, 'C'); // Línea de firma de AUTORIZÓ
 
-//$pdf->Ln(4); // Espacio entre la línea de firma y el nombre
+//$pdf->Ln(5); // Espacio para separar los nombres de las líneas de firma
 
 // Nombres de las personas centrados en cada columna
 $pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell(135, 12, iconv('UTF-8', 'ISO-8859-1', 'L.C. TOMÁS RAFAEL FUENTES SÁNCHEZ'), 0, 0, 'C'); // Nombre de ELABORÓ centrado
-$pdf->Cell(135, 12, iconv('UTF-8', 'ISO-8859-1', 'ING. MARCO CÉSAR SALOMÓN GONZÁLEZ'), 0, 1, 'C'); // Nombre de AUTORIZÓ centrado
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', $pdf->elaboro), 0, 0, 'C'); // Nombre de ELABORÓ
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', $pdf->autorizo), 0, 1, 'C'); // Nombre de AUTORIZÓ
+
+//$pdf->Ln(5); // Espacio adicional para separar los cargos
 
 // Cargos de las personas centrados en cada columna y en negritas
 $pdf->SetFont('Arial', 'B', 10);
@@ -247,5 +302,4 @@ $pdf->Cell(135, 13, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 1, '
 
 // Salvar el PDF
 $pdf->Output('D', 'reporte.pdf');
-
 ?>

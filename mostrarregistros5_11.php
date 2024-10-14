@@ -264,8 +264,37 @@ $stmt_count->close();
     </h2>
 
     <div class="imprimir-pdf-btn">
-            <a href="php/generarPDF5_11.php?<?php echo http_build_query(['search' => $search, 'anio' => $anio, 'area' => $area_nombre, 'clasificacion' => $clasificacion_codigo]); ?>" target="_blank">Imprimir PDF</a>
-        </div>
+        <button onclick="generarPDF()">IMPRIMIR PDF</button>
+    </div>
+    <script>
+    function generarPDF() {
+        // Obtener los parámetros existentes desde PHP
+        const search = "<?php echo addslashes($search); ?>";
+        const anio = "<?php echo addslashes($anio); ?>";
+        const area = "<?php echo addslashes($area_nombre); ?>";
+        const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
+        
+        // Solicitar el nombre de quien "Elaboró" mediante prompt
+        const elaboro = prompt("Ingrese el nombre de quien elaboró el reporte:");
+        if (elaboro === null || elaboro.trim() === "") {
+            alert("El nombre de quien elaboró es obligatorio.");
+            return;
+        }
+        
+        // Solicitar el nombre de quien "Autorizó" mediante prompt
+        const autorizo = prompt("Ingrese el nombre de quien autorizó el reporte:");
+        if (autorizo === null || autorizo.trim() === "") {
+            alert("El nombre de quien autorizó es obligatorio.");
+            return;
+        }
+        
+        // Construir la URL con todos los parámetros, incluyendo los nuevos nombres
+        const url = `php/generarPDF5_11.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}`;
+        
+        // Abrir la URL en una nueva pestaña para generar el PDF
+        window.open(url, '_blank');
+    }
+    </script>
 
 
     <?php

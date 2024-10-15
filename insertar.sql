@@ -1,3 +1,13 @@
+INSERT INTO `clasificaciones` (`id`, `codigo`, `nombre`, `area_id`) VALUES
+(164, '5.18', '5.18 Relación de Llaves', 1),
+(165, '5.18', '5.18 Relación de Llaves', 2),
+(166, '5.18', '5.18 Relación de Llaves', 3),
+(167, '5.18', '5.18 Relación de Llaves', 4),
+(168, '5.18', '5.18 Relación de Llaves', 5),
+(169, '5.18', '5.18 Relación de Llaves', 6),
+(170, '5.18', '5.18 Relación de Llaves', 7);
+
+
 presidencia_er: [
               
            '1.2', '1.2 Relación de Manuales Administrativos'

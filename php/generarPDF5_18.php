@@ -63,7 +63,7 @@ class PDF extends FPDF
 
         // Subtítulo del reporte
         $this->SetFont('Arial', 'B', 16);
-        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '1.2 RELACIÓN DE MANUALES ADMINISTRATIVOS'), 0, 1, 'C');
+        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '5.18 RELACIÓN DE LLAVES'), 0, 1, 'C');
         $this->Ln(10);
 
         // Definir la fuente del encabezado de la tabla
@@ -72,11 +72,12 @@ class PDF extends FPDF
 
         // Definir anchos de columnas ajustados al ancho de la página
         $ancho_columnas = [
-            'No.' => 15, 
-            'DENOMINACIÓN' => 80, 
-            'FECHA' => 40, 
-            'OBSERVACIONES' => 72, 
-            'FECHA DE PUBLICACIÓN' => 60
+            'No.' => 10,     
+            'CLAVE' => 62,                 // Proporción para 'No.'
+            'LUGAR, MOBILIARIO O EQUIPO' => 60,    // Proporción para 'Nombre del Expediente'
+            'CANTIDAD' => 35,         // Proporción para 'Serie Documental'               // Proporción para 'Clave'
+            'EN PODER DE' => 60,// Proporción para 'Descripción del Contenido'
+            'CANTIDAD(COPIAS)' => 40,                // Proporción para 'Resguardado'
         ];
 
         // Guardar los anchos de columnas en una propiedad de la clase
@@ -170,18 +171,18 @@ function obtenerDatos($conexion, $usuario, $municipio, $anio, $area_nombre, $cla
 
     // Construcción de la consulta para todos los registros
     $query = "SELECT f.id, f.municipio, f.anio, f.ruta_archivo, 
-                     f1.no, f1.denominacion, f1.publicacion_fecha, f1.informacion_al, 
-                     f1.fecha_autorizacion, f1.responsable, f1.observaciones, 
-                     u.usuario AS nombre_usuario
-              FROM formatos f
-              JOIN formato_1_2 f1 ON f.id = f1.formato_id
-              JOIN usuarios u ON f.usuarios_id = u.id
-              WHERE u.usuario = ? AND f.municipio = ? AND f.anio = ?";
+                    f18.no, f18.clave, f18.lugar_movilidad_equipo, f18.cantidad, 
+                    f18.en_poder, f18.cantidad_copias, f18.informacion_al, f18.responsable, 
+                    u.usuario AS nombre_usuario
+                FROM formatos f
+                JOIN formato_5_18 f18 ON f.id = f18.formato_id
+                JOIN usuarios u ON f.usuarios_id = u.id
+                WHERE u.usuario = ? AND f.municipio = ? AND f.anio = ?";
 
     if ($area_id !== null) $query .= " AND f.area_id = ?";
     if ($clasificacion_id !== null) $query .= " AND f.clasificaciones_id = ?";
     if (!empty($search)) {
-        $query .= " AND (f1.denominacion LIKE ? OR f1.responsable LIKE ?)";
+        $query .= " AND (f18.clave LIKE ? OR f18.en_poder LIKE ?)";
         $search_param = "%" . $search . "%";
         $params[] = $search_param;
         $params[] = $search_param;
@@ -234,13 +235,12 @@ foreach ($datos as $row) {
     }
 
     // Agregar las celdas de la fila
-     // Agregar las celdas de la fila
-     $pdf->Cell($pdf->ancho_columnas['No.'], 10, iconv('UTF-8', 'ISO-8859-1', $row['no']), 1, 0, 'C');
-     $pdf->Cell($pdf->ancho_columnas['DENOMINACIÓN'], 10, iconv('UTF-8', 'ISO-8859-1', $row['denominacion']), 1, 0, 'C');
-     $pdf->Cell($pdf->ancho_columnas['FECHA'], 10, iconv('UTF-8', 'ISO-8859-1', $row['fecha_autorizacion']), 1, 0, 'C');
-     $pdf->Cell($pdf->ancho_columnas['OBSERVACIONES'], 10, iconv('UTF-8', 'ISO-8859-1', $row['observaciones']), 1, 0, 'C');
-     $pdf->Cell($pdf->ancho_columnas['FECHA DE PUBLICACIÓN'], 10, iconv('UTF-8', 'ISO-8859-1', $row['publicacion_fecha']), 1, 0, 'C');
-
+    $pdf->Cell($pdf->ancho_columnas['No.'], 10, iconv('UTF-8', 'ISO-8859-1', $row['no']), 1, 0, 'C');
+    $pdf->Cell($pdf->ancho_columnas['CLAVE'], 10, iconv('UTF-8', 'ISO-8859-1', $row['clave']), 1, 0, 'C');
+    $pdf->Cell($pdf->ancho_columnas['LUGAR, MOBILIARIO O EQUIPO'], 10, iconv('UTF-8', 'ISO-8859-1', $row['lugar_movilidad_equipo']), 1, 0, 'C');
+    $pdf->Cell($pdf->ancho_columnas['CANTIDAD'], 10, iconv('UTF-8', 'ISO-8859-1', $row['cantidad']), 1, 0, 'C');
+    $pdf->Cell($pdf->ancho_columnas['EN PODER DE'], 10, iconv('UTF-8', 'ISO-8859-1', $row['en_poder']), 1, 0, 'C');
+    $pdf->Cell($pdf->ancho_columnas['CANTIDAD(COPIAS)'], 10, iconv('UTF-8', 'ISO-8859-1', $row['cantidad_copias']), 1, 0, 'C');
     $pdf->Ln();
 }
 

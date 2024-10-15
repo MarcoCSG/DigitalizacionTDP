@@ -75,30 +75,30 @@ if ($clasificacion_codigo !== null) {
     $stmt_clas->close();
 }
 
-// Construir la consulta base
 $query = "SELECT 
             f.id AS formato_id, 
             f.municipio, 
             f.anio, 
             f.ruta_archivo, 
-            f1.no, 
-            f1.denominacion, 
-            f1.publicacion_fecha, 
-            f1.informacion_al, 
-            f1.fecha_autorizacion, 
-            f1.responsable, 
-            f1.observaciones, 
+            f18.no, 
+            f18.clave, 
+            f18.lugar_movilidad_equipo, 
+            f18.cantidad, 
+            f18.en_poder, 
+            f18.cantidad_copias,
+            f18.informacion_al, 
+            f18.responsable, 
             u.usuario AS nombre_usuario
-            FROM 
+          FROM 
             formatos f
-            JOIN 
-            formato_1_2 f1 ON f.id = f1.formato_id
-            JOIN 
+          JOIN 
+            formato_5_18 f18 ON f.id = f18.formato_id
+          JOIN 
             usuarios u ON f.usuarios_id = u.id
-            WHERE 
-            u.usuario = ? AND 
-            f.municipio = ? AND 
-            f.anio = ?";
+          WHERE 
+            u.usuario = ? 
+            AND f.municipio = ? 
+            AND f.anio = ?";
 
 // Inicializar tipos y parámetros para bind_param
 $types = "ssi"; // s: string, s: string, i: integer
@@ -118,7 +118,7 @@ if ($clasificacion_id !== null) {
 }
 
 if (!empty($search)) {
-    $query .= " AND (f1.denominacion LIKE ? OR f1.responsable LIKE ?)";
+    $query .= " AND (f18.clave LIKE ? OR f18.lugar_movilidad_equipo LIKE ?)";
     $types .= "ss"; // s: string, s: string
     $search_param = "%" . $search . "%";
     $params[] = $search_param;
@@ -145,10 +145,13 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 // Obtener el total de registros para calcular el número de páginas
-$query_count = "SELECT COUNT(*) as total FROM formatos f
-            JOIN formato_1_2 f1 ON f.id = f1.formato_id
-            JOIN usuarios u ON f.usuarios_id = u.id
-            WHERE u.usuario = ? AND f.municipio = ? AND f.anio = ?";
+$query_count = "SELECT COUNT(*) as total 
+                FROM formatos f
+                JOIN formato_5_18 f18 ON f.id = f18.formato_id
+                JOIN usuarios u ON f.usuarios_id = u.id
+                WHERE u.usuario = ? 
+                  AND f.municipio = ? 
+                  AND f.anio = ?";
 
 $types_count = "ssi";
 $params_count = [$usuario, $municipio, $anio];
@@ -166,7 +169,7 @@ if ($clasificacion_id !== null) {
 }
 
 if (!empty($search)) {
-    $query_count .= " AND (f1.denominacion LIKE ? OR f1.responsable LIKE ?)";
+    $query_count .= " AND (f18.clave LIKE ? OR f18.lugar_movilidad_equipo LIKE ?)";
     $types_count .= "ss";
     $params_count[] = $search_param;
     $params_count[] = $search_param;
@@ -199,12 +202,11 @@ $stmt_count->close();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
     <div class="header">
-        <h1 class="titulo">ENTREGA RECEPCION - <?php echo htmlspecialchars($municipio); ?></h1>
+    <h1 class="titulo">ENTREGA RECEPCION - <?php echo htmlspecialchars($municipio); ?></h1>
         <img src="img/logoTDP.png" alt="Logo Empresa" class="imgEmpresa">
     </div>
 
@@ -219,7 +221,7 @@ $stmt_count->close();
     ?>
 
     <div class="search-container">
-        <form method="get" action="mostrarArchivos.php">
+        <form method="get" action="mostrarArchivos5_18.php"> <!-- Cambiar a un archivo específico para 5_11 si es necesario -->
             <input type="text" name="search" placeholder="Buscar archivo..." value="<?php echo htmlspecialchars($search); ?>">
             <input type="hidden" name="anio" value="<?php echo htmlspecialchars($anio); ?>">
             <?php if ($area_nombre !== null): ?>
@@ -283,12 +285,14 @@ $stmt_count->close();
         }
         
         // Construir la URL con todos los parámetros, incluyendo los nuevos nombres
-        const url = `php/generarPDF.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}`;
+        const url = `php/generarPDF5_18.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}`;
         
         // Abrir la URL en una nueva pestaña para generar el PDF
         window.open(url, '_blank');
     }
     </script>
+
+
     <?php
     // Mostrar los resultados filtrados
     if ($result->num_rows > 0) {
@@ -297,18 +301,18 @@ $stmt_count->close();
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Denominación</th>
-                        <th>Fecha de Publicación</th>
+                        <th>CLAVE</th>
+                        <th>LUGAR, MOBILIARIO O EQUIPO</th>
+                        <th>CANTIDAD</th>
+                        <th>EN PODER DE</th>
+                        <th>CANTIDAD(COPIAS)</th>
                         <th>Información Al</th>
-                        <th>Fecha de Autorización</th>
                         <th>Responsable</th>
-                        <th>Observaciones</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>";
         while ($row = $result->fetch_assoc()) {
-            //echo "ID del formato: " . htmlspecialchars($row['formato_id']); // Línea de depuración
             // Construir los parámetros de la URL para mantener los filtros al editar o eliminar
             $params = [
                 'area' => $area_nombre,
@@ -321,15 +325,16 @@ $stmt_count->close();
 
             echo "<tr>
                     <td>" . htmlspecialchars($row['no']) . "</td>
-                    <td>" . htmlspecialchars($row['denominacion']) . "</td>
-                    <td>" . htmlspecialchars($row['publicacion_fecha']) . "</td>
+                    <td>" . htmlspecialchars($row['clave']) . "</td>
+                    <td>" . htmlspecialchars($row['lugar_movilidad_equipo']) . "</td>
+                    <td>" . htmlspecialchars($row['cantidad']) . "</td>
+                    <td>" . htmlspecialchars($row['en_poder']) . "</td>
+                    <td>" . htmlspecialchars($row['cantidad_copias']) . "</td>
                     <td>" . htmlspecialchars($row['informacion_al']) . "</td>
-                    <td>" . htmlspecialchars($row['fecha_autorizacion']) . "</td>
                     <td>" . htmlspecialchars($row['responsable']) . "</td>
-                    <td>" . htmlspecialchars($row['observaciones']) . "</td>
                     <td class='acciones'>
-                        <a href='php/editarRegistro.php?id=" . urlencode($row['formato_id']) . "&$query_string'>Editar</a> | 
-                        <a href='php/eliminarRegistro.php?id=" . urlencode($row['formato_id']) . "&$query_string' class='boton-eliminar' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'> Eliminar</a>
+                        <a href='php/editarRegistro5_18.php?id=" . urlencode($row['formato_id']) . "&$query_string'>Editar</a> | 
+                        <a href='php/eliminarRegistro5_18.php?id=" . urlencode($row['formato_id']) . "&$query_string' class='boton-eliminar' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'> Eliminar</a>
                     </td>
                     </tr>";
         }
@@ -380,6 +385,6 @@ $stmt_count->close();
         echo "<div class='mensaje'>No se encontraron registros.</div>";
     }
     ?>
-    
+
 </body>
 </html>

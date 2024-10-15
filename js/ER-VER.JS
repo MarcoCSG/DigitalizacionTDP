@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022"},
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "2.1", texto: "2.1 Plan Municipal de Desarrollo" },
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022" },
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "1.1", texto: "1.1 Organigrama Autorizado" },
@@ -81,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022" },
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
@@ -91,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022" },
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales" },
@@ -110,6 +114,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022" },
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "8.1", texto: "8.1 Sistema de Evaluación y Fiscalización de Veracruz(SEFISVER)" },
@@ -120,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022" },
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "2.6", texto: "2.6 Reportes Trimestrales de Avances Físico-Financieros" },
@@ -134,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022" },
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "3.9", texto: "3.9 Informes de las Comisiones del Ayuntamiento" },
@@ -142,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022" },
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
@@ -153,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // todas las areas
             { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php?anio=2022" },
             { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php?anio=2022" },
+            { valor: "5.18", texto: "5.18 Relación de Llaves" , form: "mostrarregistros5_18.php?anio=2022"},
             { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
             // clasificaciones
             { valor: "7.1", texto: "7.1 Relación de Solicitudes de Información y Solicitudes ARCO Pendientes de Atender" },

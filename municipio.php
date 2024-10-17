@@ -40,7 +40,7 @@ $anio = isset($_GET['anio']) ? intval($_GET['anio']) : date('Y'); // Obtener el 
         <button onclick="location.href='subirInfo2022.html'">SUBIR INFORMACIÓN<img src="img/subir.png" alt="Icono"></button> -->
         <button onclick="location.href='entregaRecepcion.php?anio=2022'">ENTREGA RECEPCIÓN<img src="img/entrega.png" alt="Icono"></button>
         <button onclick="location.href='subirInfo_ER.php?anio=2022'">CREAR FORMATO ER<img src="img/subir.png" alt="Icono"></button>
-        <button onclick="location.href='subirInfo_ER.php?anio=2022'">SUBIR PDF<img src="img/subir.png" alt="Icono"></button>
+        <button onclick="location.href='subirInfo_ER.php?anio=2022'">SUBIR DOCUMENTOS EXISTENTES<img src="img/existencias.png" alt="Icono"></button>
 
     </div>
     

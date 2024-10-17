@@ -10,7 +10,7 @@
 
 .titulo {
   color: #000000;
-  font-size: 38px;
+  font-size: 28px;
   font-family: "Shippori Antique", sans-serif;
   text-align: center;
 }
@@ -65,9 +65,9 @@ p {
 
 .imgEmpresa {
   position: absolute;
-  top: 10px;
+  top: 1px;
   right: 5px;
-  width: 280px;
+  width: 200px;
   height: 154px;
   object-fit: contain; /* Asegura que el logo mantenga su proporción */
 }

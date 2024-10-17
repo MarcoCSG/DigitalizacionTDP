@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "2.1", texto: "2.1 Plan Municipal de Desarrollo" },
                     { valor: "2.2", texto: "2.2 Programas Municipales" },
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "1.1", texto: "1.1 Organigrama Autorizado" },
                     { valor: "2.3", texto: "2.3 Programa de Actividades Institucionales" },
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales" },
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" },
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "8.1", texto: "8.1 Sistema de Evaluación y Fiscalización de Veracruz(SEFISVER)" },
                     { valor: "8.2", texto: "8.2 Resumen de Observaciones y Recomendaciones en Proceso de Atención" },
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "2.6", texto: "2.6 Reportes Trimestrales de Avances Físico-Financieros" },
                     { valor: "2.7", texto: "2.7 Cierres de Ejercicios" },
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "3.9", texto: "3.9 Informes de las Comisiones del Ayuntamiento" },
                 ],
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
                     { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "7.1", texto: "7.1 Relación de Solicitudes de Información y Solicitudes ARCO Pendientes de Atender" },
                     { valor: "7.2", texto: "7.2 Relación de Recursos de Revisión en Trámite" },
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "2.1", texto: "2.1 Plan Municipal de Desarrollo" },
                     { valor: "2.2", texto: "2.2 Programas Municipales" },
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "1.1", texto: "1.1 Organigrama Autorizado" },
                     { valor: "2.3", texto: "2.3 Programa de Actividades Institucionales" },
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
@@ -302,7 +302,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales" },
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" },
@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "8.1", texto: "8.1 Sistema de Evaluación y Fiscalización de Veracruz(SEFISVER)" },
                     { valor: "8.2", texto: "8.2 Resumen de Observaciones y Recomendaciones en Proceso de Atención" },
@@ -339,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "2.6", texto: "2.6 Reportes Trimestrales de Avances Físico-Financieros" },
                     { valor: "2.7", texto: "2.7 Cierres de Ejercicios" },
@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "3.9", texto: "3.9 Informes de las Comisiones del Ayuntamiento" },
                 ],
@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
                     { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
@@ -383,7 +383,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "7.1", texto: "7.1 Relación de Solicitudes de Información y Solicitudes ARCO Pendientes de Atender" },
                     { valor: "7.2", texto: "7.2 Relación de Recursos de Revisión en Trámite" },

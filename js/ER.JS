@@ -31,9 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
-                    { valor: "4.35", texto: "4.35 Arqueo de Caja" },
-                    { valor: "4.36", texto: "4.36 Conciliaciones Bancarias" },
-                    { valor: "4.37", texto: "4.37 Situación de Talonarios de Cheques" },
+                    { valor: "4.35", texto: "4.35 Arqueo de Caja" },//AL FINAL 
+                    { valor: "4.36", texto: "4.36 Conciliaciones Bancarias" },//AL FINAL 
+                    { valor: "4.37", texto: "4.37 Situación de Talonarios de Cheques", form: "4.37_situacionTalonarioCheques.php" },
                     { valor: "4.38", texto: "4.38 Inventario de Formas Valoradas" },
                     { valor: "5.1", texto: "5.1 Existencias de Almacén" },
                     { valor: "5.5", texto: "5.5 Relación de Bienes no Inventariados" },

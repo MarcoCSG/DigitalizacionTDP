@@ -63,7 +63,7 @@ class PDF extends FPDF
 
         // Subtítulo del reporte
         $this->SetFont('Arial', 'B', 16);
-        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '5.18 RELACIÓN DE LLAVES'), 0, 1, 'C');
+        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '9.1 Actividades de Atención Prioritaria'), 0, 1, 'C');
         $this->Ln(10);
 
         // Definir la fuente del encabezado de la tabla

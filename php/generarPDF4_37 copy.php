@@ -19,8 +19,6 @@ class PDF extends FPDF
     // Propiedades para almacenar los nombres de firmas
     public $elaboro;
     public $autorizo;
-    public $superviso;
-
 
     // Encabezado de página
     function Header()
@@ -45,7 +43,7 @@ class PDF extends FPDF
         }
 
         // Agregar logo fijo en la esquina superior derecha con tamaño específico
-       $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
+        $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
 
         // Salto de línea después de las imágenes
         $this->Ln($logo_alto - 20); // Ajuste basado en la altura del logo (30 mm de altura - 25 mm)
@@ -71,6 +69,7 @@ class PDF extends FPDF
         // Definir la fuente del encabezado de la tabla
         $this->SetFont('Arial', 'B', 8);
         $this->SetFillColor(192, 192, 192); // Color gris
+
         // Definir anchos de columnas ajustados al ancho de la página total debe de tener 267
         $ancho_columnas = [
             'BANCO' => 55,
@@ -94,7 +93,6 @@ class PDF extends FPDF
         $this->Rect(15, 15, $this->GetPageWidth() - 30, $this->GetPageHeight() - 30); // Ajustado al ancho de la página
     }
 
-
     // Pie de página
     function Footer(){
         // Posición: 15 mm desde el final
@@ -107,11 +105,12 @@ class PDF extends FPDF
 }
 // Verificar si el usuario ha iniciado sesión
 session_start();
-if (!isset($_SESSION["municipio"])) {
+if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
     die("Acceso no autorizado."); // Considera manejar esto de otra forma para evitar salida directa
 }
 
 // Obtener los parámetros de filtrado desde GET
+$usuario = $_SESSION["usuario"];
 $municipio = $_SESSION["municipio"];
 $anio = isset($_GET['anio']) ? intval($_GET['anio']) : date('Y');
 $area_nombre = isset($_GET['area']) ? trim($_GET['area']) : null;
@@ -121,27 +120,25 @@ $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 // Obtener los nombres de "Elaboró" y "Autorizó" desde GET
 $elaboro = isset($_GET['elaboro']) ? htmlspecialchars(trim($_GET['elaboro']), ENT_QUOTES, 'UTF-8') : 'ELABORÓ';
 $autorizo = isset($_GET['autorizo']) ? htmlspecialchars(trim($_GET['autorizo']), ENT_QUOTES, 'UTF-8') : 'AUTORIZÓ';
-$superviso = isset($_GET['superviso']) ? htmlspecialchars(trim($_GET['superviso']), ENT_QUOTES, 'UTF-8') : 'SUPERVISO';
-
 
 // Definir la correspondencia entre municipios y sus logos
 $logo_mapping = [
     'H.AYUNTAMIENTO DE MISANTLA, VER' => '../img/logoMisantla.png',
     'H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
     'H.AYUNTAMIENTO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
-    // Agregar más municipios y sus logos aquí según sea necesario
+    // Agrega más municipios y sus logos aquí según sea necesario
 ];
 
 // Determinar la ruta del logo basado en el municipio del usuario
 $logoPath = isset($logo_mapping[$municipio]) ? $logo_mapping[$municipio] : '../img/ayuntamiento.png'; // Asegúrate de tener un logo por defecto
 
 // Función para obtener datos filtrados
-function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search)
+function obtenerDatos($conexion, $usuario, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search)
 {
     $area_id = null;
     $clasificacion_id = null;
-    $params = [$municipio, $anio];
-    $types = "si"; // Tipos de parámetros para bind_param
+    $params = [$usuario, $municipio, $anio];
+    $types = "ssi"; // Tipos de parámetros para bind_param
 
     // Traducir area_nombre a area_id
     if ($area_nombre !== null) {
@@ -170,13 +167,15 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
         $stmt_clas->close();
     }
 
-    // Construcción de la consulta para todos los registros, eliminando referencias a usuarios
+    // Construcción de la consulta para todos los registros
     $query = "SELECT f.id, f.municipio, f.anio, f.ruta_archivo, 
                     f37.banco, f37.no_cuenta, f37.total, f37.utilizados, 
-                    f37.por_utilizar, f37.cancelados, f37.informacion_al, f37.responsable
+                    f37.por_utilizar, f37.cancelados, f37.informacion_al, f37.responsable, 
+                    u.usuario AS nombre_usuario
                 FROM formatos f
                 JOIN formato_4_37 f37 ON f.id = f37.formato_id
-                WHERE f.municipio = ? AND f.anio = ?";
+                JOIN usuarios u ON f.usuarios_id = u.id
+                WHERE u.usuario = ? AND f.municipio = ? AND f.anio = ?";
 
     if ($area_id !== null) $query .= " AND f.area_id = ?";
     if ($clasificacion_id !== null) $query .= " AND f.clasificaciones_id = ?";
@@ -204,15 +203,14 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
 }
 
 // Obtener los datos filtrados
-$datos = obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search);
+$datos = obtenerDatos($conexion, $usuario, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search);
 if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
 
 // Obtener solo un registro para "Información al" y "Responsable de la información"
 $info_al = $datos[0]['informacion_al'] ?? 'No disponible';
 $responsable = $datos[0]['responsable'] ?? 'No disponible';
 
-
-// Crear instancia de la clase PDF      
+// Crear instancia de la clase PDF    
 $pdf = new PDF('L', 'mm', 'A4');
 $pdf->AliasNbPages();
 
@@ -221,7 +219,6 @@ $pdf->municipio = $municipio;
 $pdf->logoPath = $logoPath;
 $pdf->elaboro = $elaboro;
 $pdf->autorizo = $autorizo;
-$pdf->superviso = $superviso;
 
 $pdf->AddPage();
 $pdf->SetFont('Arial', '', 8);
@@ -248,10 +245,13 @@ function GetMultiCellHeight($pdf, $ancho, $texto) {
     $y_inicial = $pdf->GetY();
     
     $pdf_clon = clone $pdf;
+    
     $pdf_clon->MultiCell($ancho, 5, $texto, 0, 'C');
+    
     $altura = $pdf_clon->GetY() - $y_inicial;
     
     $pdf->SetXY($x_inicial, $y_inicial);
+    
     return $altura;
 }
 
@@ -294,120 +294,66 @@ function PrintUniformRow($pdf, $row, $altura_maxima) {
     // Mover a la siguiente fila
     $pdf->Ln($altura_maxima);
 }
-
-// // Calcular la altura de la sección de información y firmas
-// $altura_seccion_firmas = 40; // Altura aproximada
-// $max_filas_primera_pagina = 6; // Si hay 6 filas o menos, ajustar todo en una página
-// $fila_actual = 0;
-
-// Función para imprimir la sección de información y firmas
-function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso) {
-    $pdf->Ln(); // Espacio entre la tabla y la información adicional
-    $pdf->SetFont('Arial', 'B', 11);
-    $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L');
-    $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(0, 8, iconv('UTF-8', 'ISO-8859-1', $info_al), 0, 1, 'L');
-
-    $pdf->SetFont('Arial', 'B', 11);
-    $pdf->Cell(80, 8, iconv('UTF-8', 'ISO-8859-1', 'RESPONSABLE DE LA INFORMACIÓN:'), 0, 0, 'L');
-    $pdf->SetFont('Arial', '', 11);
-    $pdf->Cell(0, 8, iconv('UTF-8', 'ISO-8859-1', $responsable), 0, 1, 'L');
-
-    $pdf->Ln(10); // Espacio antes de las firmas
-
-    // Sección de firmas
-    $pdf->SetFont('Arial', 'B', 11);
-    
-    // Definir el ancho total de la página (270mm para A4 horizontal)
-    $ancho_total = 270;
-    $margen = 10; // Márgenes de la página
-    $ancho_disponible = $ancho_total - 2 * $margen; // Ancho utilizable
-
-    // Definir los anchos para las tres columnas
-    $ancho_columna = $ancho_disponible / 3; // Cada columna ocupará un tercio del ancho disponible
-
-    // Primera fila de títulos (ELABORO, SUPERVISO, AUTORIZO)
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'ELABORO:'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'SUPERVISO:'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'AUTORIZO:'), 0, 1, 'C');
-
-    $pdf->Ln(20); // Espacio antes de las líneas de firma
-
-    // Segunda fila de líneas de firma (todas centradas)
-    $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 1, 'C');
-
-    $pdf->Ln(1); // Espacio antes de los nombres
-
-    // Tercera fila con los nombres (centrados)
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $elaboro), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $superviso), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $autorizo), 0, 1, 'C');
-
-$pdf->Ln(1); // Espacio antes de los cargos
-
-// Cuarta fila con los cargos (centrados)
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'SECRETARIO TÉCNICO'), 0, 1, 'C');
-
-$pdf->Ln(-2); // Espacio antes de la segunda línea de texto
-
-// Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
-$pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
-$pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', 'TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
-
-$pdf->Ln(5); // Espacio final
-
-}
-// Calcular la altura de la sección de información y firmas
-$altura_seccion_firmas = 40; // Altura aproximada
-$fila_actual = 0;
-
-// Calcular el espacio disponible en la página
-$espacio_total_disponible = 190; // Aproximadamente la altura de una página (excluyendo márgenes y secciones fijas)
-$espacio_restante_para_filas = $espacio_total_disponible - $altura_seccion_firmas; // Espacio restante para las filas de la tabla
-
-// Establecer la altura de fila estándar
-$altura_fila_expandida = 15; // Altura estándar de fila
-
-// Imprimir las filas de la tabla
+// Iterar sobre los datos y ajustar cada fila
 foreach ($datos as $row) {
     // Obtener la altura máxima de las celdas en la fila
-    $altura_maxima = $altura_fila_expandida;
-    $fila_actual++;
-
-    // Comprobar si hay suficiente espacio para la fila actual
-    if ($fila_actual <= 6) {
-        // Si hay 6 filas o menos, imprimir en la misma página
-        if ($pdf->GetY() + $altura_maxima + $altura_seccion_firmas > $espacio_total_disponible) {
-            // Si no cabe, forzar a una nueva página
-            $pdf->AddPage();
-        }
-    } else {
-        // Si hay más de 6 filas, manejar paginación
-        if ($pdf->GetY() + $altura_maxima > $espacio_total_disponible) {
-            // Si no cabe, forzar a una nueva página
-            $pdf->AddPage();
-        }
+    $altura_maxima = max(
+        GetMultiCellHeight($pdf, $ancho_banco, $row['banco']),
+        GetMultiCellHeight($pdf, $ancho_no_cuenta, $row['no_cuenta']),
+        GetMultiCellHeight($pdf, $ancho_total, $row['total']),
+        GetMultiCellHeight($pdf, $ancho_utilizados, $row['utilizados']),
+        GetMultiCellHeight($pdf, $ancho_por_utilizar, $row['por_utilizar']),
+        GetMultiCellHeight($pdf, $ancho_cancelados, $row['cancelados'])
+    );
+    
+    // Si la altura excede la página, agregar una nueva página
+    if ($pdf->GetY() + $altura_maxima > 200) {
+        $pdf->AddPage();
     }
-
-    // Imprimir la fila
+    
+    // Imprimir la fila con la altura máxima calculada
     PrintUniformRow($pdf, $row, $altura_maxima);
 }
 
-// Verificar si es necesario imprimir la sección de firmas en la misma página
-if ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible) {
-    // Si no cabe, agregar una nueva página antes de imprimir la sección de firmas
-    $pdf->AddPage();
-}
+// Salto de línea para información adicional
+$pdf->Ln(); // Reducir el espacio entre la tabla y la información adicional
 
-// Imprimir la sección de firmas
-ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso);
+// Información adicional
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L'); // Justificar a la izquierda
+$pdf->SetFont('Arial', '', 11);
+$pdf->Cell(0, 8, iconv('UTF-8', 'ISO-8859-1', $info_al), 0, 1, 'L'); // Mostrar información al
 
-// Salida del PDF
+$pdf->SetFont('Arial', 'B', 11);
+$pdf->Cell(80, 8, iconv('UTF-8', 'ISO-8859-1', 'RESPONSABLE DE LA INFORMACIÓN:'), 0, 0, 'L');
+$pdf->SetFont('Arial', '', 11);
+$pdf->Cell(0, 8, iconv('UTF-8', 'ISO-8859-1', $responsable), 0, 1, 'L');
+
+$pdf->Ln(2); // Espacio reducido antes de las firmas
+
+// Sección de firmas ajustada y compacta
+$pdf->SetFont('Arial', 'B', 11);
+
+// Colocación de títulos "ELABORÓ" y "AUTORIZÓ" centrados
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'ELABORÓ:'), 0, 0, 'C');
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'AUTORIZÓ:'), 0, 1, 'C');
+
+$pdf->Ln(10); // Espacio compacto entre los textos y las líneas de firma
+
+// Líneas de firmas centradas
+$pdf->Cell(135, 8, '_______________________________', 0, 0, 'C');
+$pdf->Cell(135, 8, '_______________________________', 0, 1, 'C');
+
+// Nombres de las personas centrados
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(135, 8, iconv('UTF-8', 'ISO-8859-1', $pdf->elaboro), 0, 0, 'C');
+$pdf->Cell(135, 8, iconv('UTF-8', 'ISO-8859-1', $pdf->autorizo), 0, 1, 'C');
+
+// Cargos de las personas centrados
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
+$pdf->Cell(135, 10, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 1, 'C');
+
+
+// Salvar el PDF
 $pdf->Output();

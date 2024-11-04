@@ -58,7 +58,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
         // Construir la URL de redirección con los mismos filtros y un mensaje de éxito
         $params_redirect = [
-            'mensaje' => 'Registro eliminado exitosamente',
+            //'mensaje' => 'Registro eliminado exitosamente',
             'search' => $search,
             'anio' => $anio,
             'area' => $area_nombre,

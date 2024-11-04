@@ -282,7 +282,7 @@ $stmt_count->close();
             return;
         }
 
-         // Solicitar el nombre de quien "Autorizó" mediante prompt
+         // Solicitar el nombre de quien "supervisó" mediante prompt
         const superviso = prompt("Ingrese el nombre de quien supervisó el reporte:");
         if (autorizo === null || superviso.trim() === "") {
             alert("El nombre de quien superviso es obligatorio.");

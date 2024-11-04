@@ -295,11 +295,6 @@ function PrintUniformRow($pdf, $row, $altura_maxima) {
     $pdf->Ln($altura_maxima);
 }
 
-// // Calcular la altura de la sección de información y firmas
-// $altura_seccion_firmas = 40; // Altura aproximada
-// $max_filas_primera_pagina = 6; // Si hay 6 filas o menos, ajustar todo en una página
-// $fila_actual = 0;
-
 // Función para imprimir la sección de información y firmas
 function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso) {
     $pdf->Ln(); // Espacio entre la tabla y la información adicional
@@ -313,7 +308,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo
     $pdf->SetFont('Arial', '', 11);
     $pdf->Cell(0, 8, iconv('UTF-8', 'ISO-8859-1', $responsable), 0, 1, 'L');
 
-    $pdf->Ln(10); // Espacio antes de las firmas
+    $pdf->Ln(15); // Espacio antes de las firmas
 
     // Sección de firmas
     $pdf->SetFont('Arial', 'B', 11);
@@ -338,7 +333,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo
     $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 0, 'C');
     $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 1, 'C');
 
-    $pdf->Ln(1); // Espacio antes de los nombres
+    $pdf->Ln(-2); // Espacio antes de los nombres
 
     // Tercera fila con los nombres (centrados)
     $pdf->SetFont('Arial', 'B', 10);
@@ -346,7 +341,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $superviso), 0, 0, 'C');
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $autorizo), 0, 1, 'C');
 
-$pdf->Ln(1); // Espacio antes de los cargos
+$pdf->Ln(-2); // Espacio antes de los cargos
 
 // Cuarta fila con los cargos (centrados)
 $pdf->SetFont('Arial', 'B', 10);
@@ -364,49 +359,50 @@ $pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
 $pdf->Ln(5); // Espacio final
 
 }
-// Calcular la altura de la sección de información y firmas
-$altura_seccion_firmas = 40; // Altura aproximada
-$fila_actual = 0;
+// Calcular el número de filas
+$total_filas = count($datos);
 
-// Calcular el espacio disponible en la página
-$espacio_total_disponible = 190; // Aproximadamente la altura de una página (excluyendo márgenes y secciones fijas)
-$espacio_restante_para_filas = $espacio_total_disponible - $altura_seccion_firmas; // Espacio restante para las filas de la tabla
+// Calcular la altura de la sección de firmas
+$altura_seccion_firmas = 40; // Ajusta este valor según el tamaño real de la sección de firmas
+$espacio_total_disponible = 190; // Altura total de la página sin márgenes
+$altura_fila_minima = 15; // Altura mínima de fila
 
-// Establecer la altura de fila estándar
-$altura_fila_expandida = 15; // Altura estándar de fila
+// Función para calcular la altura de una celda basada en el texto
+function CalcularAlturaCelda($pdf, $texto, $ancho_celda) {
+    $lineas = $pdf->GetStringWidth($texto) / $ancho_celda;
+    $altura = ceil($lineas) * 5; // Ajusta el multiplicador para controlar el espacio entre líneas
+    return $altura;
+}
 
 // Imprimir las filas de la tabla
 foreach ($datos as $row) {
-    // Obtener la altura máxima de las celdas en la fila
-    $altura_maxima = $altura_fila_expandida;
-    $fila_actual++;
-
-    // Comprobar si hay suficiente espacio para la fila actual
-    if ($fila_actual <= 6) {
-        // Si hay 6 filas o menos, imprimir en la misma página
-        if ($pdf->GetY() + $altura_maxima + $altura_seccion_firmas > $espacio_total_disponible) {
-            // Si no cabe, forzar a una nueva página
-            $pdf->AddPage();
-        }
-    } else {
-        // Si hay más de 6 filas, manejar paginación
-        if ($pdf->GetY() + $altura_maxima > $espacio_total_disponible) {
-            // Si no cabe, forzar a una nueva página
-            $pdf->AddPage();
+    // Calcular la altura máxima necesaria para esta fila
+    $altura_maxima = $altura_fila_minima;
+    foreach ($row as $celda_texto) {
+        $ancho_celda = 30; // Ajusta según el ancho de cada celda en tu tabla
+        $altura_celda = CalcularAlturaCelda($pdf, $celda_texto, $ancho_celda);
+        if ($altura_celda > $altura_maxima) {
+            $altura_maxima = $altura_celda;
         }
     }
 
-    // Imprimir la fila
+    // Comprobar si hay suficiente espacio para la fila actual
+    if ($pdf->GetY() + $altura_maxima > $espacio_total_disponible) {
+        // Si no cabe la fila actual, forzar una nueva página
+        $pdf->AddPage();
+    }
+
+    // Imprimir la fila con la altura máxima calculada
     PrintUniformRow($pdf, $row, $altura_maxima);
 }
 
-// Verificar si es necesario imprimir la sección de firmas en la misma página
-if ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible) {
-    // Si no cabe, agregar una nueva página antes de imprimir la sección de firmas
+// Lógica para la sección de firmas
+if ($total_filas > 6 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible)) {
+    // Si hay más de 6 filas o la sección no cabe en la misma página, agregar nueva página
     $pdf->AddPage();
 }
 
-// Imprimir la sección de firmas
+// Imprimir la sección de firmas como un solo bloque
 ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso);
 
 // Salida del PDF

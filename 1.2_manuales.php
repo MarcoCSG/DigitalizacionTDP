@@ -34,6 +34,23 @@ if (empty($area) || empty($clasificacion)) {
     <script src="js/mapeoER.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <style>
+        /* Muestra el texto tal como lo escribe el usuario */
+        input[type="text"], textarea {
+            text-transform: none; /* Dejar el texto como lo escribe el usuario */
+        }
+    </style>
+
+    <script>
+        // Convertir todos los campos de texto a mayúsculas al enviar el formulario
+        function convertirAMayusculas() {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            inputs.forEach(input => {
+                input.value = input.value.toUpperCase(); // Convierte a mayúsculas antes de enviar
+            });
+        }
+    </script>
+
 </head>
 <body>
     <div class="logo">
@@ -47,14 +64,14 @@ if (empty($area) || empty($clasificacion)) {
         <h3 id="clasificacionSeleccionada">Área: <?php echo htmlspecialchars($area); ?> | Clasificación: <?php echo htmlspecialchars($clasificacion); ?></h3>
 
         <!-- Formulario con método POST y action hacia subirFormato.php -->
-        <form method="POST" action="php/subirFormato.php">
+        <form method="POST" action="php/subirFormato.php" onsubmit="convertirAMayusculas()">
             <!-- Campos ocultos para area y clasificacion -->
             <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
             <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
 
             <div class="form-group">
                 <label for="no">No.</label>
-                <input type="text" id="no" name="no" placeholder="INGRESE EL NUMERO" required>
+                <input type="text" id="no" name="no" placeholder="INGRESE EL NUMERO" spellcheck="true" required>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
@@ -63,7 +80,7 @@ if (empty($area) || empty($clasificacion)) {
 
             <div class="form-group">
                 <label for="denominacion">DENOMINACIÓN</label>
-                <textarea id="denominacion" name="denominacion" placeholder="Ingrese información" required></textarea>
+                <textarea id="denominacion" name="denominacion" placeholder="Ingrese información" spellcheck="true" required></textarea>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y tipo del documento de que se trate. Ejemplo: Manual General de Organización, Manual de Procedimientos de la Tesorería o Manual de Servicios.</span>
@@ -72,7 +89,7 @@ if (empty($area) || empty($clasificacion)) {
 
             <div class="form-group">
                 <label for="publicacion_fecha">PUBLICACIÓN Y FECHA</label>
-                <input type="text" id="publicacion_fecha" name="publicacion_fecha" placeholder="Ingrese información" required>
+                <input type="text" id="publicacion_fecha" name="publicacion_fecha" placeholder="Ingrese información" spellcheck="true" required>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El sitio de la publicación de los manuales y la fecha de la misma.</span>
@@ -81,7 +98,7 @@ if (empty($area) || empty($clasificacion)) {
 
             <div class="form-group">
                 <label for="informacion_al">INFORMACIÓN AL:</label>
-                <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese información" required></textarea>
+                <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true" required></textarea>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se actualizó la información de este formato. Ejemplo: 15 de diciembre de 2021.</span>
@@ -90,7 +107,7 @@ if (empty($area) || empty($clasificacion)) {
 
             <div class="form-group">
                 <label for="fecha_autorizacion">FECHA</label>
-                <input type="date" id="fecha_autorizacion" name="fecha_autorizacion" required>
+                <input type="date" id="fecha_autorizacion" name="fecha_autorizacion" spellcheck="true" required>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se autorizó el manual administrativo referido.</span>
@@ -99,7 +116,7 @@ if (empty($area) || empty($clasificacion)) {
 
             <div class="form-group">
                 <label for="responsable">RESPONSABLE DE LA INFORMACIÓN</label>
-                <textarea id="responsable" name="responsable" placeholder="Ingrese información" required></textarea>
+                <textarea id="responsable" name="responsable" placeholder="Ingrese información" spellcheck="true" required></textarea>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
@@ -108,7 +125,7 @@ if (empty($area) || empty($clasificacion)) {
 
             <div class="form-group">
                 <label for="observaciones">OBSERVACIONES</label>
-                <textarea id="observaciones" name="observaciones" placeholder="Ingrese información"></textarea>
+                <textarea id="observaciones" name="observaciones" placeholder="Ingrese información" spellcheck="true"></textarea>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">Los comentarios que se consideren importantes respecto a los manuales administrativos.</span>

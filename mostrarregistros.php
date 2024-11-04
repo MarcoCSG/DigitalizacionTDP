@@ -11,7 +11,6 @@ if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
 include 'php/conexion.php';
 
 // Obtener el usuario y municipio de la sesión
-$usuario = $_SESSION["usuario"];
 $municipio = $_SESSION["municipio"];
 
 // Obtener parámetros de búsqueda
@@ -96,13 +95,12 @@ $query = "SELECT
             JOIN 
             usuarios u ON f.usuarios_id = u.id
             WHERE 
-            u.usuario = ? AND 
-            f.municipio = ? AND 
-            f.anio = ?";
+            f.municipio = ? 
+            AND f.anio = ?";
 
 // Inicializar tipos y parámetros para bind_param
-$types = "ssi"; // s: string, s: string, i: integer
-$params = [$usuario, $municipio, $anio];
+$types = "si"; // s: string, s: string, i: integer
+$params = [$municipio, $anio];
 
 // Añadir filtros adicionales si están presentes
 if ($area_id !== null) {
@@ -145,13 +143,15 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 // Obtener el total de registros para calcular el número de páginas
-$query_count = "SELECT COUNT(*) as total FROM formatos f
-            JOIN formato_1_2 f1 ON f.id = f1.formato_id
-            JOIN usuarios u ON f.usuarios_id = u.id
-            WHERE u.usuario = ? AND f.municipio = ? AND f.anio = ?";
+$query_count = "SELECT COUNT(*) as total 
+                FROM formatos f
+                JOIN formato_1_2 f1 ON f.id = f1.formato_id
+                JOIN usuarios u ON f.usuarios_id = u.id
+                WHERE f.municipio = ? 
+                AND f.anio = ?";
 
-$types_count = "ssi";
-$params_count = [$usuario, $municipio, $anio];
+$types_count = "si";
+$params_count = [$municipio, $anio];
 
 if ($area_id !== null) {
     $query_count .= " AND f.area_id = ?";
@@ -281,9 +281,16 @@ $stmt_count->close();
             alert("El nombre de quien autorizó es obligatorio.");
             return;
         }
+
+          // Solicitar el nombre de quien "supervisó" mediante prompt
+        const superviso = prompt("Ingrese el nombre de quien supervisó el reporte:");
+        if (autorizo === null || superviso.trim() === "") {
+            alert("El nombre de quien superviso es obligatorio.");
+            return;
+        }
         
         // Construir la URL con todos los parámetros, incluyendo los nuevos nombres
-        const url = `php/generarPDF.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}`;
+        const url = `php/generarPDF.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}`;
         
         // Abrir la URL en una nueva pestaña para generar el PDF
         window.open(url, '_blank');

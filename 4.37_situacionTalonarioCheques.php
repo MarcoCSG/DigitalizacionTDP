@@ -71,41 +71,74 @@ if (empty($area) || empty($clasificacion)) {
             <div class="form-group">
                 <label for="banco">BANCO</label>
                 <input type="text" id="banco" name="banco" placeholder="Ingrese el banco" spellcheck="true">
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">El nombre de la Institución Bancaria que administra la cuenta.</span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="no_cuenta">NÚMERO DE CUENTA</label>
                 <input type="text" id="no_cuenta" name="no_cuenta" placeholder="Ingrese el número de cuenta" spellcheck="true">
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">Los dígitos asignados por la Institución Bancaria a cada cuenta de cheques.</span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="total">TOTAL</label>
                 <input type="text" id="total" name="total" placeholder="Ingrese el total" spellcheck="false"> <!-- No se necesita corrección aquí -->
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">Los números del primer y último cheque, correspondiente a la cuenta bancaria de que se trate.</span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="utilizados">UTILIZADOS</label>
                 <input type="text" id="utilizados" name="utilizados" placeholder="Ingrese el número" spellcheck="false"> <!-- No se necesita corrección aquí -->
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">Los números del primer y último cheque expedido, correspondiente a la cuenta bancaria de que se trate.</span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="por_utilizar">POR UTILIZAR</label>
                 <input type="text" id="por_utilizar" name="por_utilizar" placeholder="Ingrese el número" spellcheck="false"> <!-- No se necesita corrección aquí -->
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">Los números del primer y último cheque que se encuentran sin expedir, correspondiente a la cuenta bancaria de que se trate.</span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="cancelados">CANCELADOS</label>
                 <input type="text" id="cancelados" name="cancelados" placeholder="Ingrese el número" spellcheck="false"> <!-- No se necesita corrección aquí -->
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">Los números de los cheques que fueron cancelados, según la cuenta bancaria de que se trate.</span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="informacion_al">INFORMACIÓN AL</label>
                 <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese la información" spellcheck="true" required></textarea>
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+                </div>
             </div>
 
             <div class="form-group">
                 <label for="responsable">RESPONSABLE DE LA INFORMACIÓN</label>
                 <textarea id="responsable" name="responsable" placeholder="Ingrese el nombre del responsable" spellcheck="true" required></textarea>
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación
+                    soporte.</span>
+                </div>
             </div>
 
             <div class="button-container">

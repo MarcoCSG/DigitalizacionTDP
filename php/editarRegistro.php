@@ -127,6 +127,15 @@ $conexion->close();
             font-size: 14px;
         }
     </style>
+<script>
+        // Convertir todos los campos de texto a mayúsculas al enviar el formulario
+        function convertirAMayusculas() {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            inputs.forEach(input => {
+                input.value = input.value.toUpperCase(); // Convierte a mayúsculas antes de enviar
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="header">
@@ -134,27 +143,27 @@ $conexion->close();
         <img src="../img/logoTDP.png" alt="Logo Empresa" class="imgEmpresa">
     </div>
     <div class="form-container">
-        <form method="post" action="">
+        <form method="post" action="" onsubmit="convertirAMayusculas()">
             <label for="no">No:</label>
             <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
             
             <label for="denominacion">Denominación:</label>
-            <input type="text" name="denominacion" id="denominacion" value="<?php echo htmlspecialchars($registro['denominacion']); ?>" required>
+            <input type="text" name="denominacion" id="denominacion" spellcheck="true" value="<?php echo htmlspecialchars($registro['denominacion']); ?>" required>
             
             <label for="publicacion_fecha">Fecha de Publicación:</label>
-            <input type="text" name="publicacion_fecha" id="publicacion_fecha" value="<?php echo htmlspecialchars($registro['publicacion_fecha']); ?>" required>
+            <input type="text" name="publicacion_fecha" id="publicacion_fecha" spellcheck="true" value="<?php echo htmlspecialchars($registro['publicacion_fecha']); ?>" required>
             
             <label for="informacion_al">Información Al:</label>
-            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <input type="text" name="informacion_al" id="informacion_al" spellcheck="true" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
             
             <label for="fecha_autorizacion">Fecha de Autorización:</label>
-            <input type="date" name="fecha_autorizacion" id="fecha_autorizacion" value="<?php echo htmlspecialchars($registro['fecha_autorizacion']); ?>" required>
+            <input type="date" name="fecha_autorizacion" id="fecha_autorizacion" spellcheck="true" value="<?php echo htmlspecialchars($registro['fecha_autorizacion']); ?>" required>
             
             <label for="responsable">Responsable:</label>
-            <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
+            <input type="text" name="responsable" id="responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
             
             <label for="observaciones">Observaciones:</label>
-            <textarea name="observaciones" id="observaciones" required><?php echo htmlspecialchars($registro['observaciones']); ?></textarea>
+            <textarea name="observaciones" id="observaciones" spellcheck="true" required><?php echo htmlspecialchars($registro['observaciones']); ?></textarea>
             
             <button type="submit">Actualizar</button>
         </form>

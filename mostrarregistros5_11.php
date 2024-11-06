@@ -10,8 +10,7 @@ if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
 // Incluir la conexión a la base de datos
 include 'php/conexion.php';
 
-// Obtener el usuario y municipio de la sesión
-$usuario = $_SESSION["usuario"];
+// Obtener el municipio de la sesión
 $municipio = $_SESSION["municipio"];
 
 // Obtener parámetros de búsqueda
@@ -93,20 +92,19 @@ $query = "SELECT
             f5.informacion_al, 
             f5.responsable, 
             u.usuario AS nombre_usuario
-          FROM 
+        FROM 
             formatos f
-          JOIN 
+        JOIN 
             formato_5_11 f5 ON f.id = f5.formato_id
-          JOIN 
+        JOIN 
             usuarios u ON f.usuarios_id = u.id
-          WHERE 
-            u.usuario = ? 
-            AND f.municipio = ? 
+        WHERE 
+            f.municipio = ? 
             AND f.anio = ?";
 
 // Inicializar tipos y parámetros para bind_param
-$types = "ssi"; // s: string, s: string, i: integer
-$params = [$usuario, $municipio, $anio];
+$types = "si"; // s: string, s: string, i: integer
+$params = [$municipio, $anio];
 
 // Añadir filtros adicionales si están presentes
 if ($area_id !== null) {
@@ -153,12 +151,11 @@ $query_count = "SELECT COUNT(*) as total
                 FROM formatos f
                 JOIN formato_5_11 f5 ON f.id = f5.formato_id
                 JOIN usuarios u ON f.usuarios_id = u.id
-                WHERE u.usuario = ? 
-                  AND f.municipio = ? 
-                  AND f.anio = ?";
+                WHERE f.municipio = ? 
+                AND f.anio = ?";
 
-$types_count = "ssi";
-$params_count = [$usuario, $municipio, $anio];
+$types_count = "si";
+$params_count = [$municipio, $anio];
 
 if ($area_id !== null) {
     $query_count .= " AND f.area_id = ?";
@@ -202,6 +199,7 @@ $stmt_count->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEPARTAMENTOS</title>
     <link rel="stylesheet" href="css/mostrarArchivos.css">
+    <link rel="stylesheet" href="css/modal.css">
     <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -210,7 +208,7 @@ $stmt_count->close();
 
 <body>
     <div class="header">
-    <h1 class="titulo">ENTREGA RECEPCION - <?php echo htmlspecialchars($municipio); ?></h1>
+        <h1 class="titulo">ENTREGA RECEPCION - <?php echo htmlspecialchars($municipio); ?></h1>
         <img src="img/logoTDP.png" alt="Logo Empresa" class="imgEmpresa">
     </div>
 
@@ -225,7 +223,7 @@ $stmt_count->close();
     ?>
 
     <div class="search-container">
-        <form method="get" action="mostrarArchivos5_11.php"> <!-- Cambiar a un archivo específico para 5_11 si es necesario -->
+        <form method="get" action="mostrarregistros5_11.php"> <!-- Cambiar a un archivo específico para 5_11 si es necesario -->
             <input type="text" name="search" placeholder="Buscar archivo..." value="<?php echo htmlspecialchars($search); ?>">
             <input type="hidden" name="anio" value="<?php echo htmlspecialchars($anio); ?>">
             <?php if ($area_nombre !== null): ?>
@@ -263,38 +261,81 @@ $stmt_count->close();
         ?>
     </h2>
 
-    <div class="imprimir-pdf-btn">
-        <button onclick="generarPDF()">IMPRIMIR PDF</button>
+    <div class="imprimir-pdf-btn"> 
+    <button onclick="abrirModal()">IMPRIMIR PDF</button>
+</div>
+
+<!-- Modal para ingresar los nombres y observaciones -->
+<div id="modalPDF" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>INGRESE EL NOMBRE DE LAS PERSONAS QUE VAN A FIRMAR Y OBSERVACIONES</h2>
+        
+        <label for="elaboro">Nombre de quien Elaboró:</label>
+        <input type="text" id="elaboro" required>
+        
+        <label for="autorizo">Nombre de quien Autorizó:</label>
+        <input type="text" id="autorizo" required>
+        
+        <label for="superviso">Nombre de quien Supervisó:</label>
+        <input type="text" id="superviso" required>
+        
+        <label for="observaciones">Observaciones:</label>
+        <textarea id="observaciones" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
+        
+        <button onclick="generarPDF()">Generar PDF</button>
     </div>
-    <script>
-    function generarPDF() {
-        // Obtener los parámetros existentes desde PHP
-        const search = "<?php echo addslashes($search); ?>";
-        const anio = "<?php echo addslashes($anio); ?>";
-        const area = "<?php echo addslashes($area_nombre); ?>";
-        const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
-        
-        // Solicitar el nombre de quien "Elaboró" mediante prompt
-        const elaboro = prompt("Ingrese el nombre de quien elaboró el reporte:");
-        if (elaboro === null || elaboro.trim() === "") {
-            alert("El nombre de quien elaboró es obligatorio.");
-            return;
-        }
-        
-        // Solicitar el nombre de quien "Autorizó" mediante prompt
-        const autorizo = prompt("Ingrese el nombre de quien autorizó el reporte:");
-        if (autorizo === null || autorizo.trim() === "") {
-            alert("El nombre de quien autorizó es obligatorio.");
-            return;
-        }
-        
-        // Construir la URL con todos los parámetros, incluyendo los nuevos nombres
-        const url = `php/generarPDF5_11.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}`;
-        
-        // Abrir la URL en una nueva pestaña para generar el PDF
-        window.open(url, '_blank');
+</div>
+
+<script>
+// Función para abrir el modal
+function abrirModal() {
+    document.getElementById("modalPDF").style.display = "block";
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+    document.getElementById("modalPDF").style.display = "none";
+}
+
+// Función para generar el PDF
+function generarPDF() {
+    // Obtener los valores de los campos de entrada
+    const elaboro = document.getElementById("elaboro").value.trim();
+    const autorizo = document.getElementById("autorizo").value.trim();
+    const superviso = document.getElementById("superviso").value.trim();
+    const observaciones = document.getElementById("observaciones").value.trim();
+
+    // Verificar que todos los campos obligatorios estén completos
+    if (!elaboro || !autorizo || !superviso) {
+        alert("Todos los campos son obligatorios.");
+        return;
     }
-    </script>
+
+    // Obtener los parámetros existentes desde PHP
+    const search = "<?php echo addslashes($search); ?>";
+    const anio = "<?php echo addslashes($anio); ?>";
+    const area = "<?php echo addslashes($area_nombre); ?>";
+    const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
+
+    // Construir la URL con todos los parámetros, incluyendo los nuevos nombres y observaciones
+    const url = `php/generarPDF5_11.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}&observaciones=${encodeURIComponent(observaciones)}`;
+    
+    // Abrir la URL en una nueva pestaña para generar el PDF
+    window.open(url, '_blank');
+
+    // Cerrar el modal después de generar el PDF
+    cerrarModal();
+}
+
+// Cerrar el modal cuando el usuario hace clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById("modalPDF");
+    if (event.target == modal) {
+        cerrarModal();
+    }
+}
+</script>
 
 
     <?php
@@ -397,4 +438,5 @@ $stmt_count->close();
     ?>
 
 </body>
+
 </html>

@@ -89,13 +89,13 @@ $query = "SELECT
             f37.informacion_al, 
             f37.responsable, 
             u.usuario AS nombre_usuario
-          FROM 
+            FROM 
             formatos f
-          JOIN 
+            JOIN 
             formato_4_37 f37 ON f.id = f37.formato_id
-          JOIN 
+            JOIN 
             usuarios u ON f.usuarios_id = u.id
-          WHERE 
+            WHERE 
             f.municipio = ? 
             AND f.anio = ?";
 
@@ -117,7 +117,7 @@ if ($clasificacion_id !== null) {
 }
 
 if (!empty($search)) {
-    $query .= " AND (f37.actividad LIKE ? OR f37.observaciones LIKE ?)";
+    $query .= " AND (f37.banco LIKE ? OR f37.no_cuenta LIKE ?)";
     $types .= "ss"; // s: string, s: string
     $search_param = "%" . $search . "%";
     $params[] = $search_param;
@@ -149,7 +149,7 @@ $query_count = "SELECT COUNT(*) as total
                 JOIN formato_4_37 f37 ON f.id = f37.formato_id
                 JOIN usuarios u ON f.usuarios_id = u.id
                 WHERE f.municipio = ? 
-                  AND f.anio = ?";
+                AND f.anio = ?";
 
 $types_count = "si";
 $params_count = [$municipio, $anio];
@@ -167,7 +167,7 @@ if ($clasificacion_id !== null) {
 }
 
 if (!empty($search)) {
-    $query_count .= " AND (f37.actividad LIKE ? OR f37.observaciones LIKE ?)";
+    $query_count .= " AND (f37.banco LIKE ? OR f37.no_cuenta LIKE ?)";
     $types_count .= "ss";
     $params_count[] = $search_param;
     $params_count[] = $search_param;
@@ -196,6 +196,7 @@ $stmt_count->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DEPARTAMENTOS</title>
     <link rel="stylesheet" href="css/mostrarArchivos.css">
+    <link rel="stylesheet" href="css/modal.css">
     <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -218,8 +219,8 @@ $stmt_count->close();
     }
     ?>
 
-    <div class="search-container">
-        <form method="get" action="mostrarArchivos9_1.php"> <!-- Cambiar a un archivo específico para 5_11 si es necesario -->
+<div class="search-container">
+        <form method="get" action="mostrarregistros4_37.php"> <!-- Cambiar a un archivo específico para 5_11 si es necesario -->
             <input type="text" name="search" placeholder="Buscar archivo..." value="<?php echo htmlspecialchars($search); ?>">
             <input type="hidden" name="anio" value="<?php echo htmlspecialchars($anio); ?>">
             <?php if ($area_nombre !== null): ?>
@@ -258,45 +259,75 @@ $stmt_count->close();
     </h2>
 
     <div class="imprimir-pdf-btn">
-        <button onclick="generarPDF()">IMPRIMIR PDF</button>
+    <button onclick="abrirModal()">IMPRIMIR PDF</button>
+</div>
+
+<!-- Modal para ingresar los nombres -->
+<div id="modalPDF" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <h2>INGRESE EL NOMBRE DE LAS PERSONAS QUE VAN A FIRMAR </h2>
+        <label for="elaboro">Nombre de quien Elaboró:</label>
+        <input type="text" id="elaboro" required>
+        
+        <label for="autorizo">Nombre de quien Autorizó:</label>
+        <input type="text" id="autorizo" required>
+        
+        <label for="superviso">Nombre de quien Supervisó:</label>
+        <input type="text" id="superviso" required>
+        
+        <button onclick="generarPDF()">Generar PDF</button>
     </div>
-    <script>
-    function generarPDF() {
-        // Obtener los parámetros existentes desde PHP
-        const search = "<?php echo addslashes($search); ?>";
-        const anio = "<?php echo addslashes($anio); ?>";
-        const area = "<?php echo addslashes($area_nombre); ?>";
-        const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
-        
-        // Solicitar el nombre de quien "Elaboró" mediante prompt
-        const elaboro = prompt("Ingrese el nombre de quien elaboró el reporte:");
-        if (elaboro === null || elaboro.trim() === "") {
-            alert("El nombre de quien elaboró es obligatorio.");
-            return;
-        }
-        
-        // Solicitar el nombre de quien "Autorizó" mediante prompt
-        const autorizo = prompt("Ingrese el nombre de quien autorizó el reporte:");
-        if (autorizo === null || autorizo.trim() === "") {
-            alert("El nombre de quien autorizó es obligatorio.");
-            return;
-        }
+</div>
 
-         // Solicitar el nombre de quien "supervisó" mediante prompt
-        const superviso = prompt("Ingrese el nombre de quien supervisó el reporte:");
-        if (autorizo === null || superviso.trim() === "") {
-            alert("El nombre de quien superviso es obligatorio.");
-            return;
-        }
-        
-        // Construir la URL con todos los parámetros, incluyendo los nuevos nombres
-        const url = `php/generarPDF4_37.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}`;
-        
-        // Abrir la URL en una nueva pestaña para generar el PDF
-        window.open(url, '_blank');
+<script>
+// Función para abrir el modal
+function abrirModal() {
+    document.getElementById("modalPDF").style.display = "block";
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+    document.getElementById("modalPDF").style.display = "none";
+}
+
+// Función para generar el PDF
+function generarPDF() {
+    // Obtener los valores de los campos de entrada
+    const elaboro = document.getElementById("elaboro").value.trim();
+    const autorizo = document.getElementById("autorizo").value.trim();
+    const superviso = document.getElementById("superviso").value.trim();
+
+    // Verificar que todos los campos estén completos
+    if (!elaboro || !autorizo || !superviso) {
+        alert("Todos los campos son obligatorios.");
+        return;
     }
-    </script>
 
+    // Obtener los parámetros existentes desde PHP
+    const search = "<?php echo addslashes($search); ?>";
+    const anio = "<?php echo addslashes($anio); ?>";
+    const area = "<?php echo addslashes($area_nombre); ?>";
+    const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
+
+    // Construir la URL con todos los parámetros, incluyendo los nuevos nombres
+    const url = `php/generarPDF4_37.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}`;
+    
+    // Abrir la URL en una nueva pestaña para generar el PDF
+    window.open(url, '_blank');
+
+    // Cerrar el modal después de generar el PDF
+    cerrarModal();
+}
+
+// Cerrar el modal cuando el usuario hace clic fuera de él
+window.onclick = function(event) {
+    const modal = document.getElementById("modalPDF");
+    if (event.target == modal) {
+        cerrarModal();
+    }
+}
+</script>
 
     <?php
     // Mostrar los resultados filtrados

@@ -20,6 +20,7 @@ class PDF extends FPDF
     public $elaboro;
     public $autorizo;
     public $superviso;
+    public $observaciones;
 
     // Encabezado de página
     function Header()
@@ -122,7 +123,7 @@ $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $elaboro = isset($_GET['elaboro']) ? htmlspecialchars(trim($_GET['elaboro']), ENT_QUOTES, 'UTF-8') : 'ELABORÓ';
 $autorizo = isset($_GET['autorizo']) ? htmlspecialchars(trim($_GET['autorizo']), ENT_QUOTES, 'UTF-8') : 'AUTORIZÓ';
 $superviso = isset($_GET['superviso']) ? htmlspecialchars(trim($_GET['superviso']), ENT_QUOTES, 'UTF-8') : 'SUPERVISO';
-
+$observaciones = isset($_GET['observaciones']) ? htmlspecialchars(trim($_GET['observaciones']), ENT_QUOTES, 'UTF-8') : 'OBSERVACIONES';
 
 // Definir la correspondencia entre municipios y sus logos
 $logo_mapping = [
@@ -221,6 +222,7 @@ $pdf->logoPath = $logoPath;
 $pdf->elaboro = $elaboro;
 $pdf->autorizo = $autorizo;
 $pdf->superviso = $superviso;
+$pdf->observaciones = $observaciones;
 
 $pdf->AddPage();
 
@@ -299,7 +301,7 @@ function PrintUniformRow($pdf, $row, $altura_maxima)
 }
 
 // Función para imprimir la sección de información y firmas
-function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso)
+function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso, $observaciones)
 {
     $pdf->Ln(); // Espacio entre la tabla y la información adicional
     $pdf->SetFont('Arial', 'B', 11);
@@ -311,6 +313,13 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo
     $pdf->Cell(80, 8, iconv('UTF-8', 'ISO-8859-1', 'RESPONSABLE DE LA INFORMACIÓN:'), 0, 0, 'L');
     $pdf->SetFont('Arial', '', 11);
     $pdf->Cell(0, 8, iconv('UTF-8', 'ISO-8859-1', $responsable), 0, 1, 'L');
+
+    $pdf->SetFont('Arial', 'B', 11);
+    $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'OBSERVACIONES:'), 0, 1, 'L');
+    $pdf->SetFont('Arial', '', 11);
+    // Ajuste para las observaciones con MultiCell para permitir saltos de línea
+    $pdf->MultiCell(0, 8, iconv('UTF-8', 'ISO-8859-1', $observaciones), 0, 'L');
+
 
     $pdf->Ln(15); // Espacio antes de las firmas
 
@@ -408,7 +417,7 @@ if ($total_filas > 6 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_
 }
 
 // Imprimir la sección de firmas como un solo bloque
-ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso);
+ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso);
 
 // Salida del PDF
 $pdf->Output();

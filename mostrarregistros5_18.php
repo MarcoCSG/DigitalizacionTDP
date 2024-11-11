@@ -257,76 +257,137 @@ $stmt_count->close();
         ?>
     </h2>
 
-    <div class="imprimir-pdf-btn">
-    <button onclick="abrirModal()">IMPRIMIR PDF</button>
+<!-- Botón para el PDF de TDP -->
+<div class="imprimir-pdf-btn">
+    <button onclick="abrirModalTDP()">IMPRIMIR PDF - TDP</button>
 </div>
 
-<!-- Modal para ingresar los nombres -->
-<div id="modalPDF" class="modal">
+<!-- Modal para TDP -->
+<div id="modalPDFTDP" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <h2>INGRESE EL NOMBRE DE LAS PERSONAS QUE VAN A FIRMAR </h2>
-        <label for="elaboro">Nombre de quien Elaboró:</label>
-        <input type="text" id="elaboro" required>
+        <span class="close" onclick="cerrarModalTDP()">&times;</span>
+        <h2>Introduzca el nombre de las personas autorizadas para firmar y cualquier observación pertinente</h2>
         
-        <label for="autorizo">Nombre de quien Autorizó:</label>
-        <input type="text" id="autorizo" required>
+        <label for="elaboroTDP">Nombre de quien Elaboró:</label>
+        <input type="text" id="elaboroTDP" spellcheck="true" required>
         
-        <label for="superviso">Nombre de quien Supervisó:</label>
-        <input type="text" id="superviso" required>
+        <label for="autorizoTDP">Nombre de quien Autorizó:</label>
+        <input type="text" id="autorizoTDP" spellcheck="true" required>
         
-        <button onclick="generarPDF()">Generar PDF</button>
+        <label for="supervisoTDP">Nombre de quien Supervisó:</label>
+        <input type="text" id="supervisoTDP" spellcheck="true" required>
+        
+        <label for="observacionesTDP">Observaciones:</label>
+        <textarea id="observacionesTDP" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
+        
+        <button onclick="generarPDFTDP()">Generar PDF</button>
+    </div>
+</div>
+
+<!-- Botón para el PDF de Municipio -->
+<div class="imprimir-pdf-btn">
+    <button onclick="abrirModalMunicipio()">IMPRIMIR PDF - MUNICIPIO</button>
+</div>
+
+<!-- Modal para Municipio -->
+<div id="modalPDFMunicipio" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModalMunicipio()">&times;</span>
+        <h2>Introduzca el nombre de las personas autorizadas para firmar y cualquier observación pertinente</h2>
+
+        <label for="elaboroMunicipio">Nombre de quien Entrega:</label>
+        <input type="text" id="elaboroMunicipio" spellcheck="true" required>
+
+        <label for="autorizoMunicipio">Nombre de quien Recibe:</label>
+        <input type="text" id="autorizoMunicipio" spellcheck="true" required>
+        
+        <label for="observacionesMunicipio">Observaciones:</label>
+        <textarea id="observacionesMunicipio" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
+        
+        <button onclick="generarPDFMunicipio()">Generar PDF</button>
     </div>
 </div>
 
 <script>
-// Función para abrir el modal
-function abrirModal() {
-    document.getElementById("modalPDF").style.display = "block";
+// Función para convertir texto a mayúsculas antes de enviarlo
+function obtenerTextoEnMayusculas(elementId) {
+    return document.getElementById(elementId).value.trim().toUpperCase();
 }
 
-// Función para cerrar el modal
-function cerrarModal() {
-    document.getElementById("modalPDF").style.display = "none";
+// Funciones para el modal de TDP
+function abrirModalTDP() {
+    document.getElementById("modalPDFTDP").style.display = "block";
 }
 
-// Función para generar el PDF
-function generarPDF() {
-    // Obtener los valores de los campos de entrada
-    const elaboro = document.getElementById("elaboro").value.trim();
-    const autorizo = document.getElementById("autorizo").value.trim();
-    const superviso = document.getElementById("superviso").value.trim();
+function cerrarModalTDP() {
+    document.getElementById("modalPDFTDP").style.display = "none";
+}
 
-    // Verificar que todos los campos estén completos
+function generarPDFTDP() {
+    const elaboro = obtenerTextoEnMayusculas("elaboroTDP");
+    const autorizo = obtenerTextoEnMayusculas("autorizoTDP");
+    const superviso = obtenerTextoEnMayusculas("supervisoTDP");
+    const observaciones = obtenerTextoEnMayusculas("observacionesTDP");
+
     if (!elaboro || !autorizo || !superviso) {
         alert("Todos los campos son obligatorios.");
         return;
     }
 
-    // Obtener los parámetros existentes desde PHP
     const search = "<?php echo addslashes($search); ?>";
     const anio = "<?php echo addslashes($anio); ?>";
     const area = "<?php echo addslashes($area_nombre); ?>";
     const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
 
-    // Construir la URL con todos los parámetros, incluyendo los nuevos nombres
-    const url = `php/generarPDF5_18.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}`;
+    const url = `php/generarPDF5_18.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}&observaciones=${encodeURIComponent(observaciones)}`;
     
-    // Abrir la URL en una nueva pestaña para generar el PDF
     window.open(url, '_blank');
-
-    // Cerrar el modal después de generar el PDF
-    cerrarModal();
+    cerrarModalTDP();
 }
 
-// Cerrar el modal cuando el usuario hace clic fuera de él
+// Funciones para el modal de Municipio
+function abrirModalMunicipio() {
+    document.getElementById("modalPDFMunicipio").style.display = "block";
+}
+
+function cerrarModalMunicipio() {
+    document.getElementById("modalPDFMunicipio").style.display = "none";
+}
+
+function generarPDFMunicipio() {
+    const elaboro = obtenerTextoEnMayusculas("elaboroMunicipio");
+    const autorizo = obtenerTextoEnMayusculas("autorizoMunicipio");
+    const observaciones = obtenerTextoEnMayusculas("observacionesMunicipio");
+
+    if (!elaboro || !autorizo) {
+        alert("Todos los campos son obligatorios.");
+        return;
+    }
+
+    const search = "<?php echo addslashes($search); ?>";
+    const anio = "<?php echo addslashes($anio); ?>";
+    const area = "<?php echo addslashes($area_nombre); ?>";
+    const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
+
+    const url = `php/generarPDF5_18_municipio.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&observaciones=${encodeURIComponent(observaciones)}`;
+    
+    window.open(url, '_blank');
+    cerrarModalMunicipio();
+}
+
+// Cerrar el modal al hacer clic fuera de él
 window.onclick = function(event) {
-    const modal = document.getElementById("modalPDF");
-    if (event.target == modal) {
-        cerrarModal();
+    const modalTDP = document.getElementById("modalPDFTDP");
+    const modalMunicipio = document.getElementById("modalPDFMunicipio");
+    if (event.target == modalTDP) {
+        cerrarModalTDP();
+    } else if (event.target == modalMunicipio) {
+        cerrarModalMunicipio();
     }
 }
 </script>
+
+
 
     <?php
     // Mostrar los resultados filtrados

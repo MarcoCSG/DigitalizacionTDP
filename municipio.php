@@ -31,7 +31,7 @@ $anio = isset($_GET['anio']) ? intval($_GET['anio']) : date('Y'); // Obtener el 
             <img class="imglogoPrincipal" src="img/logoTDP.png" alt="logo">
         </figure>
         <main>
-            <h1 class="titulo">TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD</h1>
+            <!-- <h1 class="titulo">TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD</h1> -->
             <h2 class="subtitulo"><?php echo htmlspecialchars($municipio); ?></h2>
         </main>
     </section>

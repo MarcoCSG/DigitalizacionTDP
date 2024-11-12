@@ -427,7 +427,7 @@ foreach ($datos as $row) {
 }
 
 // Lógica para la sección de firmas
-if ($total_filas > 6 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible)) {
+if ($total_filas > 2 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible)) {
     // Si hay más de 6 filas o la sección no cabe en la misma página, agregar nueva página
     $pdf->AddPage();
 }

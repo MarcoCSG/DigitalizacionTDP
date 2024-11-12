@@ -326,7 +326,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     // Ajuste para las observaciones con MultiCell para permitir saltos de línea
     $pdf->MultiCell(0, 8, iconv('UTF-8', 'ISO-8859-1', $observaciones), 0, 'L');
 
-    $pdf->Ln(15); // Espacio antes de las firmas
+    $pdf->Ln(10); // Espacio antes de las firmas
 
     // Sección de firmas
     $pdf->SetFont('Arial', 'B', 11);
@@ -344,7 +344,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
     $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'RECIBE:'), 0, 1, 'C');
 
-    $pdf->Ln(20); // Espacio antes de las líneas de firma
+    $pdf->Ln(10); // Espacio antes de las líneas de firma
 
     // Segunda fila de líneas de firma (todas centradas)
     $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 0, 'C');
@@ -415,7 +415,7 @@ foreach ($datos as $row) {
 }
 
 // Lógica para la sección de firmas
-if ($total_filas > 6 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible)) {
+if ($total_filas > 2 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible)) {
     // Si hay más de 6 filas o la sección no cabe en la misma página, agregar nueva página
     $pdf->AddPage();
 }

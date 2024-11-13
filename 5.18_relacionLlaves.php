@@ -25,7 +25,7 @@ if (empty($area) || empty($clasificacion)) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -35,6 +35,23 @@ if (empty($area) || empty($clasificacion)) {
     <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
     <script src="js/mapeoER.js" defer></script> <!-- Cambia aquí -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Muestra el texto tal como lo escribe el usuario */
+        input[type="text"], textarea {
+            text-transform: none; /* Dejar el texto como lo escribe el usuario */
+        }
+    </style>
+
+    <script>
+        // Convertir todos los campos de texto a mayúsculas al enviar el formulario
+        function convertirAMayusculas() {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            inputs.forEach(input => {
+                input.value = input.value.toUpperCase(); // Convierte a mayúsculas antes de enviar
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -48,7 +65,7 @@ if (empty($area) || empty($clasificacion)) {
         <h3 id="clasificacionSeleccionada">Área: <?php echo htmlspecialchars($area); ?> | Clasificación: <?php echo htmlspecialchars($clasificacion); ?></h3>
 
         <!-- Formulario con método POST y action hacia subirFormato.php -->
-        <form method="POST" action="php/subirFormato5_18.php">
+        <form method="POST" action="php/subirFormato5_18.php" onsubmit="convertirAMayusculas()">
             <!-- Campos ocultos para area y clasificacion -->
             <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
             <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
@@ -59,7 +76,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
                 </div>
-                <input type="text" id="no" name="no" placeholder="INGRESE EL NÚMERO"> <!-- Agregado name -->
+                <input type="text" id="no" name="no" placeholder="INGRESE EL NÚMERO" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -68,7 +85,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La identificación numérica o alfanumérica asignada a las llaves que se entregan.</span>
                 </div>
-                <input type="text" id="clave" name="clave" placeholder="Ingrese la clave"> <!-- Agregado name -->
+                <input type="text" id="clave" name="clave" placeholder="Ingrese la clave" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -77,7 +94,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La denominación del espacio físico o del bien que permite abrir la llave. Ejemplo: Presidencia Municipal, sala de juntas, etc</span>
                 </div>
-                <input type="text" id="lugar_movilidad_equipo" name="lugar_movilidad_equipo" placeholder="Ingrese la serie documental"> <!-- Agregado name -->
+                <input type="text" id="lugar_movilidad_equipo" name="lugar_movilidad_equipo" placeholder="Ingrese la serie documental" spellcheck="true" > <!-- Agregado name -->
             </div>
 
 
@@ -87,7 +104,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número de llaves que se están entregando.</span>
                 </div>
-                <textarea id="cantidad" name="cantidad" placeholder="Ingrese la cantidad"></textarea> <!-- Agregado name -->
+                <textarea id="cantidad" name="cantidad" placeholder="Ingrese la cantidad" spellcheck="true" ></textarea> <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -96,7 +113,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y cargo de la persona que tiene en su poder un duplicado de la llave.</span>
                 </div>
-                <input type="text" id="en_poder" name="en_poder" placeholder="Ingrese nombre de la persona"> <!-- Agregado name -->
+                <input type="text" id="en_poder" name="en_poder" placeholder="Ingrese nombre de la persona" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -105,7 +122,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número de duplicados que tenga en su poder la persona referida.</span>
                 </div>
-                <input type="text" id="cantidad_copias" name="cantidad_copias" placeholder="Ingrese la cantidad de copias"> <!-- Agregado name -->
+                <input type="text" id="cantidad_copias" name="cantidad_copias" placeholder="Ingrese la cantidad de copias" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -114,7 +131,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
                 </div>
-                <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese información" required></textarea>
+                <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true" required></textarea>
             </div>
 
             <div class="form-group">
@@ -123,7 +140,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
                 </div>
-                <textarea id="responsable" name="responsable" placeholder="Ingrese información" required></textarea>
+                <textarea id="responsable" name="responsable" placeholder="Ingrese información" spellcheck="true" required></textarea>
             </div>
 
             <div class="button-container">

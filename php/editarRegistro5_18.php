@@ -232,6 +232,15 @@ $conexion->close();
             color: #721c24;
         }
     </style>
+    <script>
+        // Convertir todos los campos de texto a mayúsculas al enviar el formulario
+        function convertirAMayusculas() {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            inputs.forEach(input => {
+                input.value = input.value.toUpperCase(); // Convierte a mayúsculas antes de enviar
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -250,7 +259,7 @@ $conexion->close();
             echo "</div>";
         }
         ?>
-        <form method="post" action="">
+        <form method="post" action="" onsubmit="convertirAMayusculas()">
             <label for="no">No:</label>
             <input type="number" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required min="1">
 

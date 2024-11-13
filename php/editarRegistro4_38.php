@@ -27,18 +27,18 @@ $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 // Obtener los datos actuales del registro
 $stmt = $conexion->prepare("
     SELECT 
-        f37.banco, 
-        f37.no_cuenta, 
-        f37.total, 
-        f37.utilizados, 
-        f37.por_utilizar, 
-        f37.cancelados, 
-        f37.informacion_al, 
-        f37.responsable 
+        f38.concepto, 
+            f38.serie, 
+            f38.del_folio, 
+            f38.al_folio, 
+            f38.area_responsable,
+            f38.observaciones,
+            f38.informacion_al, 
+            f38.responsable
     FROM 
-        formato_4_37 f37 
+        formato_4_38 f38 
     WHERE 
-        f37.formato_id = ?
+        f38.formato_id = ?
 ");
 if (!$stmt) {
     die("Error en la preparación de la consulta: " . $conexion->error);
@@ -73,50 +73,48 @@ $stmt_areas->close();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recuperar y sanitizar datos del formulario
-    $banco = isset($_POST['banco']) ? trim($_POST['banco']) : '';
-    $no_cuenta = isset($_POST['no_cuenta']) ? intval($_POST['no_cuenta']) : 0;
-    $total = isset($_POST['total']) ? intval($_POST['total']) : 0;
-    $utilizados = isset($_POST['utilizados']) ? intval($_POST['utilizados']) : 0;
-    $por_utilizar = isset($_POST['por_utilizar']) ? intval($_POST['por_utilizar']) : 0;
-    $cancelados = isset($_POST['cancelados']) ? intval($_POST['cancelados']) : 0;
+    $concepto = isset($_POST['concepto']) ? trim($_POST['concepto']) : '';
+    $serie = isset($_POST['serie']) ? trim($_POST['serie']) : '';
+    $al_folio = isset($_POST['al_folio']) ? intval($_POST['al_folio']) : 0;
+    $del_folio = isset($_POST['del_folio']) ? intval($_POST['del_folio']) : 0;
+    $area_responsable = isset($_POST['area_responsable']) ? trim($_POST['area_responsable']) : '';
+    $observaciones = isset($_POST['observaciones']) ? trim($_POST['observaciones']) : '';
     $informacion_al = isset($_POST['informacion_al']) ? trim($_POST['informacion_al']) : '';
     $responsable = isset($_POST['responsable']) ? trim($_POST['responsable']) : '';
 
-    // Validaciones básicas
+    // Validar datos
     $errores = [];
-    
-    if (empty($banco)) {
-        $errores[] = "El nombre del banco es obligatorio.";
+    if (empty($concepto)) {
+        $errores[] = "El campo 'concepto.' es obligatorio";
     }
-    if ($no_cuenta <= 0) {
-        $errores[] = "El no cuenta debe ser un valor positivo y numero";
+    if (empty($serie)) {
+        $errores[] = "El campo 'serie' es obligatorio.";
     }
-    if ($total <= 0) {
-        $errores[] = "El total debe ser un valor positivo  y numero";
+    if (empty($del_folio) || !is_numeric($del_folio)) {
+        $errores[] = "El campo 'del_folio' es obligatorio y debe ser numérico.";
     }
-    if ($utilizados <= 0) {
-        $errores[] = "utilizados debe ser un valor positivo  y numero";
+    if (empty($al_folio) || !is_numeric($al_folio)) {
+        $errores[] = "El campo 'al_folio' es obligatorio y debe ser numérico.";
     }
-    if ($por_utilizar <= 0) {
-        $errores[] = "El por utilizar debe ser un valor positivo  y numero";
+    if (empty($area_responsable)) {
+        $errores[] = "El campo 'area' es obligatorio.";
     }
-    if ($cancelados <= 0) {
-        $errores[] = "El cancelados debe ser un valor positivo y numero";
+    if (empty($observaciones)) {
+        $errores[] = "El campo 'observaciones' es obligatorio.";
     }
-    
 
     if (count($errores) === 0) {
         // Preparar la consulta de actualización
         $stmt_update = $conexion->prepare("
             UPDATE 
-                formato_4_37 
+            formato_4_38 
             SET 
-                banco = ?, 
-                no_cuenta = ?, 
-                total = ?, 
-                utilizados = ?, 
-                por_utilizar = ?, 
-                cancelados = ?, 
+                concepto = ?, 
+                serie = ?, 
+                del_folio = ?, 
+                al_folio = ?, 
+                area_responsable = ?, 
+                observaciones = ?, 
                 informacion_al = ?, 
                 responsable = ? 
             WHERE 
@@ -126,13 +124,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Error en la preparación de la consulta de actualización: " . $conexion->error);
         }
         $stmt_update->bind_param(
-            "siiiiissi",
-            $banco,
-            $no_cuenta,
-            $total,
-            $utilizados,
-            $por_utilizar,
-            $cancelados,
+            "ssiissssi",
+            $concepto,
+            $serie,
+            $del_folio,
+            $al_folio,
+            $area_responsable,
+            $observaciones,
             $informacion_al,
             $responsable,
             $id
@@ -140,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt_update->execute()) {
             // Redirigir con los mismos parámetros de la URL
-            header("Location: ../mostrarRegistros4_37.php?mensaje=Registro%20actualizado%20correctamente&area=" . urlencode($area) . "&clasificacion=" . urlencode($clasificacion) . "&anio=" . urlencode($anio) . "&search=" . urlencode($search) . "&pagina=" . urlencode($pagina));
+            header("Location: ../mostrarRegistros4_38.php?mensaje=Registro%20actualizado%20correctamente&area=" . urlencode($area) . "&clasificacion=" . urlencode($clasificacion) . "&anio=" . urlencode($anio) . "&search=" . urlencode($search) . "&pagina=" . urlencode($pagina));
             exit();
         } else {
             $errores[] = "Error al actualizar el registro: " . htmlspecialchars($stmt_update->error);
@@ -234,7 +232,7 @@ $conexion->close();
             color: #721c24;
         }
     </style>
-<script>
+    <script>
         // Convertir todos los campos de texto a mayúsculas al enviar el formulario
         function convertirAMayusculas() {
             const inputs = document.querySelectorAll('input[type="text"], textarea');
@@ -262,24 +260,23 @@ $conexion->close();
         }
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
+            <label for="concepto">CONCEPTO</label>
+            <textarea name="concepto" id="concepto" required><?php echo htmlspecialchars($registro['concepto']); ?></textarea>
 
-            <label for="banco">BANCO</label>
-            <input type="text" name="banco" id="banco" value="<?php echo htmlspecialchars($registro['banco']); ?>" required>
-            
-            <label for="no_cuenta">No:</label>
-            <input type="number" name="no_cuenta" id="no_cuenta" value="<?php echo htmlspecialchars($registro['no_cuenta']); ?>" required min="1">
+            <label for="serie">SERIE:</label>
+            <input type="text" name="serie" id="serie" value="<?php echo htmlspecialchars($registro['serie']); ?>" required>
 
-            <label for="total">No:</label>
-            <input type="number" name="total" id="total" value="<?php echo htmlspecialchars($registro['total']); ?>" required min="1">
+            <label for="del_folio">DEL FOLIO</label>
+            <input type="text" name="del_folio" id="del_folio" value="<?php echo htmlspecialchars($registro['del_folio']); ?>" required>
 
-            <label for="utilizados">No:</label>
-            <input type="number" name="utilizados" id="utilizados" value="<?php echo htmlspecialchars($registro['utilizados']); ?>" required min="1">
+            <label for="al_folio">AL FOLIO</label>
+            <input type="text" name="al_folio" id="al_folio" value="<?php echo htmlspecialchars($registro['al_folio']); ?>">
 
-            <label for="por_utilizar">No:</label>
-            <input type="number" name="por_utilizar" id="por_utilizar" value="<?php echo htmlspecialchars($registro['por_utilizar']); ?>" required min="1">
+            <label for="area_responsable">ÁREA</label>
+            <input type="text" name="area_responsable" id="area_responsable" value="<?php echo htmlspecialchars($registro['area_responsable']); ?>">
 
-            <label for="cancelados">No:</label>
-            <input type="number" name="cancelados" id="cancelados" value="<?php echo htmlspecialchars($registro['cancelados']); ?>" required min="1">
+            <label for="observaciones">OBSERVACIONES</label>
+            <textarea name="observaciones" id="observaciones" required><?php echo htmlspecialchars($registro['observaciones']); ?></textarea>
 
             <label for="informacion_al">Información Al:</label>
             <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
@@ -289,7 +286,7 @@ $conexion->close();
 
             <button type="submit">Actualizar</button>
         </form>
-        <a class="cancelar" href="../mostrarRegistros4_37.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
+        <a class="cancelar" href="../mostrarRegistros5_18.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
     </div>
 
 </body>

@@ -241,6 +241,15 @@ $conexion->close();
             color: #721c24;
         }
     </style>
+<script>
+        // Convertir todos los campos de texto a mayúsculas al enviar el formulario
+        function convertirAMayusculas() {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            inputs.forEach(input => {
+                input.value = input.value.toUpperCase(); // Convierte a mayúsculas antes de enviar
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -259,39 +268,39 @@ $conexion->close();
             echo "</div>";
         }
         ?>
-        <form method="post" action="">
+        <form method="post" action="" onsubmit="convertirAMayusculas()">
             <label for="no">No:</label>
             <input type="number" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required min="1">
 
             <label for="nombre_expediente">Nombre del Expediente:</label>
-            <input type="text" name="nombre_expediente" id="nombre_expediente" value="<?php echo htmlspecialchars($registro['nombre_expediente']); ?>" required>
+            <input type="text" name="nombre_expediente" id="nombre_expediente" spellcheck="true" value="<?php echo htmlspecialchars($registro['nombre_expediente']); ?>" required>
 
             <label for="serie_documental">Serie Documental:</label>
-            <input type="text" name="serie_documental" id="serie_documental" value="<?php echo htmlspecialchars($registro['serie_documental']); ?>" required>
+            <input type="text" name="serie_documental" id="serie_documental" spellcheck="true" value="<?php echo htmlspecialchars($registro['serie_documental']); ?>" required>
 
             <label for="clave">Clave:</label>
-            <input type="text" name="clave" id="clave" value="<?php echo htmlspecialchars($registro['clave']); ?>" required>
+            <input type="text" name="clave" id="clave" spellcheck="true" value="<?php echo htmlspecialchars($registro['clave']); ?>" required>
 
             <label for="descripcion_contenido">Descripción del Contenido:</label>
-            <textarea name="descripcion_contenido" id="descripcion_contenido" required><?php echo htmlspecialchars($registro['descripcion_contenido']); ?></textarea>
+            <textarea name="descripcion_contenido" id="descripcion_contenido" spellcheck="true" required><?php echo htmlspecialchars($registro['descripcion_contenido']); ?></textarea>
 
             <label for="resguardado">Resguardado:</label>
-            <input type="text" name="resguardado" id="resguardado" value="<?php echo htmlspecialchars($registro['resguardado']); ?>">
+            <input type="text" name="resguardado" id="resguardado" spellcheck="true" value="<?php echo htmlspecialchars($registro['resguardado']); ?>">
 
             <label for="confidencial">Confidencial:</label>
-            <input type="text" name="confidencial" id="confidencial" value="<?php echo htmlspecialchars($registro['confidencial']); ?>">
+            <input type="text" name="confidencial" id="confidencial" spellcheck="true" value="<?php echo htmlspecialchars($registro['confidencial']); ?>">
 
             <label for="vigencia_documental">Vigencia Documental:</label>
-            <input type="text" name="vigencia_documental" id="vigencia_documental" value="<?php echo htmlspecialchars($registro['vigencia_documental']); ?>">
+            <input type="text" name="vigencia_documental" id="vigencia_documental" spellcheck="true" value="<?php echo htmlspecialchars($registro['vigencia_documental']); ?>">
 
             <!-- Campos Ocultos para Área Responsable -->
-            <input type="hidden" name="area_responsable" value="<?php echo htmlspecialchars($registro['area_responsable']); ?>">
+            <input type="hidden" name="area_responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['area_responsable']); ?>">
 
             <label for="informacion_al">Información Al:</label>
-            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <input type="text" name="informacion_al" id="informacion_al" spellcheck="true" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
             <label for="responsable">Responsable:</label>
-            <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
+            <input type="text" name="responsable" id="responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
             <button type="submit">Actualizar</button>
         </form>

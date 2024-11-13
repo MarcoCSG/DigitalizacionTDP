@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "4.35", texto: "4.35 Arqueo de Caja" },
                     { valor: "4.36", texto: "4.36 Conciliaciones Bancarias" },
                     { valor: "4.37", texto: "4.37 Situación de Talonarios de Cheques", form: "mostrarregistros4_37.php" },
-                    { valor: "4.38", texto: "4.38 Inventario de Formas Valoradas" },
+                    { valor: "4.38", texto: "4.38 Inventario de Formas Valoradas", form: "mostrarregistros4_38.php" },
                     { valor: "5.1", texto: "5.1 Existencias de Almacén" },
                     { valor: "5.2", texto: "5.2 Inventario de Bienes Inmuebles, Infraestructura y Construcciones en Proceso" },
                     { valor: "5.3", texto: "5.3 Inventario de Bienes Muebles" },

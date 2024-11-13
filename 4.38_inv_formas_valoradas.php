@@ -25,7 +25,7 @@ if (empty($area) || empty($clasificacion)) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -35,6 +35,7 @@ if (empty($area) || empty($clasificacion)) {
     <link rel="icon" href="img/TDP-REDONDO.png" type="image/x-icon">
     <script src="js/mapeoER.js" defer></script> <!-- Cambia aquí -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         /* Muestra el texto tal como lo escribe el usuario */
         input[type="text"], textarea {
@@ -64,55 +65,64 @@ if (empty($area) || empty($clasificacion)) {
         <h3 id="clasificacionSeleccionada">Área: <?php echo htmlspecialchars($area); ?> | Clasificación: <?php echo htmlspecialchars($clasificacion); ?></h3>
 
         <!-- Formulario con método POST y action hacia subirFormato.php -->
-        <form method="POST" action="php/subirFormato9_1.php" onsubmit="convertirAMayusculas()">
+        <form method="POST" action="php/subirFormato4_38.php" onsubmit="convertirAMayusculas()">
             <!-- Campos ocultos para area y clasificacion -->
             <input type="hidden" name="area" value="<?php echo htmlspecialchars($area); ?>">
             <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
 
             <div class="form-group">
-                <label for="no">No.</label>
+                <label for="concepto">CONCEPTO</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
+                    <span class="tooltip">La denominación de la forma valorada. Ejemplo: Recibo Oficial, Forma del Registro Civil, etc.</span>
                 </div>
-                <input type="text" id="no" name="no" placeholder="INGRESE EL NÚMERO" spellcheck="true"> <!-- Agregado name -->
+                <textarea type="text" id="concepto" name="concepto" placeholder="Ingrese el concepto" spellcheck="true" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="actividad">ACTIVIDAD</label>
+                <label for="serie">SERIE</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">La descripción de las actividades a desarrollar o atender, durante los 90 días posteriores a la entrega y recepción municipal.</span>
+                    <span class="tooltip">La clave numérica o alfanumérica que corresponda al talonario o bloque de formas valoradas.</span>
                 </div>
-                <input type="text" id="actividad" name="actividad" placeholder="Ingrese la actividad" spellcheck="true"> <!-- Agregado name -->
+                <input type="text" id="serie" name="serie" placeholder="Ingrese la serie" spellcheck="true" > <!-- Agregado name -->
+            </div>
+
+
+            <div class="form-group">
+                <label for="del_folio">DEL FOLIO</label>
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">El número que corresponda a la primera y última forma del talonario o bloque.</span>
+                </div>
+                <input type="text" id="del_folio" name="del_folio" placeholder="Ingrese la cantidad de folios" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
-                <label for="fecha">FECHA</label>
+                <label for="al_folio">AL FOLIO</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">día, mes y año límite para llevarse a cabo o atender cada uno de los asuntos.</span>
+                    <span class="tooltip">El número que corresponda a la primera y última forma del talonario o bloque.</span>
                 </div>
-                <input type="date" id="fecha" name="fecha" placeholder="Ingrese la serie documental" spellcheck="true"> <!-- Agregado name -->
+                <input type="text" id="al_folio" name="al_folio" placeholder="Ingrese la cantidad de folios" spellcheck="true" > <!-- Agregado name -->
             </div>
 
+            <div class="form-group">
+                <label for="area_responsable">ÁREA</label>
+                <div class="tooltip-container">
+                    <button type="button" class="help-button">?</button>
+                    <span class="tooltip">El nombre del área responsable del control y resguardo de las formas valoradas.</span>
+                </div>
+                <input type="text" id="area_responsable" name="area_responsable" placeholder="Ingrese el área" spellcheck="true" > <!-- Agregado name -->
+            </div>
 
             <div class="form-group">
                 <label for="observaciones">OBSERVACIONES</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">Comentarios que se consideren importantes respecto a las actividades relacionadas.</span>
+                    <span class="tooltip">Los comentarios que se consideren importantes respecto a las formas valoradas existentes.</span>
                 </div>
-                <textarea id="observaciones" name="observaciones" placeholder="Ingrese la cantidad" spellcheck="true"></textarea> <!-- Agregado name -->
-            </div>
-
-            <div class="form-group">
-                <label for="area_responsable">ÁREA RESPONSABLE</label>
-                <div class="tooltip-container">
-                    <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El nombre del área administrativa responsable de llevar a cabo o atender cada una de las actividades relacionadas.</span>
-                </div>
-                <input type="text" id="area_responsable" name="area_responsable" placeholder="Ingrese nombre de la persona" spellcheck="true"> <!-- Agregado name -->
+                <textarea type="text" id="observaciones" name="observaciones" placeholder="Ingrese sus observaciones" spellcheck="true" required></textarea>
             </div>
 
             <div class="form-group">
@@ -128,7 +138,7 @@ if (empty($area) || empty($clasificacion)) {
                 <label for="responsable">RESPONSABLE DE LA INFORMACIÓN</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación</span>
+                    <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
                 </div>
                 <textarea id="responsable" name="responsable" placeholder="Ingrese información" spellcheck="true" required></textarea>
             </div>

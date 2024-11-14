@@ -24,16 +24,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `formato_4_38`
+-- Estructura de tabla para la tabla `formato_5_5`
 --
 
-CREATE TABLE `formato_4_38` (
+CREATE TABLE `formato_5_5` (
   `formato_id` int(11) NOT NULL,
-  `concepto`  text NOT NULL,
-  `serie` varchar(50) NOT NULL,
-  `del_folio` int(11) NOT NULL,
-  `al_folio` int(11) NOT NULL,
-  `area` varchar(100) NOT NULL,
+  `no` int(11) NOT NULL,
+  `clasificiacion_activo` varchar(255) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `ubicacion` varchar(255) NOT NULL,
   `observaciones` text NOT NULL,
   `informacion_al` text NOT NULL,
   `responsable` text NOT NULL
@@ -44,9 +43,9 @@ CREATE TABLE `formato_4_38` (
 --
 
 --
--- Indices de la tabla `formato_4_38`
+-- Indices de la tabla `formato_5_5`
 --
-ALTER TABLE `formato_4_38`
+ALTER TABLE `formato_5_5`
   ADD PRIMARY KEY (`formato_id`);
 
 --
@@ -54,47 +53,12 @@ ALTER TABLE `formato_4_38`
 --
 
 --
--- Filtros para la tabla `formato_4_38`
+-- Filtros para la tabla `formato_5_5`
 --
-ALTER TABLE `formato_4_38`
-  ADD CONSTRAINT `formato_4_38_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
+ALTER TABLE `formato_5_5`
+  ADD CONSTRAINT `formato_5_5_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
-CREATE TABLE `formato_5_1` (
-  `formato_id` int(11) NOT NULL,
-  `no` int(11) NOT NULL,
-  `articulo`  text NOT NULL,
-  `unidad_medida` varchar(255) NOT NULL,
-  `existencia` varchar(255) NOT NULL,
-  `costo_unitario` varchar(255) NOT NULL,
-  `importe` varchar(255) NOT NULL,
-  `informacion_al` text NOT NULL,
-  `responsable` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `formato_5_1`
---
-ALTER TABLE `formato_5_1`
-  ADD PRIMARY KEY (`formato_id`);
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `formato_5_1`
---
-ALTER TABLE `formato_5_1`
-  ADD CONSTRAINT `formato_5_1_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
-COMMIT;

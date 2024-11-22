@@ -269,16 +269,32 @@ $stmt_count->close();
         <span class="close" onclick="cerrarModalTDP()">&times;</span>
         <h2>Introduzca el nombre de las personas autorizadas para firmar y cualquier observación pertinente</h2>
         
-        <label for="elaboroTDP">Nombre de quien Elaboró:</label>
+        <label for="elaboroTDP">Nombre de quien Elaboró:
+            <span class="tooltip">?
+                <span class="tooltip-text">Ingrese el nombre completo de la persona que elaboró el documento.</span>
+            </span>
+        </label>
         <input type="text" id="elaboroTDP" spellcheck="true" required>
         
-        <label for="autorizoTDP">Nombre de quien Autorizó:</label>
+        <label for="autorizoTDP">Nombre de quien Autorizó:
+            <span class="tooltip">?
+                <span class="tooltip-text">Ingrese el nombre completo del representante legal de la empresa.</span>
+            </span>
+        </label>
         <input type="text" id="autorizoTDP" spellcheck="true" required>
         
-        <label for="supervisoTDP">Nombre de quien Supervisó:</label>
+        <label for="supervisoTDP">Nombre de quien Supervisó:
+            <span class="tooltip">?
+                <span class="tooltip-text">Ingrese el nombre completo de la persona que supervisó el documento.</span>
+            </span>
+        </label>
         <input type="text" id="supervisoTDP" spellcheck="true" required>
         
-        <label for="observacionesTDP">Observaciones:</label>
+        <label for="observacionesTDP">Observaciones:
+            <span class="tooltip">?
+                <span class="tooltip-text">Ingrese cualquier información adicional relevante.</span>
+            </span>
+        </label>
         <textarea id="observacionesTDP" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
         
         <button onclick="generarPDFTDP()">Generar PDF</button>
@@ -296,13 +312,25 @@ $stmt_count->close();
         <span class="close" onclick="cerrarModalMunicipio()">&times;</span>
         <h2>Introduzca el nombre de las personas autorizadas para firmar y cualquier observación pertinente</h2>
 
-        <label for="elaboroMunicipio">Nombre de quien Entrega:</label>
+        <label for="elaboroMunicipio">Nombre de quien Entrega:
+            <span class="tooltip">?
+                <span class="tooltip-text">El nombre completo, el cargo y la firma del servidor público responsable de la entrega (Presidente Municipal).</span>
+            </span>
+        </label>
         <input type="text" id="elaboroMunicipio" spellcheck="true" required>
 
-        <label for="autorizoMunicipio">Nombre de quien Recibe:</label>
+        <label for="autorizoMunicipio">Nombre de quien Recibe:
+            <span class="tooltip">?
+                <span class="tooltip-text">El nombre completo y la firma de la persona designada para recibir.</span>
+            </span>
+        </label>
         <input type="text" id="autorizoMunicipio" spellcheck="true" required>
         
-        <label for="observacionesMunicipio">Observaciones:</label>
+        <label for="observacionesMunicipio">Observaciones:
+            <span class="tooltip">?
+                <span class="tooltip-text">Ingrese cualquier información adicional relevante.</span>
+            </span>
+        </label>
         <textarea id="observacionesMunicipio" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
         
         <button onclick="generarPDFMunicipio()">Generar PDF</button>

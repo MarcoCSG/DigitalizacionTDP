@@ -253,30 +253,59 @@ $conexion->close();
         }
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
-            <label for="no">No:</label>
+            <label for="no">No:
+                <span class="tooltip">?
+                <span class="tooltip-text">El número consecutivo de los bienes muebles, inmuebles o intangibles no inventariados.</span>
+            </span>
+            </label>
             <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
 
-            <label for="clasificiacion_activo">CLASIFICACIÓN DEL ACTIVO</label>
+            <label for="clasificiacion_activo">CLASIFICACIÓN DEL ACTIVO
+            <span class="tooltip">?
+                <span class="tooltip-text">El tipo activo correspondiente al bien no inventariado, por ejemplo: Bienes Muebles, Bienes Inmuebles, Infraestructura y
+                Construcciones en Proceso, etc.</span>
+            </span>
+            </label>
             <input type="text" name="clasificiacion_activo" id="clasificiacion_activo" value="<?php echo htmlspecialchars($registro['clasificiacion_activo']); ?>" required>
 
-            <label for="descripcion">DESCRIPCIÓN</label>
+            <label for="descripcion">DESCRIPCIÓN
+            <span class="tooltip">?
+                <span class="tooltip-text">La denominación del bien mueble, inmueble o intangible no inventariado.</span>
+            </span>
+            </label>
             <input type="text" name="descripcion" id="descripcion" value="<?php echo htmlspecialchars($registro['descripcion']); ?>" required>
 
-            <label for="ubicacion">UBICACIÓN</label>
+            <label for="ubicacion">UBICACIÓN
+            <span class="tooltip">?
+                <span class="tooltip-text">El área física donde se ubica el bien; para obra pública indicar la dirección donde se está ejecutando.</span>
+            </span>
+            </label>
             <input type="text" name="ubicacion" id="ubicacion" value="<?php echo htmlspecialchars($registro['ubicacion']); ?>">
 
-            <label for="observaciones">OBSERVACIONES</label>
+            <label for="observaciones">OBSERVACIONES
+            <span class="tooltip">?
+                <span class="tooltip-text">Una breve descripción de las razones por las que el bien no se encuentra inventariado.</span>
+            </span>
+            </label>
             <input type="text" name="observaciones" id="observaciones" value="<?php echo htmlspecialchars($registro['observaciones']); ?>">
 
-            <label for="informacion_al">INFORMACIÓN AL</label>
+            <label for="informacion_al">INFORMACIÓN AL
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+            </span>
+            </label>
             <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
-            <label for="responsable">RESPONSABLE:</label>
+            <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+            </span>
+            </label>
             <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
             <button type="submit">Actualizar</button>
         </form>
-        <a class="cancelar" href="../mostrarregistros5_5.php?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
+        <a class="cancelar" href="../mostrarregistros5_5.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
     </div>
 
 </body>

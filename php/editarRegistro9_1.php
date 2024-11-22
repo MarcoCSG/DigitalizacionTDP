@@ -253,25 +253,53 @@ $conexion->close();
         }
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
-            <label for="no">No:</label>
+            <label for="no">No
+            <span class="tooltip">?
+                <span class="tooltip-text">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
+            </span>
+            </label>
             <input type="number" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required min="1">
 
-            <label for="actividad">ACTIVIDAD:</label>
+            <label for="actividad">ACTIVIDAD
+            <span class="tooltip">?
+                <span class="tooltip-text">La descripción de las actividades a desarrollar o atender, durante los 90 días posteriores a la entrega y recepción municipal.</span>
+            </span>
+            </label>
             <input type="text" name="actividad" id="actividad" value="<?php echo htmlspecialchars($registro['actividad']); ?>" required>
 
-            <label for="fecha">FECHA</label>
+            <label for="fecha">FECHA
+            <span class="tooltip">?
+                <span class="tooltip-text">día, mes y año límite para llevarse a cabo o atender cada uno de los asuntos.</span>
+            </span>
+            </label>
             <input type="text" name="fecha" id="lugar_movilidad_equipo" value="<?php echo htmlspecialchars($registro['fecha']); ?>" required>
 
-            <label for="observaciones">OBSERVACIONES</label>
+            <label for="observaciones">OBSERVACIONES
+            <span class="tooltip">?
+                <span class="tooltip-text">Comentarios que se consideren importantes respecto a las actividades relacionadas.</span>
+            </span>
+            </label>
             <textarea name="observaciones" id="observaciones" required><?php echo htmlspecialchars($registro['observaciones']); ?></textarea>
 
-            <label for="area_responsable">AREA RESPONSABLE</label>
+            <label for="area_responsable">AREA RESPONSABLE
+            <span class="tooltip">?
+                <span class="tooltip-text">El nombre del área administrativa responsable de llevar a cabo o atender cada una de las actividades relacionadas.</span>
+            </span>
+            </label>
             <input type="text" name="area_responsable" id="area_responsable" value="<?php echo htmlspecialchars($registro['area_responsable']); ?>">
 
-            <label for="informacion_al">Información Al:</label>
+            <label for="informacion_al">INFORMACIÓN AL
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+            </span>
+            </label>
             <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
-            <label for="responsable">Responsable:</label>
+            <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+            </span>
+            </label>
             <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
             <button type="submit">Actualizar</button>

@@ -49,7 +49,7 @@ form {
 }
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     font-weight: bold;
 }
 input[type="text"],
@@ -107,4 +107,35 @@ form button {
 }
 form button:hover {
     background-color: #559279;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: #007bff; /* Azul para destacar */
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Muestra el tooltip arriba */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }

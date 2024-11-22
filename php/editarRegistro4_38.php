@@ -260,33 +260,65 @@ $conexion->close();
         }
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
-            <label for="concepto">CONCEPTO</label>
+            <label for="concepto">CONCEPTO
+            <span class="tooltip">?
+                <span class="tooltip-text">La denominación de la forma valorada. Ejemplo: Recibo Oficial, Forma del Registro Civil, etc.</span>
+            </span>
+            </label>
             <textarea name="concepto" id="concepto" required><?php echo htmlspecialchars($registro['concepto']); ?></textarea>
 
-            <label for="serie">SERIE:</label>
+            <label for="serie">SERIE:
+                <span class="tooltip">?
+                <span class="tooltip-text">La clave numérica o alfanumérica que corresponda al talonario o bloque de formas valoradas.</span>
+            </span>
+            </label>
             <input type="text" name="serie" id="serie" value="<?php echo htmlspecialchars($registro['serie']); ?>" required>
 
-            <label for="del_folio">DEL FOLIO</label>
+            <label for="del_folio">DEL FOLIO
+            <span class="tooltip">?
+                <span class="tooltip-text">El número que corresponda a la primera y última forma del talonario o bloque.</span>
+            </span>
+            </label>
             <input type="text" name="del_folio" id="del_folio" value="<?php echo htmlspecialchars($registro['del_folio']); ?>" required>
 
-            <label for="al_folio">AL FOLIO</label>
+            <label for="al_folio">AL FOLIO
+            <span class="tooltip">?
+                <span class="tooltip-text">El número que corresponda a la primera y última forma del talonario o bloque.</span>
+            </span>
+            </label>
             <input type="text" name="al_folio" id="al_folio" value="<?php echo htmlspecialchars($registro['al_folio']); ?>">
 
-            <label for="area_responsable">ÁREA</label>
+            <label for="area_responsable">ÁREA
+            <span class="tooltip">?
+                <span class="tooltip-text">El nombre del área responsable del control y resguardo de las formas valoradas.</span>
+            </span>
+            </label>
             <input type="text" name="area_responsable" id="area_responsable" value="<?php echo htmlspecialchars($registro['area_responsable']); ?>">
 
-            <label for="observaciones">OBSERVACIONES</label>
+            <label for="observaciones">OBSERVACIONES
+            <span class="tooltip">?
+                <span class="tooltip-text">Los comentarios que se consideren importantes respecto a las formas valoradas existentes.</span>
+            </span>
+            </label>
             <textarea name="observaciones" id="observaciones" required><?php echo htmlspecialchars($registro['observaciones']); ?></textarea>
 
-            <label for="informacion_al">Información Al:</label>
+            <label for="informacion_al">INFORMACIÓN AL
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+            </span>
+            </label>
             <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
-            <label for="responsable">Responsable:</label>
+            <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+            </span>
+            </label>
             <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
             <button type="submit">Actualizar</button>
         </form>
-        <a class="cancelar" href="../mostrarRegistros5_18.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
+        <a class="cancelar" href="../mostrarRegistros4_38.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
     </div>
 
 </body>

@@ -263,28 +263,60 @@ $conexion->close();
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
 
-            <label for="banco">BANCO</label>
+            <label for="banco">BANCO
+            <span class="tooltip">?
+                <span class="tooltip-text"></span>
+            </span>
+            </label>
             <input type="text" name="banco" id="banco" value="<?php echo htmlspecialchars($registro['banco']); ?>" required>
             
-            <label for="no_cuenta">No:</label>
+            <label for="no_cuenta">NÚMERO DE CUENTA
+                <span class="tooltip">?
+                <span class="tooltip-text">Los dígitos asignados por la Institución Bancaria a cada cuenta de cheques.</span>
+            </span>
+            </label>
             <input type="number" name="no_cuenta" id="no_cuenta" value="<?php echo htmlspecialchars($registro['no_cuenta']); ?>" required min="1">
 
-            <label for="total">No:</label>
+            <label for="total">TOTAL
+                <span class="tooltip">?
+                <span class="tooltip-text">Los números del primer y último cheque, correspondiente a la cuenta bancaria de que se trate.</span>
+            </span>
+            </label>
             <input type="number" name="total" id="total" value="<?php echo htmlspecialchars($registro['total']); ?>" required min="1">
 
-            <label for="utilizados">No:</label>
+            <label for="utilizados">UTILIZADOS
+                <span class="tooltip">?
+                <span class="tooltip-text">Los números del primer y último cheque expedido, correspondiente a la cuenta bancaria de que se trate.</span>
+            </span>
+            </label>
             <input type="number" name="utilizados" id="utilizados" value="<?php echo htmlspecialchars($registro['utilizados']); ?>" required min="1">
 
-            <label for="por_utilizar">No:</label>
+            <label for="por_utilizar">POR UTILIZAR
+                <span class="tooltip">?
+                <span class="tooltip-text">Los números del primer y último cheque que se encuentran sin expedir, correspondiente a la cuenta bancaria de que se trate.</span>
+            </span>
+            </label>
             <input type="number" name="por_utilizar" id="por_utilizar" value="<?php echo htmlspecialchars($registro['por_utilizar']); ?>" required min="1">
 
-            <label for="cancelados">No:</label>
+            <label for="cancelados">CANCELADOS
+                <span class="tooltip">?
+                <span class="tooltip-text">Los números de los cheques que fueron cancelados, según la cuenta bancaria de que se trate.</span>
+            </span>
+            </label>
             <input type="number" name="cancelados" id="cancelados" value="<?php echo htmlspecialchars($registro['cancelados']); ?>" required min="1">
 
-            <label for="informacion_al">Información Al:</label>
+            <label for="informacion_al">INFORMACIÓN AL
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+            </span>
+            </label>
             <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
-            <label for="responsable">Responsable:</label>
+            <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+            </span>
+            </label>
             <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
             <button type="submit">Actualizar</button>
@@ -293,5 +325,4 @@ $conexion->close();
     </div>
 
 </body>
-
 </html>

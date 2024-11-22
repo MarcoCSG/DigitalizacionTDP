@@ -143,27 +143,56 @@ $conexion->close();
         <img src="../img/logoTDP.png" alt="Logo Empresa" class="imgEmpresa">
     </div>
     <div class="form-container">
+
         <form method="post" action="" onsubmit="convertirAMayusculas()">
-            <label for="no">No:</label>
+                <label for="no">No:
+                        <span class="tooltip">?
+                    <span class="tooltip-text">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
+                </span>
+            </label>
             <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
             
-            <label for="denominacion">Denominación:</label>
+            <label for="denominacion">Denominación:
+                <span class="tooltip">?
+                    <span class="tooltip-text">El nombre y tipo del documento de que se trate. Ejemplo: Manual General de Organización, Manual de Procedimientos de la Tesorería o Manual de Servicios.</span>
+                </span>
+            </label>
             <input type="text" name="denominacion" id="denominacion" spellcheck="true" value="<?php echo htmlspecialchars($registro['denominacion']); ?>" required>
             
-            <label for="publicacion_fecha">Fecha de Publicación:</label>
-            <input type="text" name="publicacion_fecha" id="publicacion_fecha" spellcheck="true" value="<?php echo htmlspecialchars($registro['publicacion_fecha']); ?>" required>
-            
-            <label for="informacion_al">Información Al:</label>
-            <input type="text" name="informacion_al" id="informacion_al" spellcheck="true" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
-            
-            <label for="fecha_autorizacion">Fecha de Autorización:</label>
+            <label for="fecha_autorizacion">Fecha de Autorización:
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se autorizó el manual administrativo referido.</span>
+            </span>
+            </label>
             <input type="date" name="fecha_autorizacion" id="fecha_autorizacion" spellcheck="true" value="<?php echo htmlspecialchars($registro['fecha_autorizacion']); ?>" required>
             
-            <label for="responsable">Responsable:</label>
-            <input type="text" name="responsable" id="responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
-            
-            <label for="observaciones">Observaciones:</label>
+            <label for="observaciones">Observaciones:
+                <span class="tooltip">?
+                <span class="tooltip-text">Los comentarios que se consideren importantes respecto a los manuales administrativos.</span>
+            </span>
+            </label>
             <textarea name="observaciones" id="observaciones" spellcheck="true" required><?php echo htmlspecialchars($registro['observaciones']); ?></textarea>
+            
+            <label for="publicacion_fecha">Fecha de Publicación:
+                <span class="tooltip">?
+                <span class="tooltip-text">El sitio de la publicación de los manuales y la fecha de la misma.</span>
+            </span>
+            </label>
+            <input type="text" name="publicacion_fecha" id="publicacion_fecha" spellcheck="true" value="<?php echo htmlspecialchars($registro['publicacion_fecha']); ?>" required>
+            
+            <label for="informacion_al">Información Al:
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato. Ejemplo: 15 de diciembre de 2021.</span>
+            </span>
+            </label>
+            <input type="text" name="informacion_al" id="informacion_al" spellcheck="true" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+                
+            <label for="responsable">Responsable:
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+            </span>
+            </label>
+            <input type="text" name="responsable" id="responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
             
             <button type="submit">Actualizar</button>
         </form>

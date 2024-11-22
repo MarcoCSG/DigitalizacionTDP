@@ -260,33 +260,65 @@ $conexion->close();
         }
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
-            <label for="no">No:</label>
+            <label for="no">No
+            <span class="tooltip">?
+                <span class="tooltip-text">El número consecutivo de los artículos relacionados.</span>
+            </span>
+            </label>
             <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
 
-            <label for="articulo">ARTÍCULO</label>
+            <label for="articulo">ARTÍCULO
+            <span class="tooltip">?
+                <span class="tooltip-text">La denominación del material en existencia, propiedad del Ayuntamiento.</span>
+            </span>
+            </label>
             <input type="text" name="articulo" id="articulo" value="<?php echo htmlspecialchars($registro['articulo']); ?>" required>
 
-            <label for="unidad_medida">UNIDAD DE MEDIDA</label>
+            <label for="unidad_medida">UNIDAD DE MEDIDA
+            <span class="tooltip">?
+                <span class="tooltip-text">La expresión o concepto con la que se contabilizan los materiales.</span>
+            </span>
+            </label>
             <input type="text" name="unidad_medida" id="unidad_medida" value="<?php echo htmlspecialchars($registro['unidad_medida']); ?>" required>
 
-            <label for="existencia">EXISTENCIA</label>
+            <label for="existencia">EXISTENCIA
+            <span class="tooltip">?
+                <span class="tooltip-text">La cantidad existente de cada uno de los materiales.</span>
+            </span>
+            </label>
             <input type="text" name="existencia" id="existencia" value="<?php echo htmlspecialchars($registro['existencia']); ?>">
 
-            <label for="costo_unitario">COSTO UNITARIO</label>
+            <label for="costo_unitario">COSTO UNITARIO
+            <span class="tooltip">?
+                <span class="tooltip-text">El valor establecido en la factura para los materiales por unidad de medida.</span>
+            </span>
+            </label>
             <input type="text" name="costo_unitario" id="costo_unitario" value="<?php echo htmlspecialchars($registro['costo_unitario']); ?>">
 
-            <label for="importe">IMPORTE</label>
+            <label for="importe">IMPORTE
+            <span class="tooltip">?
+                <span class="tooltip-text">El valor establecido en la factura para los materiales por unidad de medida.</span>
+            </span>
+            </label>
             <input type="text" name="importe" id="importe" value="<?php echo htmlspecialchars($registro['importe']); ?>">
 
-            <label for="informacion_al">INFORMACIÓN AL</label>
+            <label for="informacion_al">INFORMACIÓN AL
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+            </span>
+            </label>
             <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
-            <label for="responsable">RESPONSABLE:</label>
+            <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+            </span>
+            </label>
             <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
             <button type="submit">Actualizar</button>
         </form>
-        <a class="cancelar" href="../mostrarregistros5_1.php?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
+        <a class="cancelar" href="../mostrarregistros5_1.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
     </div>
 
 </body>

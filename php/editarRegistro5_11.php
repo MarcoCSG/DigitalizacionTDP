@@ -269,38 +269,82 @@ $conexion->close();
         }
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
-            <label for="no">No:</label>
+            <label for="no">No:
+                <span class="tooltip">?
+                <span class="tooltip-text">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
+            </span>
+            </label>
             <input type="number" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required min="1">
 
-            <label for="nombre_expediente">Nombre del Expediente:</label>
+            <label for="nombre_expediente">NOMBRE DEL EXPEDIENTE:
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre con el que se identifican los documentos que integran el expediente.</span>
+            </span>
+            </label>
             <input type="text" name="nombre_expediente" id="nombre_expediente" spellcheck="true" value="<?php echo htmlspecialchars($registro['nombre_expediente']); ?>" required>
 
-            <label for="serie_documental">Serie Documental:</label>
+            <label for="serie_documental">SERIE DOCUMENTAL:
+                <span class="tooltip">?
+                <span class="tooltip-text">La división que corresponde al conjunto de documentos producidos en el desarrollo de una misma atribución general.</span>
+            </span>
+            </label>
             <input type="text" name="serie_documental" id="serie_documental" spellcheck="true" value="<?php echo htmlspecialchars($registro['serie_documental']); ?>" required>
 
-            <label for="clave">Clave:</label>
+            <label for="clave">CLAVE
+            <span class="tooltip">?
+                <span class="tooltip-text">La clave alfanumérica con la que se identifican los niveles de archivo al que pertenece el expediente.</span>
+            </span>
+            </label>
             <input type="text" name="clave" id="clave" spellcheck="true" value="<?php echo htmlspecialchars($registro['clave']); ?>" required>
 
-            <label for="descripcion_contenido">Descripción del Contenido:</label>
+            <label for="descripcion_contenido">DESCRIPCIÓN DEL CONTENIDO DE LA SERIE:
+                <span class="tooltip">?
+                <span class="tooltip-text">Una breve explicación del contenido de la serie, especificando la materia o asunto del que versa.</span>
+            </span>
+            </label>
             <textarea name="descripcion_contenido" id="descripcion_contenido" spellcheck="true" required><?php echo htmlspecialchars($registro['descripcion_contenido']); ?></textarea>
 
-            <label for="resguardado">Resguardado:</label>
+            <label for="resguardado">Resguardado:
+                <span class="tooltip">?
+                <span class="tooltip-text">Marca una “X” si la información contiene documentos reservados o confidenciales, según corresponda.</span>
+            </span>
+            </label>
             <input type="text" name="resguardado" id="resguardado" spellcheck="true" value="<?php echo htmlspecialchars($registro['resguardado']); ?>">
 
-            <label for="confidencial">Confidencial:</label>
+            <label for="confidencial">Confidencial:
+                <span class="tooltip">?
+                <span class="tooltip-text">Marca una “X” si la información contiene documentos reservados o confidenciales, según corresponda.</span>
+            </span>
+            </label>
             <input type="text" name="confidencial" id="confidencial" spellcheck="true" value="<?php echo htmlspecialchars($registro['confidencial']); ?>">
 
-            <label for="vigencia_documental">Vigencia Documental:</label>
+            <label for="vigencia_documental">VIGENCIA DOCUMENTAL:
+                <span class="tooltip">?
+                <span class="tooltip-text">El periodo durante el cual un documento deberá permanecer como archivo de trámite.</span>
+            </span>
+            </label>
             <input type="text" name="vigencia_documental" id="vigencia_documental" spellcheck="true" value="<?php echo htmlspecialchars($registro['vigencia_documental']); ?>">
 
-            <!-- Campos Ocultos para Área Responsable -->
+            <label for="area_responsable">AREA RESPONSABLE
+            <span class="tooltip">?
+                <span class="tooltip-text">El nombre del área que desarrolla o elabora el documento, la cual será responsable de su resguardo.</span>
+            </span>
+            </label>
             <input type="hidden" name="area_responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['area_responsable']); ?>">
 
-            <label for="informacion_al">Información Al:</label>
-            <input type="text" name="informacion_al" id="informacion_al" spellcheck="true" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <label for="informacion_al">INFORMACIÓN AL
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+            </span>
+            </label>
+            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
-            <label for="responsable">Responsable:</label>
-            <input type="text" name="responsable" id="responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
+            <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+            </span>
+            </label>
+            <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
             <button type="submit">Actualizar</button>
         </form>

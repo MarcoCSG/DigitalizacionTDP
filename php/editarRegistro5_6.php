@@ -253,30 +253,58 @@ $conexion->close();
         }
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
-            <label for="no">No:</label>
+            <label for="no">No:
+                <span class="tooltip">?
+                <span class="tooltip-text">El número consecutivo de los bienes relacionados.</span>
+            </span>
+            </label>
             <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
 
-            <label for="tipo_bien">TIPO DE BIEN</label>
+            <label for="tipo_bien">TIPO DE BIEN
+            <span class="tooltip">?
+                <span class="tooltip-text">El tipo de bien que se encuentra en préstamo o comodato.</span>
+            </span>
+            </label>
             <input type="text" name="tipo_bien" id="tipo_bien" value="<?php echo htmlspecialchars($registro['tipo_bien']); ?>" required>
 
-            <label for="propietario">PROPIETARIO</label>
+            <label for="propietario">PROPIETARIO
+            <span class="tooltip">?
+                <span class="tooltip-text">La Dependencia, Entidad, Persona Física o Moral dueña del bien en préstamo o comodato.</span>
+            </span>
+            </label>
             <input type="text" name="propietario" id="propietario" value="<?php echo htmlspecialchars($registro['propietario']); ?>" required>
 
-            <label for="vigencia">VIGENCIA</label>
+            <label for="vigencia">VIGENCIA
+            <span class="tooltip">?
+                <span class="tooltip-text">El periodo durante el cual el bien deberá permanecer en préstamo o comodato.</span>
+            </span>
+            </label>
             <input type="text" name="vigencia" id="vigencia" value="<?php echo htmlspecialchars($registro['vigencia']); ?>">
 
-            <label for="observaciones">OBSERVACIONES</label>
+            <label for="observaciones">OBSERVACIONES
+            <span class="tooltip">?
+                <span class="tooltip-text">Los comentarios que se consideren importantes respecto de los bienes en préstamo o comodato relacionados.</span>
+            </span>
+            </label>
             <input type="text" name="observaciones" id="observaciones" value="<?php echo htmlspecialchars($registro['observaciones']); ?>">
 
-            <label for="informacion_al">INFORMACIÓN AL</label>
+            <label for="informacion_al">INFORMACIÓN AL
+                <span class="tooltip">?
+                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+            </span>
+            </label>
             <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
-            <label for="responsable">RESPONSABLE:</label>
+            <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
+                <span class="tooltip">?
+                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+            </span>
+            </label>
             <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
             <button type="submit">Actualizar</button>
         </form>
-        <a class="cancelar" href="../mostrarregistros5_6.php?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
+        <a class="cancelar" href="../mostrarregistros5_6.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
     </div>
 
 </body>

@@ -79,18 +79,21 @@ $query = "SELECT
             f.municipio, 
             f.anio, 
             f.ruta_archivo, 
-            f56.no, 
-            f56.tipo_bien, 
-            f56.propietario, 
-            f56.vigencia, 
-            f56.observaciones, 
-            f56.informacion_al, 
-            f56.responsable, 
+            f58.no, 
+            f58.ubicacion, 
+            f58.colindancias, 
+            f58.superficie_total, 
+            f58.documento_aval, 
+            f58.valor, 
+            f58.uso_actual, 
+            f58.observaciones, 
+            f58.informacion_al, 
+            f58.responsable, 
             u.usuario AS nombre_usuario
           FROM 
             formatos f
           JOIN 
-            formato_5_6 f56 ON f.id = f56.formato_id
+            formato_5_8 f58 ON f.id = f58.formato_id
           JOIN 
             usuarios u ON f.usuarios_id = u.id
           WHERE 
@@ -115,7 +118,7 @@ if ($clasificacion_id !== null) {
 }
 
 if (!empty($search)) {
-    $query .= " AND (f56.tipo_bien LIKE ? OR f56.observaciones LIKE ?)";
+    $query .= " AND (f58.ubicacion LIKE ? OR f58.uso_actual LIKE ?)";
     $types .= "ss"; // s: string, s: string
     $search_param = "%" . $search . "%";
     $params[] = $search_param;
@@ -144,7 +147,7 @@ $result = $stmt->get_result();
 // Obtener el total de registros para calcular el número de páginas
 $query_count = "SELECT COUNT(*) as total 
                 FROM formatos f
-                JOIN formato_5_6 f56 ON f.id = f56.formato_id
+                JOIN formato_5_8 f58 ON f.id = f58.formato_id
                 JOIN usuarios u ON f.usuarios_id = u.id
                 WHERE f.municipio = ? 
                   AND f.anio = ?";
@@ -165,7 +168,7 @@ if ($clasificacion_id !== null) {
 }
 
 if (!empty($search)) {
-    $query_count .= " AND (f56.tipo_bien LIKE ? OR f56.observaciones LIKE ?)";
+    $query_count .= " AND (f58.ubicacion LIKE ? OR f58.observaciones LIKE ?)";
     $types_count .= "ss";
     $params_count[] = $search_param;
     $params_count[] = $search_param;
@@ -218,7 +221,7 @@ $stmt_count->close();
     ?>
 
 <div class="search-container">
-        <form method="get" action="mostrarregistros5_6.php"> <!-- Cambiar a un archivo específico para 5_11 si es necesario -->
+        <form method="get" action="mostrarregistros5_8.php"> <!-- Cambiar a un archivo específico para 5_11 si es necesario -->
             <input type="text" name="search" placeholder="Buscar archivo..." value="<?php echo htmlspecialchars($search); ?>">
             <input type="hidden" name="anio" value="<?php echo htmlspecialchars($anio); ?>">
             <?php if ($area_nombre !== null): ?>
@@ -366,7 +369,7 @@ function generarPDFTDP() {
     const area = "<?php echo addslashes($area_nombre); ?>";
     const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
 
-    const url = `php/generarPDF5_6.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}&observaciones=${encodeURIComponent(observaciones)}`;
+    const url = `php/generarPDF5_8.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}&observaciones=${encodeURIComponent(observaciones)}`;
     
     window.open(url, '_blank');
     cerrarModalTDP();
@@ -396,7 +399,7 @@ function generarPDFMunicipio() {
     const area = "<?php echo addslashes($area_nombre); ?>";
     const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
 
-    const url = `php/generarPDF5_6_municipio.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&observaciones=${encodeURIComponent(observaciones)}`;
+    const url = `php/generarPDF5_8_municipio.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&observaciones=${encodeURIComponent(observaciones)}`;
     
     window.open(url, '_blank');
     cerrarModalMunicipio();
@@ -424,9 +427,12 @@ window.onclick = function(event) {
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>TIPO DE BIEN</th>
-                        <th>PROPIETARIO</th>
-                        <th>VIGENCIA</th>
+                        <th>UBICACIÓN</th>
+                        <th>COLINDANCIAS</th>
+                        <th>SUPERFICIE TOTAL</th>
+                        <th>DOCUMENTO QUE AVALE LA PROPIEDAD</th>
+                        <th>VALOR</th>
+                        <th>USO ACTUAL</th>
                         <th>OBSERVACIONES</th>
                         <th>INFORMACIÓN AL</th>
                         <th>RESPONSABLE</th>
@@ -447,15 +453,18 @@ window.onclick = function(event) {
 
             echo "<tr>
                     <td>" . htmlspecialchars($row['no']) . "</td>
-                    <td>" . htmlspecialchars($row['tipo_bien']) . "</td>
-                    <td>" . htmlspecialchars($row['propietario']) . "</td>
-                    <td>" . htmlspecialchars($row['vigencia']) . "</td>
+                    <td>" . htmlspecialchars($row['ubicacion']) . "</td>
+                    <td>" . htmlspecialchars($row['colindancias']) . "</td>
+                    <td>" . htmlspecialchars($row['superficie_total']) . "</td>
+                    <td>" . htmlspecialchars($row['documento_aval']) . "</td>
+                    <td>" . htmlspecialchars($row['valor']) . "</td>
+                    <td>" . htmlspecialchars($row['uso_actual']) . "</td>
                     <td>" . htmlspecialchars($row['observaciones']) . "</td>
                     <td>" . htmlspecialchars($row['informacion_al']) . "</td>
                     <td>" . htmlspecialchars($row['responsable']) . "</td>
                     <td class='acciones'>
-                        <a href='php/editarRegistro5_6.php?id=" . urlencode($row['formato_id']) . "&$query_string'>Editar</a> | 
-                        <a href='php/eliminarRegistro5_6.php?id=" . urlencode($row['formato_id']) . "&$query_string' class='boton-eliminar' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'> Eliminar</a>
+                        <a href='php/editarRegistro5_8.php?id=" . urlencode($row['formato_id']) . "&$query_string'>Editar</a> | 
+                        <a href='php/eliminarRegistro5_8.php?id=" . urlencode($row['formato_id']) . "&$query_string' class='boton-eliminar' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este registro?\");'> Eliminar</a>
                     </td>
                     </tr>";
         }

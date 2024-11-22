@@ -27,18 +27,20 @@ $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 // Obtener los datos actuales del registro
 $stmt = $conexion->prepare("
     SELECT 
-        f18.no, 
-            f18.clave, 
-            f18.lugar_movilidad_equipo, 
-            f18.cantidad, 
-            f18.en_poder, 
-            f18.cantidad_copias,
-            f18.informacion_al, 
-            f18.responsable
+        f58.no, 
+            f58.ubicacion, 
+            f58.colindancias, 
+            f58.superficie_total,
+            f58.documento_aval, 
+            f58.valor, 
+            f58.uso_actual, 
+            f58.observaciones, 
+            f58.informacion_al, 
+            f58.responsable
     FROM 
-        formato_5_18 f18 
+        formato_5_8 f58 
     WHERE 
-        f18.formato_id = ?
+        f58.formato_id = ?
 ");
 if (!$stmt) {
     die("Error en la preparación de la consulta: " . $conexion->error);
@@ -74,47 +76,58 @@ $stmt_areas->close();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recuperar y sanitizar datos del formulario
     $no = isset($_POST['no']) ? intval($_POST['no']) : 0;
-    $clave = isset($_POST['clave']) ? trim($_POST['clave']) : '';
-    $lugar_movilidad_equipo = isset($_POST['lugar_movilidad_equipo']) ? trim($_POST['lugar_movilidad_equipo']) : '';
-    $cantidad = isset($_POST['cantidad']) ? trim($_POST['cantidad']) : '';
-    $en_poder = isset($_POST['en_poder']) ? trim($_POST['en_poder']) : '';
-    $cantidad_copias = isset($_POST['cantidad_copias']) ? trim($_POST['cantidad_copias']) : '';
+    $ubicacion = isset($_POST['ubicacion']) ? trim($_POST['ubicacion']) : '';
+    $colindancias = isset($_POST['colindancias']) ? trim($_POST['colindancias']) : '';
+    $superficie_total = isset($_POST['superficie_total']) ? trim($_POST['superficie_total']) : '';
+    $documento_aval = isset($_POST['documento_aval']) ? trim($_POST['documento_aval']) : '';
+    $valor = isset($_POST['valor']) ? trim($_POST['valor']) : '';
+    $uso_actual = isset($_POST['uso_actual']) ? trim($_POST['uso_actual']) : '';
+    $observaciones = isset($_POST['observaciones']) ? trim($_POST['observaciones']) : '';
     $informacion_al = isset($_POST['informacion_al']) ? trim($_POST['informacion_al']) : '';
     $responsable = isset($_POST['responsable']) ? trim($_POST['responsable']) : '';
 
     // Validar datos
     $errores = [];
     if (empty($no) || !is_numeric($no)) {
-        $errores[] = "El campo 'No.' es obligatorio y debe ser numérico.";
+        $errores[] = "El campo 'no' es obligatorio y debe ser numérico.";
     }
-    if (empty($clave)) {
-        $errores[] = "El campo 'CLAVE' es obligatorio.";
+    if (empty($ubicacion)) {
+        $errores[] = "El campo 'clasificiacion del activo' es obligatorio.";
     }
-    if (empty($lugar_movilidad_equipo)) {
-        $errores[] = "El campo 'LUGAR, MOVILIARIO O EQUIPO' es obligatorio.";
+    if (empty($colindancias)) {
+        $errores[] = "El campo 'colindancias' es obligatorio.";
     }
-    if (empty($cantidad) || !is_numeric($cantidad)) {
-        $errores[] = "El campo 'CANTIDAD' es obligatorio y debe ser numérico.";
+    if (empty($superficie_total)) {
+        $errores[] = "El campo 'superficie_total' es obligatorio.";
     }
-    if (empty($en_poder)) {
-        $errores[] = "El campo 'EN PODER DE' es obligatorio.";
+    if (empty($documento_aval)) {
+        $errores[] = "El campo 'documento_aval' es obligatorio.";
     }
-    if (empty($cantidad_copias) || !is_numeric($cantidad_copias)) {
-        $errores[] = "El campo 'CANTIDAD(COPIAS)' es obligatorio y debe ser numérico.";
+    if (empty($valor)) {
+        $errores[] = "El campo 'valor' es obligatorio.";
     }
+    if (empty($uso_actual)) {
+        $errores[] = "El campo 'uso_actual' es obligatorio.";
+    }
+    if (empty($observaciones)) {
+        $errores[] = "El campo 'observaciones' es obligatorio.";
+    }
+    
 
     if (count($errores) === 0) {
         // Preparar la consulta de actualización
         $stmt_update = $conexion->prepare("
             UPDATE 
-                formato_5_18 
+            formato_5_8 
             SET 
                 no = ?, 
-                clave = ?, 
-                lugar_movilidad_equipo = ?, 
-                cantidad = ?, 
-                en_poder = ?, 
-                cantidad_copias = ?, 
+                ubicacion = ?, 
+                colindancias = ?, 
+                superficie_total = ?, 
+                documento_aval = ?, 
+                valor = ?, 
+                uso_actual = ?, 
+                observaciones = ?,
                 informacion_al = ?, 
                 responsable = ? 
             WHERE 
@@ -124,13 +137,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Error en la preparación de la consulta de actualización: " . $conexion->error);
         }
         $stmt_update->bind_param(
-            "issisissi",
+            "isssssssssi",
             $no,
-            $clave,
-            $lugar_movilidad_equipo,
-            $cantidad,
-            $en_poder,
-            $cantidad_copias,
+            $ubicacion,
+            $colindancias,
+            $superficie_total,
+            $documento_aval,
+            $valor,
+            $uso_actual,
+            $observaciones,
             $informacion_al,
             $responsable,
             $id
@@ -138,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt_update->execute()) {
             // Redirigir con los mismos parámetros de la URL
-            header("Location: ../mostrarRegistros5_18.php?mensaje=Registro%20actualizado%20correctamente&area=" . urlencode($area) . "&clasificacion=" . urlencode($clasificacion) . "&anio=" . urlencode($anio) . "&search=" . urlencode($search) . "&pagina=" . urlencode($pagina));
+            header("Location: ../mostrarRegistros5_8.php?mensaje=Registro%20actualizado%20correctamente&area=" . urlencode($area) . "&clasificacion=" . urlencode($clasificacion) . "&anio=" . urlencode($anio) . "&search=" . urlencode($search) . "&pagina=" . urlencode($pagina));
             exit();
         } else {
             $errores[] = "Error al actualizar el registro: " . htmlspecialchars($stmt_update->error);
@@ -249,77 +264,92 @@ $conexion->close();
         <img src="../img/logoTDP.png" alt="Logo Empresa" class="imgEmpresa">
     </div>
     <div class="form-container">
-        <?php
-        // Mostrar errores si existen
-        if (isset($errores) && count($errores) > 0) {
-            echo "<div class='errores'>";
-            foreach ($errores as $error) {
-                echo "<p>" . htmlspecialchars($error) . "</p>";
-            }
-            echo "</div>";
+    <?php
+    // Mostrar errores si existen
+    if (isset($errores) && count($errores) > 0) {
+        echo "<div class='errores'>";
+        foreach ($errores as $error) {
+            echo "<p>" . htmlspecialchars($error) . "</p>";
         }
-        ?>
-        <form method="post" action="" onsubmit="convertirAMayusculas()">
-            <label for="no">No:
-                <span class="tooltip">?
-                <span class="tooltip-text">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
-            </span>
-            </label>
-            <input type="number" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required min="1">
-
-            <label for="clave">CLAVE
-                <span class="tooltip">?
-                <span class="tooltip-text">La identificación numérica o alfanumérica asignada a las llaves que se entregan.</span>
-            </span>
-            </label>
-            <input type="text" name="clave" id="clave" value="<?php echo htmlspecialchars($registro['clave']); ?>" required>
-
-            <label for="lugar_movilidad_equipo">LUGAR, MOVILIARIO O EQUIPO
+        echo "</div>";
+    }
+    ?>
+    <form method="post" action="" onsubmit="convertirAMayusculas()">
+        <label for="no">No:
             <span class="tooltip">?
-                <span class="tooltip-text">La denominación del espacio físico o del bien que permite abrir la llave. Ejemplo: Presidencia Municipal, sala de juntas, etc</span>
+                <span class="tooltip-text">El número consecutivo de las reservas territoriales relacionadas (1, 2, 3, etc.).</span>
             </span>
-            </label>
-            <input type="text" name="lugar_movilidad_equipo" id="lugar_movilidad_equipo" value="<?php echo htmlspecialchars($registro['lugar_movilidad_equipo']); ?>" required>
+        </label>
+        <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
 
-            <label for="cantidad">CANTIDAD
+        <label for="ubicacion">UBICACIÓN
             <span class="tooltip">?
-                <span class="tooltip-text">El número de llaves que se están entregando.</span>
+                <span class="tooltip-text"></span>
             </span>
-            </label>
-            <input type="text" name="cantidad" id="cantidad" value="<?php echo htmlspecialchars($registro['cantidad']); ?>">
+        </label>
+        <input type="text" name="ubicacion" id="ubicacion" value="<?php echo htmlspecialchars($registro['ubicacion']); ?>" required>
 
-            <label for="en_poder">EN PODER DE
+        <label for="colindancias">COLINDANCIAS
             <span class="tooltip">?
-                <span class="tooltip-text">El nombre y cargo de la persona que tiene en su poder un duplicado de la llave.</span>
+                <span class="tooltip-text">La descripción de las características de colindancia al norte, sur, este y oeste de la reserva territorial.</span>
             </span>
-            </label>
-            <input type="text" name="en_poder" id="en_poder" value="<?php echo htmlspecialchars($registro['en_poder']); ?>">
+        </label>
+        <input type="text" name="colindancias" id="colindancias" value="<?php echo htmlspecialchars($registro['colindancias']); ?>" required>
 
-            <label for="cantidad_copias">CANTIDAD (COPIAS)
+        <label for="superficie_total">SUPERFICIE TOTAL
             <span class="tooltip">?
-                <span class="tooltip-text">El número de duplicados que tenga en su poder la persona referida.</span>
+                <span class="tooltip-text">Los metros cuadrados que conforman la reserva territorial.</span>
             </span>
-            </label>
-            <input type="text" name="cantidad_copias" id="cantidad_copias" value="<?php echo htmlspecialchars($registro['cantidad_copias']); ?>">
+        </label>
+        <input type="text" name="superficie_total" id="superficie_total" value="<?php echo htmlspecialchars($registro['superficie_total']); ?>">
 
-            <label for="informacion_al">INFORMACIÓN AL
-                <span class="tooltip">?
+        <label for="documento_aval">DOCUMENTO QUE AVALE LA PROPIEDAD
+            <span class="tooltip">?
+                <span class="tooltip-text">El tipo y número de documento oficial que avala la propiedad.</span>
+            </span>
+        </label>
+        <input type="text" name="documento_aval" id="documento_aval" value="<?php echo htmlspecialchars($registro['documento_aval']); ?>">
+
+        <label for="valor">VALOR
+            <span class="tooltip">?
+                <span class="tooltip-text">La cantidad monetaria que corresponde a cada reserva territorial, ya sea de acuerdo al valor catastral o de avalúo (cifras en pesos),
+                según corresponda.</span>
+            </span>
+        </label>
+        <input type="text" name="valor" id="valor" value="<?php echo htmlspecialchars($registro['valor']); ?>">
+
+        <label for="uso_actual">USO ACTUAL
+            <span class="tooltip">?
+                <span class="tooltip-text">La descripción del uso que se le da a la reserva territorial. </span>
+            </span>
+        </label>
+        <input type="text" name="uso_actual" id="uso_actual" value="<?php echo htmlspecialchars($registro['uso_actual']); ?>">
+
+        <label for="observaciones">OBSERVACIONES
+            <span class="tooltip">?
+                <span class="tooltip-text">Los comentarios que se consideren importantes respecto a la información catastral.</span>
+            </span>
+        </label>
+        <input type="text" name="observaciones" id="observaciones" value="<?php echo htmlspecialchars($registro['observaciones']); ?>">
+
+        <label for="informacion_al">INFORMACIÓN AL
+            <span class="tooltip">?
                 <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
             </span>
-            </label>
-            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+        </label>
+        <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
-            <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
-                <span class="tooltip">?
+        <label for="responsable">RESPONSABLE:
+            <span class="tooltip">?
                 <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
             </span>
-            </label>
-            <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
+        </label>
+        <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 
-            <button type="submit">Actualizar</button>
-        </form>
-        <a class="cancelar" href="../mostrarRegistros5_18.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
-    </div>
+        <button type="submit">Actualizar</button>
+    </form>
+    <a class="cancelar" href="../mostrarregistros5_8.php?area=<?php echo urlencode($area); ?>&clasificacion=<?php echo urlencode($clasificacion); ?>&anio=<?php echo urlencode($anio); ?>&search=<?php echo urlencode($search); ?>&pagina=<?php echo urlencode($pagina); ?>">Cancelar</a>
+</div>
 
 </body>
 

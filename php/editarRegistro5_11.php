@@ -84,7 +84,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $resguardado = isset($_POST['resguardado']) ? trim($_POST['resguardado']) : '';
     $confidencial = isset($_POST['confidencial']) ? trim($_POST['confidencial']) : '';
     $vigencia_documental = isset($_POST['vigencia_documental']) ? trim($_POST['vigencia_documental']) : '';
+    $area_responsable = isset($_POST['area_responsable']) ? trim($_POST['area_responsable']) : '';
     $informacion_al = isset($_POST['informacion_al']) ? trim($_POST['informacion_al']) : '';
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
     $responsable = isset($_POST['responsable']) ? trim($_POST['responsable']) : '';
 
     // Validaciones básicas
@@ -104,9 +109,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($descripcion_contenido)) {
         $errores[] = "La descripción del contenido es obligatoria.";
     }
-    if (empty($responsable)) {
-        $errores[] = "El responsable es obligatorio.";
+    if (empty($area_responsable)) {
+        $errores[] = "El area responsable es obligatorio.";
     }
+
 
     if (count($errores) === 0) {
         // Preparar la consulta de actualización
@@ -122,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 resguardado = ?, 
                 confidencial = ?, 
                 vigencia_documental = ?, 
+                area_responsable = ?, 
                 informacion_al = ?, 
                 responsable = ? 
             WHERE 
@@ -131,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Error en la preparación de la consulta de actualización: " . $conexion->error);
         }
         $stmt_update->bind_param(
-            "isssssssssi",
+            "issssssssssi",
             $no,
             $nombre_expediente,
             $serie_documental,
@@ -140,6 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $resguardado,
             $confidencial,
             $vigencia_documental,
+            $area_responsable,
             $informacion_al,
             $responsable,
             $id
@@ -189,6 +197,8 @@ $conexion->close();
 
         form input[type="text"],
         form input[type="number"],
+        form input[type="date"],
+
         form textarea {
             width: 100%;
             padding: 10px;
@@ -330,14 +340,14 @@ $conexion->close();
                 <span class="tooltip-text">El nombre del área que desarrolla o elabora el documento, la cual será responsable de su resguardo.</span>
             </span>
             </label>
-            <input type="hidden" name="area_responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['area_responsable']); ?>">
+            <input type="text" name="area_responsable" spellcheck="true" value="<?php echo htmlspecialchars($registro['area_responsable']); ?>">
 
             <label for="informacion_al">INFORMACIÓN AL
                 <span class="tooltip">?
                 <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
             </span>
             </label>
-            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <input type="date" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
             <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
                 <span class="tooltip">?

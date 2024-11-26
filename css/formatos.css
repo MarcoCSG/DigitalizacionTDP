@@ -37,6 +37,7 @@ label {
 
 input[type="text"], 
 input[type="date"],
+form input[type="number"],
 textarea {
     font-family: sans-serif;
     width: 100%;

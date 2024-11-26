@@ -80,6 +80,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $en_poder = isset($_POST['en_poder']) ? trim($_POST['en_poder']) : '';
     $cantidad_copias = isset($_POST['cantidad_copias']) ? trim($_POST['cantidad_copias']) : '';
     $informacion_al = isset($_POST['informacion_al']) ? trim($_POST['informacion_al']) : '';
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
     $responsable = isset($_POST['responsable']) ? trim($_POST['responsable']) : '';
 
     // Validar datos
@@ -180,6 +184,8 @@ $conexion->close();
 
         form input[type="text"],
         form input[type="number"],
+        form input[type="date"],
+
         form textarea {
             width: 100%;
             padding: 10px;
@@ -286,7 +292,7 @@ $conexion->close();
                 <span class="tooltip-text">El número de llaves que se están entregando.</span>
             </span>
             </label>
-            <input type="text" name="cantidad" id="cantidad" value="<?php echo htmlspecialchars($registro['cantidad']); ?>">
+            <input type="number" name="cantidad" id="cantidad" value="<?php echo htmlspecialchars($registro['cantidad']); ?>">
 
             <label for="en_poder">EN PODER DE
             <span class="tooltip">?
@@ -300,14 +306,14 @@ $conexion->close();
                 <span class="tooltip-text">El número de duplicados que tenga en su poder la persona referida.</span>
             </span>
             </label>
-            <input type="text" name="cantidad_copias" id="cantidad_copias" value="<?php echo htmlspecialchars($registro['cantidad_copias']); ?>">
+            <input type="number" name="cantidad_copias" id="cantidad_copias" value="<?php echo htmlspecialchars($registro['cantidad_copias']); ?>">
 
             <label for="informacion_al">INFORMACIÓN AL
                 <span class="tooltip">?
                 <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
             </span>
             </label>
-            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <input type="date" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
             <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
                 <span class="tooltip">?

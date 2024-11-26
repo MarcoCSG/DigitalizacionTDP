@@ -75,7 +75,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
                 </div>
-                <input type="text" id="no" name="no" placeholder="INGRESE EL NÚMERO" spellcheck="true"> <!-- Agregado name -->
+                <input type="number" id="no" name="no" placeholder="INGRESE EL NÚMERO" spellcheck="true"> <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -154,7 +154,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
                 </div>
-                <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true" required></textarea>
+                <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese su informacion" spellcheck="true" >
             </div>
 
             <div class="form-group">
@@ -163,7 +163,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
                 </div>
-                <textarea id="responsable" name="responsable" placeholder="Ingrese información" spellcheck="true" required></textarea>
+                <input type="text" id="responsable" name="responsable" placeholder="Ingrese el responsable" spellcheck="true" > 
             </div>
 
             <div class="button-container">

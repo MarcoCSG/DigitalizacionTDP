@@ -22,6 +22,7 @@ class PDF extends FPDF
     public $superviso;
     public $observaciones;
 
+
     // Encabezado de página
     function Header()
     {
@@ -45,7 +46,7 @@ class PDF extends FPDF
         }
 
         // Agregar logo fijo en la esquina superior derecha con tamaño específico
-       $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
+        //$this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
 
         // Salto de línea después de las imágenes
         $this->Ln($logo_alto - 20); // Ajuste basado en la altura del logo (30 mm de altura - 25 mm)
@@ -65,22 +66,24 @@ class PDF extends FPDF
 
         // Subtítulo del reporte
         $this->SetFont('Arial', 'B', 16);
-        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '5.18 RELACIÓN DE LLAVES'), 0, 1, 'C');
+        $this->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', '5.6 RELACIÓN DE BIENES EN PRÉSTAMO O COMODATO'), 0, 1, 'C');
         $this->Ln(10);
 
         // Definir la fuente del encabezado de la tabla
         $this->SetFont('Arial', 'B', 8);
         $this->SetFillColor(192, 192, 192); // Color gris
 
-        // Definir anchos de columnas ajustados al ancho de la página
+      // Definir anchos de columnas ajustados al ancho de la página
         $ancho_columnas = [
-            'No.' => 10,     
-            'CLAVE' => 62,                 // Proporción para 'No.'
-            'LUGAR, MOBILIARIO O EQUIPO' => 60,    // Proporción para 'Nombre del Expediente'
-            'CANTIDAD' => 35,         // Proporción para 'Serie Documental'               // Proporción para 'Clave'
-            'EN PODER DE' => 60,// Proporción para 'Descripción del Contenido'
-            'CANTIDAD(COPIAS)' => 40,                // Proporción para 'Resguardado'
-        ];
+            'No.' => 10,  
+            'UBICACIÓN' => 40,
+            'COLINDANCIAS' => 25,
+            'SUPERFICIE TOTAL' => 45,
+            'DOCUMENTO AVAL' => 35,
+            'VALOR' => 22,
+            'USO ACTUAL' => 30, 
+            'OBSERVACIONES' => 60,          
+    ];
 
         // Guardar los anchos de columnas en una propiedad de la clase
         $this->ancho_columnas = $ancho_columnas;
@@ -95,16 +98,16 @@ class PDF extends FPDF
         $this->Rect(15, 15, $this->GetPageWidth() - 30, $this->GetPageHeight() - 30); // Ajustado al ancho de la página
     }
 
-        // Pie de página
-        function Footer()
-        {
-            // Posición: 15 mm desde el final
-            $this->SetY(-15);
-            // Fuente
-            $this->SetFont('Arial', 'I', 8);
-            // Número de página
-            $this->Cell(0, 10, '' . $this->PageNo() . '/{nb}', 0, 0, 'C');
-        }
+    // Pie de página
+    function Footer()
+    {
+        // Posición: 15 mm desde el final
+        $this->SetY(-15);
+        // Fuente
+        $this->SetFont('Arial', 'I', 8);
+        // Número de página
+        $this->Cell(0, 10, '' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+    }
 }
 
 // Verificar si el usuario ha iniciado sesión 
@@ -182,16 +185,16 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
 
     // Construcción de la consulta para todos los registros
     $query = "SELECT f.id, f.municipio, f.anio, f.ruta_archivo, 
-                    f18.no, f18.clave, f18.lugar_movilidad_equipo, f18.cantidad, 
-                    f18.en_poder, f18.cantidad_copias, f18.informacion_al, f18.responsable
-                FROM formatos f
-                JOIN formato_5_18 f18 ON f.id = f18.formato_id
-                WHERE f.municipio = ? AND f.anio = ?";
+            f58.no, f58.ubicacion, f58.colindancias, f58.superficie_total, f58.documento_aval, f58.valor, f58.uso_actual,
+            f58.observaciones, f58.informacion_al, f58.responsable
+        FROM formatos f
+        JOIN formato_5_8 f58 ON f.id = f58.formato_id
+        WHERE f.municipio = ? AND f.anio = ?";
 
     if ($area_id !== null) $query .= " AND f.area_id = ?";
     if ($clasificacion_id !== null) $query .= " AND f.clasificaciones_id = ?";
     if (!empty($search)) {
-        $query .= " AND (f18.clave LIKE ? OR f18.en_poder LIKE ?)";
+        $query .= " AND (f58.ubicacion LIKE ? OR f58.colindancias LIKE ?)";
         $search_param = "%" . $search . "%";
         $params[] = $search_param;
         $params[] = $search_param;
@@ -238,75 +241,83 @@ $pdf->SetFont('Arial', '', 8);
 
 // Definir los anchos de las columnas
 $ancho_no = 10;
-$ancho_clave = 62;
-$ancho_lugar_movilidad_equipo = 60;
-$ancho_cantidad = 35;
-$ancho_en_poder = 60;
-$ancho_cantidad_copias = 40;
+$ancho_ubicacion = 40;
+$ancho_colindancias = 25;
+$ancho_superficie_total = 45;
+$ancho_documento_aval = 35;
+$ancho_valor = 22;
+$ancho_uso_actual = 30;
+$ancho_observaciones = 60;
 
 // Establecer el color del borde (negro)
 $pdf->SetDrawColor(0, 0, 0);
 
 // Función para manejar la conversión de cadenas
-function ConvertToISO($texto) {
+function ConvertToISO($texto)
+{
     return iconv('UTF-8', 'ISO-8859-1', $texto);
 }
 
 // Función para obtener la altura de una celda basada en el contenido
-function GetMultiCellHeight($pdf, $ancho, $texto) {
+function GetMultiCellHeight($pdf, $ancho, $texto)
+{
     $x_inicial = $pdf->GetX();
     $y_inicial = $pdf->GetY();
-    
+
     $pdf_clon = clone $pdf;
     $pdf_clon->MultiCell($ancho, 5, $texto, 0, 'C');
     $altura = $pdf_clon->GetY() - $y_inicial;
-    
+
     $pdf->SetXY($x_inicial, $y_inicial);
     return $altura;
 }
 
 // Función para imprimir una celda centrada verticalmente con bordes completos
-function PrintCenteredCell($pdf, $ancho, $altura_maxima, $texto) {
+function PrintCenteredCell($pdf, $ancho, $altura_maxima, $texto)
+{
     $x_inicial = $pdf->GetX();
     $y_inicial = $pdf->GetY();
-    
+
     // Calcular la altura de la celda real
     $altura_texto = GetMultiCellHeight($pdf, $ancho, $texto);
-    
+
     // Calcular el offset para centrar el contenido
     $offset = ($altura_maxima - $altura_texto) / 2;
-    
+
     // Dibujar el borde de la celda de toda la fila
     $pdf->Rect($x_inicial, $y_inicial, $ancho, $altura_maxima);
 
     // Mover a la posición central del texto
     $pdf->SetXY($x_inicial, $y_inicial + $offset);
-    
+
     // Imprimir el texto sin bordes (ya que los bordes fueron dibujados manualmente con Rect)
     $pdf->MultiCell($ancho, 5, ConvertToISO($texto), 0, 'C', false);
-    
+
     // Volver a la posición inicial para la siguiente celda
     $pdf->SetXY($x_inicial + $ancho, $y_inicial);
 }
 
 // Ajustar la función MultiCell y el tamaño de las columnas para que el texto no se sobreponga
 function PrintUniformRow($pdf, $row, $altura_maxima) {
-    global $ancho_no, $ancho_clave, $ancho_lugar_movilidad_equipo, $ancho_cantidad, $ancho_en_poder, $ancho_cantidad_copias;
+    global $ancho_no, $ancho_ubicacion, $ancho_colindancias, $ancho_superficie_total, $ancho_documento_aval, $ancho_valor, $ancho_uso_actual, $ancho_observaciones;
     
     // Imprimir las celdas con contenido centrado verticalmente y bordes
     PrintCenteredCell($pdf, $ancho_no, $altura_maxima, $row['no']);
-    PrintCenteredCell($pdf, $ancho_clave, $altura_maxima, $row['clave']);
-    PrintCenteredCell($pdf, $ancho_lugar_movilidad_equipo, $altura_maxima, $row['lugar_movilidad_equipo']);
-    PrintCenteredCell($pdf, $ancho_cantidad, $altura_maxima, $row['cantidad']);
-    PrintCenteredCell($pdf, $ancho_en_poder, $altura_maxima, $row['en_poder']);
-    PrintCenteredCell($pdf, $ancho_cantidad_copias, $altura_maxima, $row['cantidad_copias']);
+    PrintCenteredCell($pdf, $ancho_ubicacion, $altura_maxima, $row['ubicacion']);
+    PrintCenteredCell($pdf, $ancho_colindancias, $altura_maxima, $row['colindancias']);
+    PrintCenteredCell($pdf, $ancho_superficie_total, $altura_maxima, $row['superficie_total']);
+    PrintCenteredCell($pdf, $ancho_documento_aval, $altura_maxima, $row['documento_aval']);
+    PrintCenteredCell($pdf, $ancho_valor, $altura_maxima, $row['valor']);
+    PrintCenteredCell($pdf, $ancho_uso_actual, $altura_maxima, $row['uso_actual']);
+    PrintCenteredCell($pdf, $ancho_observaciones, $altura_maxima, $row['observaciones']);
 
     // Mover a la siguiente fila
     $pdf->Ln($altura_maxima);
 }
 
 // Función para imprimir la sección de información y firmas
-function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso) {
+function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso)
+{
     $pdf->Ln(); // Espacio entre la tabla y la información adicional
     $pdf->SetFont('Arial', 'B', 11);
     $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L');
@@ -324,11 +335,11 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     // Ajuste para las observaciones con MultiCell para permitir saltos de línea
     $pdf->MultiCell(0, 8, iconv('UTF-8', 'ISO-8859-1', $observaciones), 0, 'L');
 
-    $pdf->Ln(10); // Espacio antes de las firmas
+    $pdf->Ln(20); // Espacio antes de las firmas
 
     // Sección de firmas
     $pdf->SetFont('Arial', 'B', 11);
-    
+
     // Definir el ancho total de la página (270mm para A4 horizontal)
     $ancho_total = 270;
     $margen = 10; // Márgenes de la página
@@ -338,15 +349,15 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     $ancho_columna = $ancho_disponible / 3; // Cada columna ocupará un tercio del ancho disponible
 
     // Primera fila de títulos (ELABORO, SUPERVISO, AUTORIZO)
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'ELABORO:'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'SUPERVISO:'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'AUTORIZO:'), 0, 1, 'C');
+    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'ENTREGA:'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
+    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'RECIBE:'), 0, 1, 'C');
 
     $pdf->Ln(10); // Espacio antes de las líneas de firma
 
     // Segunda fila de líneas de firma (todas centradas)
     $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
     $pdf->Cell($ancho_columna, 8, '_______________________________', 0, 1, 'C');
 
     $pdf->Ln(-2); // Espacio antes de los nombres
@@ -354,25 +365,25 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     // Tercera fila con los nombres (centrados)
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $elaboro), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $superviso), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $autorizo), 0, 1, 'C');
 
-$pdf->Ln(-2); // Espacio antes de los cargos
+    $pdf->Ln(-2); // Espacio antes de los cargos
 
-// Cuarta fila con los cargos (centrados)
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'SECRETARIO TÉCNICO'), 0, 1, 'C');
+    // Cuarta fila con los cargos (centrados)
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'PRESIDENCIA MUNICIPAL'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'NOMBRE Y FIRMA'), 0, 1, 'C');
 
-$pdf->Ln(-2); // Espacio antes de la segunda línea de texto
+    $pdf->Ln(-2); // Espacio antes de la segunda línea de texto
 
-// Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
-$pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
-$pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', 'TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
+    // Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
+    $pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', ''), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
 
-$pdf->Ln(5); // Espacio final
+    $pdf->Ln(5); // Espacio final
 
 }
 // Calcular el número de filas
@@ -384,9 +395,10 @@ $espacio_total_disponible = 190; // Altura total de la página sin márgenes
 $altura_fila_minima = 15; // Altura mínima de fila
 
 // Función para calcular la altura de una celda basada en el texto
-function CalcularAlturaCelda($pdf, $texto, $ancho_celda) {
+function CalcularAlturaCelda($pdf, $texto, $ancho_celda)
+{
     $lineas = $pdf->GetStringWidth($texto) / $ancho_celda;
-    $altura = ceil($lineas) * 5; // Ajusta el multiplicador para controlar el espacio entre líneas
+    $altura = ceil($lineas) * 8; // Ajusta el multiplicador para controlar el espacio entre líneas
     return $altura;
 }
 

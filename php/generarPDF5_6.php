@@ -306,8 +306,7 @@ function PrintUniformRow($pdf, $row, $altura_maxima) {
 }
 
 // Función para imprimir la sección de información y firmas
-function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso, $observaciones)
-{
+function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso) {
     $pdf->Ln(); // Espacio entre la tabla y la información adicional
     $pdf->SetFont('Arial', 'B', 11);
     $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L');
@@ -329,7 +328,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo
 
     // Sección de firmas
     $pdf->SetFont('Arial', 'B', 11);
-
+    
     // Definir el ancho total de la página (270mm para A4 horizontal)
     $ancho_total = 270;
     $margen = 10; // Márgenes de la página
@@ -358,22 +357,22 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $superviso), 0, 0, 'C');
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $autorizo), 0, 1, 'C');
 
-    $pdf->Ln(-2); // Espacio antes de los cargos
+$pdf->Ln(-2); // Espacio antes de los cargos
 
-    // Cuarta fila con los cargos (centrados)
-    $pdf->SetFont('Arial', 'B', 10);
-    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'SECRETARIO TÉCNICO'), 0, 1, 'C');
+// Cuarta fila con los cargos (centrados)
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
+$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 0, 'C');
+$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'SECRETARIO TÉCNICO'), 0, 1, 'C');
 
-    $pdf->Ln(-2); // Espacio antes de la segunda línea de texto
+$pdf->Ln(-2); // Espacio antes de la segunda línea de texto
 
-    // Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
-    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
-    $pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', 'TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
+// Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
+$pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
+$pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', 'TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD'), 0, 0, 'C');
+$pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
 
-    $pdf->Ln(5); // Espacio final
+$pdf->Ln(5); // Espacio final
 
 }
 // Calcular el número de filas

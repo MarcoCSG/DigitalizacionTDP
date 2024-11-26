@@ -219,7 +219,7 @@ $stmt_count->close();
     ?>
 
 <div class="search-container">
-        <form method="get" action="mostrarregistros4_38.php"> <!-- Cambiar a un archivo específico para 5_11 si es necesario -->
+        <form method="get" action="mostrarregistros4_38.php"> <!-- Cambiar a un archivo específico  si es necesario -->
             <input type="text" name="search" placeholder="Buscar archivo..." value="<?php echo htmlspecialchars($search); ?>">
             <input type="hidden" name="anio" value="<?php echo htmlspecialchars($anio); ?>">
             <?php if ($area_nombre !== null): ?>

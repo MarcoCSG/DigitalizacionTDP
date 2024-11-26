@@ -76,7 +76,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número consecutivo de los artículos relacionados.</span>
                 </div>
-                <input type="text" id="no" name="no" placeholder="Ingrese un numero" spellcheck="true" > <!-- Agregado name -->
+                <input type="number" id="no" name="no" placeholder="Ingrese un numero" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -104,7 +104,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La cantidad existente de cada uno de los materiales.</span>
                 </div>
-                <input type="text" id="existencia" name="existencia" placeholder="Ingrese la cantidad de existencias" spellcheck="true" > <!-- Agregado name -->
+                <input type="number" id="existencia" name="existencia" placeholder="Ingrese la cantidad de existencias" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -113,7 +113,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El valor establecido en la factura para los materiales por unidad de medida.</span>
                 </div>
-                <input type="text" id="costo_unitario" name="costo_unitario" placeholder="Ingrese el costo unitario" spellcheck="true" > <!-- Agregado name -->
+                <input type="text" id="costo_unitario" name="costo_unitario" class="moneda" placeholder="Ingrese el costo unitario" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -122,8 +122,32 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El valor establecido en la factura para los materiales por unidad de medida.</span>
                 </div>
-                <input type="text" id="importe" name="importe" placeholder="Ingrese el importe" spellcheck="true" > <!-- Agregado name -->
+                <input type="text" id="importe" name="importe" class="moneda" placeholder="Ingrese el importe" spellcheck="true" > <!-- Agregado name -->
             </div>
+
+            <script>
+                document.querySelectorAll('.moneda').forEach((input) => {
+                    // Función para formatear el valor como moneda
+                    function formatCurrency(value) {
+                        const numberValue = parseFloat(value.replace(/[^0-9.-]+/g, ''));
+                        if (isNaN(numberValue)) return ''; // Si no es un número, retornar vacío
+                        return '$' + numberValue.toFixed(2); // Formatear como moneda
+                    }
+
+                    // Evento al escribir en el input
+                    input.addEventListener('input', (e) => {
+                        const cursorPosition = e.target.selectionStart; // Guardar posición del cursor
+                        const formattedValue = formatCurrency(e.target.value); // Formatear el valor
+                        e.target.value = formattedValue; // Asignar el valor formateado
+                        e.target.setSelectionRange(cursorPosition, cursorPosition); // Restaurar posición del cursor
+                    });
+
+                    // Formatear valor inicial si existe
+                    if (input.value) {
+                        input.value = formatCurrency(input.value);
+                    }
+                });
+            </script>
 
             <div class="form-group">
                 <label for="informacion_al">INFORMACIÓN AL</label>
@@ -131,7 +155,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
                 </div>
-                <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true" required></textarea>
+                <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true" > 
             </div>
 
             <div class="form-group">
@@ -140,7 +164,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
                 </div>
-                <textarea id="responsable" name="responsable" placeholder="Ingrese información" spellcheck="true" required></textarea>
+                <input type="text" id="responsable" name="responsable" placeholder="Ingrese al responsable" spellcheck="true" > 
             </div>
 
             <div class="button-container">

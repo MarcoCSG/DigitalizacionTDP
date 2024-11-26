@@ -28,9 +28,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
     // Recuperar datos del formulario y sanitizarlos
     $no = trim($_POST['no']);
     $denominacion = trim($_POST['denominacion']);
+
     $publicacion_fecha = trim($_POST['publicacion_fecha']);
+    if ($publicacion_fecha) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $publicacion_fecha = date('d/m/Y', strtotime($publicacion_fecha));
+    }
     $informacion_al = trim($_POST['informacion_al']);
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
     $fecha_autorizacion = $_POST['fecha_autorizacion'];
+    if ($fecha_autorizacion) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $fecha_autorizacion = date('d/m/Y', strtotime($fecha_autorizacion));
+    }
+    
     $responsable = trim($_POST['responsable']);
     $observaciones = trim($_POST['observaciones']);
 

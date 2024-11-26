@@ -84,6 +84,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uso_actual = isset($_POST['uso_actual']) ? trim($_POST['uso_actual']) : '';
     $observaciones = isset($_POST['observaciones']) ? trim($_POST['observaciones']) : '';
     $informacion_al = isset($_POST['informacion_al']) ? trim($_POST['informacion_al']) : '';
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
     $responsable = isset($_POST['responsable']) ? trim($_POST['responsable']) : '';
 
     // Validar datos
@@ -195,6 +199,8 @@ $conexion->close();
 
         form input[type="text"],
         form input[type="number"],
+        form input[type="date"],
+
         form textarea {
             width: 100%;
             padding: 10px;
@@ -280,7 +286,7 @@ $conexion->close();
                 <span class="tooltip-text">El número consecutivo de las reservas territoriales relacionadas (1, 2, 3, etc.).</span>
             </span>
         </label>
-        <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
+        <input type="number" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
 
         <label for="ubicacion">UBICACIÓN
             <span class="tooltip">?
@@ -294,7 +300,7 @@ $conexion->close();
                 <span class="tooltip-text">La descripción de las características de colindancia al norte, sur, este y oeste de la reserva territorial.</span>
             </span>
         </label>
-        <input type="text" name="colindancias" id="colindancias" value="<?php echo htmlspecialchars($registro['colindancias']); ?>" required>
+        <textarea id="colindancias" name="colindancias" placeholder="Ingrese colindansias" spellcheck="true" required></textarea>
 
         <label for="superficie_total">SUPERFICIE TOTAL
             <span class="tooltip">?
@@ -316,7 +322,30 @@ $conexion->close();
                 según corresponda.</span>
             </span>
         </label>
-        <input type="text" name="valor" id="valor" value="<?php echo htmlspecialchars($registro['valor']); ?>">
+        <input type="text" name="valor" id="valor" class="moneda" value="<?php echo htmlspecialchars($registro['valor']); ?>">
+        <script>
+                document.querySelectorAll('.moneda').forEach((input) => {
+                    // Función para formatear el valor como moneda
+                    function formatCurrency(value) {
+                        const numberValue = parseFloat(value.replace(/[^0-9.-]+/g, ''));
+                        if (isNaN(numberValue)) return ''; // Si no es un número, retornar vacío
+                        return '$' + numberValue.toFixed(2); // Formatear como moneda
+                    }
+
+                    // Evento al escribir en el input
+                    input.addEventListener('input', (e) => {
+                        const cursorPosition = e.target.selectionStart; // Guardar posición del cursor
+                        const formattedValue = formatCurrency(e.target.value); // Formatear el valor
+                        e.target.value = formattedValue; // Asignar el valor formateado
+                        e.target.setSelectionRange(cursorPosition, cursorPosition); // Restaurar posición del cursor
+                    });
+
+                    // Formatear valor inicial si existe
+                    if (input.value) {
+                        input.value = formatCurrency(input.value);
+                    }
+                });
+            </script>
 
         <label for="uso_actual">USO ACTUAL
             <span class="tooltip">?

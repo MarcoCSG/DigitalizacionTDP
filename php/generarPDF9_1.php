@@ -79,7 +79,7 @@ class PDF extends FPDF
             'ACTIVIDAD' => 62,                 // Proporción para 'No.'
             'FECHA' => 55,    // Proporción para 'Nombre del Expediente'
             'OBSERVACIONES' => 70,         // Proporción para 'Serie Documental'               // Proporción para 'Clave'
-            'AREA RESPONSABLE' => 70,// Proporción para 'Descripción del Contenido'
+            'AREA RESPONSABLE' => 70, // Proporción para 'Descripción del Contenido'
         ];
 
         // Guardar los anchos de columnas en una propiedad de la clase
@@ -303,7 +303,7 @@ function PrintUniformRow($pdf, $row, $altura_maxima) {
 }
 
 // Función para imprimir la sección de información y firmas
-function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo, $superviso, $observaciones) {
+function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso) {
     $pdf->Ln(); // Espacio entre la tabla y la información adicional
     $pdf->SetFont('Arial', 'B', 11);
     $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L');
@@ -320,7 +320,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $elaboro, $autorizo
     $pdf->SetFont('Arial', '', 11);
     // Ajuste para las observaciones con MultiCell para permitir saltos de línea
     $pdf->MultiCell(0, 8, iconv('UTF-8', 'ISO-8859-1', $observaciones), 0, 'L');
-    
+
     $pdf->Ln(10); // Espacio antes de las firmas
 
     // Sección de firmas

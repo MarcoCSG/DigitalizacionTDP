@@ -76,7 +76,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número consecutivo de las reservas territoriales relacionadas (1, 2, 3, etc.).</span>
                 </div>
-                <input type="text" id="no" name="no" placeholder="Ingrese un numero" spellcheck="true" > <!-- Agregado name -->
+                <input type="number" id="no" name="no" placeholder="Ingrese un numero" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -95,7 +95,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La descripción de las características de colindancia al norte, sur, este y oeste de la reserva territorial.</span>
                 </div>
-                <textarea id="colindancias" name="colindancias" placeholder="Ingrese colindansiasS" spellcheck="true" required></textarea>
+                <textarea id="colindancias" name="colindancias" placeholder="Ingrese colindansias" spellcheck="true" required></textarea>
             </div>
 
             <div class="form-group">
@@ -123,8 +123,31 @@ if (empty($area) || empty($clasificacion)) {
                     <span class="tooltip">La cantidad monetaria que corresponde a cada reserva territorial, ya sea de acuerdo al valor catastral o de avalúo (cifras en pesos),
                     según corresponda.</span>
                 </div>
-                <input type="text" id="valor" name="valor" placeholder="Ingrese su valor" spellcheck="true" > <!-- Agregado name -->
+                <input type="text" id="valor" name="valor" class="moneda" placeholder="Ingrese su valor" spellcheck="true" > <!-- Agregado name -->
             </div>
+            <script>
+                document.querySelectorAll('.moneda').forEach((input) => {
+                    // Función para formatear el valor como moneda
+                    function formatCurrency(value) {
+                        const numberValue = parseFloat(value.replace(/[^0-9.-]+/g, ''));
+                        if (isNaN(numberValue)) return ''; // Si no es un número, retornar vacío
+                        return '$' + numberValue.toFixed(2); // Formatear como moneda
+                    }
+
+                    // Evento al escribir en el input
+                    input.addEventListener('input', (e) => {
+                        const cursorPosition = e.target.selectionStart; // Guardar posición del cursor
+                        const formattedValue = formatCurrency(e.target.value); // Formatear el valor
+                        e.target.value = formattedValue; // Asignar el valor formateado
+                        e.target.setSelectionRange(cursorPosition, cursorPosition); // Restaurar posición del cursor
+                    });
+
+                    // Formatear valor inicial si existe
+                    if (input.value) {
+                        input.value = formatCurrency(input.value);
+                    }
+                });
+            </script>
 
             <div class="form-group">
                 <label for="uso_actual">USO ACTUAL</label>
@@ -150,7 +173,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
                 </div>
-                <input type="text" id="informacion_al" name="informacion_al" placeholder="Ingrese su informacion" spellcheck="true" > <!-- Agregado name -->
+                <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese su informacion" spellcheck="true" > <!-- Agregado name -->
                 </div>
 
             <div class="form-group">

@@ -40,12 +40,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recuperar y sanitizar datos del formulario
     $no = intval($_POST['no']);
     $denominacion = trim($_POST['denominacion']);
+
     $publicacion_fecha = $_POST['publicacion_fecha'];
+    if ($publicacion_fecha) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $publicacion_fecha = date('d/m/Y', strtotime($publicacion_fecha));
+    }
+
     $informacion_al = trim($_POST['informacion_al']);
-    $fecha_autorizacion = $_POST['fecha_autorizacion'];
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
+
+    $fecha_autorizacion = trim($_POST['fecha_autorizacion']);
+    if ($fecha_autorizacion) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $fecha_autorizacion = date('d/m/Y', strtotime($fecha_autorizacion));
+    }
     $responsable = trim($_POST['responsable']);
     $observaciones = trim($_POST['observaciones']);
 
+    
     // Validaciones básicas
     $errores = [];
     if ($no <= 0) {
@@ -118,6 +134,7 @@ $conexion->close();
         }
         form input[type="text"],
         form input[type="date"],
+        form input[type="number"],
         form textarea {
             width: calc(100% - 20px);
             padding: 10px;
@@ -150,7 +167,7 @@ $conexion->close();
                     <span class="tooltip-text">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
                 </span>
             </label>
-            <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
+            <input type="number" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
             
             <label for="denominacion">Denominación:
                 <span class="tooltip">?
@@ -178,14 +195,14 @@ $conexion->close();
                 <span class="tooltip-text">El sitio de la publicación de los manuales y la fecha de la misma.</span>
             </span>
             </label>
-            <input type="text" name="publicacion_fecha" id="publicacion_fecha" spellcheck="true" value="<?php echo htmlspecialchars($registro['publicacion_fecha']); ?>" required>
+            <input type="date" name="publicacion_fecha" id="publicacion_fecha" spellcheck="true" value="<?php echo htmlspecialchars($registro['publicacion_fecha']); ?>" required>
             
             <label for="informacion_al">Información Al:
                 <span class="tooltip">?
                 <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato. Ejemplo: 15 de diciembre de 2021.</span>
             </span>
             </label>
-            <input type="text" name="informacion_al" id="informacion_al" spellcheck="true" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <input type="date" name="informacion_al" id="informacion_al" spellcheck="true" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
                 
             <label for="responsable">Responsable:
                 <span class="tooltip">?

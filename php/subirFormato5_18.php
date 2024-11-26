@@ -33,6 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['guardar'])) {
     $en_poder = htmlspecialchars(trim($_POST['en_poder']), ENT_QUOTES, 'UTF-8');
     $cantidad_copias = filter_input(INPUT_POST, 'cantidad_copias', FILTER_SANITIZE_NUMBER_INT);
     $informacion_al = htmlspecialchars(trim($_POST['informacion_al']), ENT_QUOTES, 'UTF-8');
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
     $responsable = htmlspecialchars(trim($_POST['responsable']), ENT_QUOTES, 'UTF-8');
     
     // Obtener parámetros del formulario (campos ocultos)

@@ -70,66 +70,73 @@ if (empty($area) || empty($clasificacion)) {
             <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
 
             <div class="form-group">
-                <label for="no">No.</label>
-                <input type="text" id="no" name="no" placeholder="INGRESE EL NUMERO" spellcheck="true" required>
+                <label for="no">No.
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
                 </div>
+                </label>
+                <input type="number" id="no" name="no" placeholder="INGRESE EL NUMERO" spellcheck="true" required>
             </div>
 
             <div class="form-group">
-                <label for="denominacion">DENOMINACIÓN</label>
-                <textarea id="denominacion" name="denominacion" placeholder="Ingrese información" spellcheck="true" required></textarea>
+                <label for="denominacion">DENOMINACIÓN
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y tipo del documento de que se trate. Ejemplo: Manual General de Organización, Manual de Procedimientos de la Tesorería o Manual de Servicios.</span>
                 </div>
+                </label>
+                <textarea id="denominacion" name="denominacion" placeholder="Ingrese información" spellcheck="true" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="fecha_autorizacion">FECHA</label>
-                <input type="date" id="fecha_autorizacion" name="fecha_autorizacion" spellcheck="true" required>
+                <label for="fecha_autorizacion">FECHA
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se autorizó el manual administrativo referido.</span>
                 </div>
+                </label>
+                <input type="date" id="fecha_autorizacion" name="fecha_autorizacion" spellcheck="true" required>
             </div>
 
             <div class="form-group">
-                <label for="observaciones">OBSERVACIONES</label>
-                <textarea id="observaciones" name="observaciones" placeholder="Ingrese información" spellcheck="true"></textarea>
+                <label for="observaciones">OBSERVACIONES
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">Los comentarios que se consideren importantes respecto a los manuales administrativos.</span>
                 </div>
+                </label>
+                <textarea id="observaciones" name="observaciones" placeholder="Ingrese información" spellcheck="true"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="publicacion_fecha">PUBLICACIÓN Y FECHA</label>
-                <input type="text" id="publicacion_fecha" name="publicacion_fecha" placeholder="Ingrese información" spellcheck="true" required>
+                <label for="publicacion_fecha">PUBLICACIÓN Y FECHA
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El sitio de la publicación de los manuales y la fecha de la misma.</span>
                 </div>
+                </label>
+                <input type="date" id="publicacion_fecha" name="publicacion_fecha" placeholder="Ingrese información" spellcheck="true" required>
             </div>
 
             <div class="form-group">
-                <label for="informacion_al">INFORMACIÓN AL:</label>
-                <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true" required></textarea>
-                <div class="tooltip-container">
+                <label for="informacion_al">INFORMACIÓN AL:
+                    <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se actualizó la información de este formato. Ejemplo: 15 de diciembre de 2021.</span>
                 </div>
+                </label>
+                <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese informacion al" spellcheck="true" required>
             </div>
 
             <div class="form-group">
-                <label for="responsable">RESPONSABLE DE LA INFORMACIÓN</label>
-                <textarea id="responsable" name="responsable" placeholder="Ingrese información" spellcheck="true" required></textarea>
+                <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
                 </div>
+                </label>
+                <input type="text" id="responsable" name="responsable" placeholder="Ingrese el responsable" spellcheck="true" required>
             </div>
 
             <div class="button-container">

@@ -71,76 +71,84 @@ if (empty($area) || empty($clasificacion)) {
             <input type="hidden" name="clasificacion" value="<?php echo htmlspecialchars($clasificacion); ?>">
 
             <div class="form-group">
-                <label for="concepto">CONCEPTO</label>
+                <label for="concepto">CONCEPTO
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">La denominación de la forma valorada. Ejemplo: Recibo Oficial, Forma del Registro Civil, etc.</span>
+                    <span class="tooltip">La denominación de la forma valorada. Ejemplo: Recibo Oficial, Forma del Registro Civil.</span>
                 </div>
+                </label>
                 <textarea type="text" id="concepto" name="concepto" placeholder="Ingrese el concepto" spellcheck="true" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="serie">SERIE</label>
+                <label for="serie">SERIE
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La clave numérica o alfanumérica que corresponda al talonario o bloque de formas valoradas.</span>
                 </div>
-                <input type="text" id="serie" name="serie" placeholder="Ingrese la serie" spellcheck="true" > <!-- Agregado name -->
+                </label>
+                <input type="text" id="serie" name="serie" placeholder="Ingrese la serie" spellcheck="true" > 
             </div>
 
 
             <div class="form-group">
-                <label for="del_folio">DEL FOLIO</label>
+                <label for="del_folio">DEL FOLIO
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número que corresponda a la primera y última forma del talonario o bloque.</span>
                 </div>
-                <input type="text" id="del_folio" name="del_folio" placeholder="Ingrese la cantidad de folios" spellcheck="true" > <!-- Agregado name -->
+                </label>
+                <input type="number" id="del_folio" name="del_folio" placeholder="Ingrese la cantidad de folios" spellcheck="true" > 
             </div>
 
             <div class="form-group">
-                <label for="al_folio">AL FOLIO</label>
+                <label for="al_folio">AL FOLIO
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número que corresponda a la primera y última forma del talonario o bloque.</span>
                 </div>
-                <input type="text" id="al_folio" name="al_folio" placeholder="Ingrese la cantidad de folios" spellcheck="true" > <!-- Agregado name -->
+                </label>
+                <input type="number" id="al_folio" name="al_folio" placeholder="Ingrese la cantidad de folios" spellcheck="true" > 
             </div>
 
             <div class="form-group">
-                <label for="area_responsable">ÁREA</label>
+                <label for="area_responsable">ÁREA
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre del área responsable del control y resguardo de las formas valoradas.</span>
                 </div>
-                <input type="text" id="area_responsable" name="area_responsable" placeholder="Ingrese el área" spellcheck="true" > <!-- Agregado name -->
+                </label>
+                <input type="text" id="area_responsable" name="area_responsable" placeholder="Ingrese el área" spellcheck="true" > 
             </div>
 
             <div class="form-group">
-                <label for="observaciones">OBSERVACIONES</label>
+                <label for="observaciones">OBSERVACIONES
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">Los comentarios que se consideren importantes respecto a las formas valoradas existentes.</span>
                 </div>
+                </label>
                 <textarea type="text" id="observaciones" name="observaciones" placeholder="Ingrese sus observaciones" spellcheck="true" required></textarea>
             </div>
 
             <div class="form-group">
-                <label for="informacion_al">INFORMACIÓN AL</label>
+                <label for="informacion_al">INFORMACIÓN AL
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
                 </div>
-                <textarea id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true" required></textarea>
+                </label>
+                <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true">
             </div>
 
             <div class="form-group">
-                <label for="responsable">RESPONSABLE DE LA INFORMACIÓN</label>
+                <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
                 </div>
-                <textarea id="responsable" name="responsable" placeholder="Ingrese información" spellcheck="true" required></textarea>
+                </label>
+                <input type="text" id="responsable" name="responsable" placeholder="Ingrese responsable" spellcheck="true" >
             </div>
 
             <div class="button-container">

@@ -79,7 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $utilizados = isset($_POST['utilizados']) ? intval($_POST['utilizados']) : 0;
     $por_utilizar = isset($_POST['por_utilizar']) ? intval($_POST['por_utilizar']) : 0;
     $cancelados = isset($_POST['cancelados']) ? intval($_POST['cancelados']) : 0;
-    $informacion_al = isset($_POST['informacion_al']) ? trim($_POST['informacion_al']) : '';
+    
+    $informacion_al = trim($_POST['informacion_al']);
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
     $responsable = isset($_POST['responsable']) ? trim($_POST['responsable']) : '';
 
     // Validaciones básicas
@@ -182,6 +187,8 @@ $conexion->close();
 
         form input[type="text"],
         form input[type="number"],
+        form input[type="date"],
+
         form textarea {
             width: 100%;
             padding: 10px;
@@ -265,7 +272,7 @@ $conexion->close();
 
             <label for="banco">BANCO
             <span class="tooltip">?
-                <span class="tooltip-text"></span>
+                <span class="tooltip-text">El nombre de la Institución Bancaria que administra la cuenta.</span>
             </span>
             </label>
             <input type="text" name="banco" id="banco" value="<?php echo htmlspecialchars($registro['banco']); ?>" required>
@@ -310,7 +317,7 @@ $conexion->close();
                 <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
             </span>
             </label>
-            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <input type="date" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
             <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
                 <span class="tooltip">?

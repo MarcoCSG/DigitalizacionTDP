@@ -80,6 +80,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $costo_unitario = isset($_POST['costo_unitario']) ? trim($_POST['costo_unitario']) : '';
     $importe = isset($_POST['importe']) ? trim($_POST['importe']) : '';
     $informacion_al = isset($_POST['informacion_al']) ? trim($_POST['informacion_al']) : '';
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
     $responsable = isset($_POST['responsable']) ? trim($_POST['responsable']) : '';
 
     // Validar datos
@@ -261,58 +265,81 @@ $conexion->close();
         ?>
         <form method="post" action="" onsubmit="convertirAMayusculas()">
             <label for="no">No
-            <span class="tooltip">?
-                <span class="tooltip-text">El número consecutivo de los artículos relacionados.</span>
-            </span>
+                <span class="tooltip">?
+                    <span class="tooltip-text">El número consecutivo de los artículos relacionados.</span>
+                </span>
             </label>
-            <input type="text" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
+            <input type="number" name="no" id="no" value="<?php echo htmlspecialchars($registro['no']); ?>" required>
 
             <label for="articulo">ARTÍCULO
-            <span class="tooltip">?
-                <span class="tooltip-text">La denominación del material en existencia, propiedad del Ayuntamiento.</span>
-            </span>
+                <span class="tooltip">?
+                    <span class="tooltip-text">La denominación del material en existencia, propiedad del Ayuntamiento.</span>
+                </span>
             </label>
             <input type="text" name="articulo" id="articulo" value="<?php echo htmlspecialchars($registro['articulo']); ?>" required>
 
             <label for="unidad_medida">UNIDAD DE MEDIDA
-            <span class="tooltip">?
-                <span class="tooltip-text">La expresión o concepto con la que se contabilizan los materiales.</span>
-            </span>
+                <span class="tooltip">?
+                    <span class="tooltip-text">La expresión o concepto con la que se contabilizan los materiales.</span>
+                </span>
             </label>
             <input type="text" name="unidad_medida" id="unidad_medida" value="<?php echo htmlspecialchars($registro['unidad_medida']); ?>" required>
 
             <label for="existencia">EXISTENCIA
-            <span class="tooltip">?
-                <span class="tooltip-text">La cantidad existente de cada uno de los materiales.</span>
-            </span>
+                <span class="tooltip">?
+                    <span class="tooltip-text">La cantidad existente de cada uno de los materiales.</span>
+                </span>
             </label>
-            <input type="text" name="existencia" id="existencia" value="<?php echo htmlspecialchars($registro['existencia']); ?>">
+            <input type="number" name="existencia" id="existencia" value="<?php echo htmlspecialchars($registro['existencia']); ?>">
 
             <label for="costo_unitario">COSTO UNITARIO
-            <span class="tooltip">?
-                <span class="tooltip-text">El valor establecido en la factura para los materiales por unidad de medida.</span>
-            </span>
+                <span class="tooltip">?
+                    <span class="tooltip-text">El valor establecido en la factura para los materiales por unidad de medida.</span>
+                </span>
             </label>
-            <input type="text" name="costo_unitario" id="costo_unitario" value="<?php echo htmlspecialchars($registro['costo_unitario']); ?>">
+            <input type="text" name="costo_unitario" id="costo_unitario" class="moneda" value="<?php echo htmlspecialchars($registro['costo_unitario']); ?>">
 
             <label for="importe">IMPORTE
-            <span class="tooltip">?
-                <span class="tooltip-text">El valor establecido en la factura para los materiales por unidad de medida.</span>
-            </span>
+                <span class="tooltip">?
+                    <span class="tooltip-text">El valor establecido en la factura para los materiales por unidad de medida.</span>
+                </span>
             </label>
-            <input type="text" name="importe" id="importe" value="<?php echo htmlspecialchars($registro['importe']); ?>">
+            <input type="text" name="importe" id="importe" class="moneda" value="<?php echo htmlspecialchars($registro['importe']); ?>">
+            <script>
+                document.querySelectorAll('.moneda').forEach((input) => {
+                    // Función para formatear el valor como moneda
+                    function formatCurrency(value) {
+                        const numberValue = parseFloat(value.replace(/[^0-9.-]+/g, ''));
+                        if (isNaN(numberValue)) return ''; // Si no es un número, retornar vacío
+                        return '$' + numberValue.toFixed(2); // Formatear como moneda
+                    }
+
+                    // Evento al escribir en el input
+                    input.addEventListener('input', (e) => {
+                        const cursorPosition = e.target.selectionStart; // Guardar posición del cursor
+                        const formattedValue = formatCurrency(e.target.value); // Formatear el valor
+                        e.target.value = formattedValue; // Asignar el valor formateado
+                        e.target.setSelectionRange(cursorPosition, cursorPosition); // Restaurar posición del cursor
+                    });
+
+                    // Formatear valor inicial si existe
+                    if (input.value) {
+                        input.value = formatCurrency(input.value);
+                    }
+                });
+            </script>
 
             <label for="informacion_al">INFORMACIÓN AL
                 <span class="tooltip">?
-                <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
-            </span>
+                    <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+                </span>
             </label>
-            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <input type="date" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
             <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
                 <span class="tooltip">?
-                <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
-            </span>
+                    <span class="tooltip-text">El nombre y cargo del servidor público responsable de integrar la información, y en su caso del resguardo de la documentación soporte.</span>
+                </span>
             </label>
             <input type="text" name="responsable" id="responsable" value="<?php echo htmlspecialchars($registro['responsable']); ?>" required>
 

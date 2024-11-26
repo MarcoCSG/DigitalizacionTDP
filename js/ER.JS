@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER": {
             "areas": {
                 "presidencia_er": { 
-                    texto: "PRESIDENCIA ANAL ",
+                    texto: "PRESIDENCIA - SANTIAGO",
                     clasificaciones: [
                     // todas las areas
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "1.2_manuales.php" },

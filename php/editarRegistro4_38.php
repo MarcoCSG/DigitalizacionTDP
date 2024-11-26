@@ -79,7 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $del_folio = isset($_POST['del_folio']) ? intval($_POST['del_folio']) : 0;
     $area_responsable = isset($_POST['area_responsable']) ? trim($_POST['area_responsable']) : '';
     $observaciones = isset($_POST['observaciones']) ? trim($_POST['observaciones']) : '';
-    $informacion_al = isset($_POST['informacion_al']) ? trim($_POST['informacion_al']) : '';
+    $informacion_al = trim($_POST['informacion_al']);
+    if ($informacion_al) {
+        // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
+        $informacion_al = date('d/m/Y', strtotime($informacion_al));
+    }
     $responsable = isset($_POST['responsable']) ? trim($_POST['responsable']) : '';
 
     // Validar datos
@@ -180,6 +184,7 @@ $conexion->close();
 
         form input[type="text"],
         form input[type="number"],
+        form input[type="date"],
         form textarea {
             width: 100%;
             padding: 10px;
@@ -279,14 +284,14 @@ $conexion->close();
                 <span class="tooltip-text">El número que corresponda a la primera y última forma del talonario o bloque.</span>
             </span>
             </label>
-            <input type="text" name="del_folio" id="del_folio" value="<?php echo htmlspecialchars($registro['del_folio']); ?>" required>
+            <input type="number" name="del_folio" id="del_folio" value="<?php echo htmlspecialchars($registro['del_folio']); ?>" required>
 
             <label for="al_folio">AL FOLIO
             <span class="tooltip">?
                 <span class="tooltip-text">El número que corresponda a la primera y última forma del talonario o bloque.</span>
             </span>
             </label>
-            <input type="text" name="al_folio" id="al_folio" value="<?php echo htmlspecialchars($registro['al_folio']); ?>">
+            <input type="number" name="al_folio" id="al_folio" value="<?php echo htmlspecialchars($registro['al_folio']); ?>">
 
             <label for="area_responsable">ÁREA
             <span class="tooltip">?
@@ -307,7 +312,7 @@ $conexion->close();
                 <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
             </span>
             </label>
-            <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+            <input type="date" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
             <label for="responsable">RESPONSABLE DE LA INFORMACIÓN
                 <span class="tooltip">?

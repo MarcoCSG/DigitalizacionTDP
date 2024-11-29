@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     * ! CLASIFICACIONES UNICAMENTE PARA CREAR REPORTES
     */
     const datos = {
-        "H.AYUNTAMIENTO DE MISANTLA, VER": {
+        "MUNICIPIO DE MISANTLA, VER": {
             "areas": {
                 "presidencia_er": { 
                     texto: "PRESIDENCIA MARCO",

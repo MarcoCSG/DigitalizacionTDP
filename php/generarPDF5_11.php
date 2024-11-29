@@ -21,7 +21,7 @@ class PDF extends FPDF
     public $autorizo;
     public $superviso;
     public $observaciones;
-
+    public $opcion;
 
     // Encabezado de página
     function Header()
@@ -129,13 +129,14 @@ $elaboro = isset($_GET['elaboro']) ? htmlspecialchars(trim($_GET['elaboro']), EN
 $superviso = isset($_GET['superviso']) ? htmlspecialchars(trim($_GET['superviso']), ENT_QUOTES, 'UTF-8') : 'SUPERVISO';
 $autorizo = isset($_GET['autorizo']) ? htmlspecialchars(trim($_GET['autorizo']), ENT_QUOTES, 'UTF-8') : 'AUTORIZÓ';
 $observaciones = isset($_GET['observaciones']) ? htmlspecialchars(trim($_GET['observaciones']), ENT_QUOTES, 'UTF-8') : 'OBSERVACIONES';
+$opcion = isset($_GET['opcion']) ? htmlspecialchars(trim($_GET['opcion']), ENT_QUOTES, 'UTF-8') : 'OPCION';
 
 // Definir la correspondencia entre municipios y sus logos
 $logo_mapping = [
-    'H.AYUNTAMIENTO DE MISANTLA, VER' => '../img/logoMisantla.png',
-    'H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
-    'H.AYUNTAMIENTO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
-    // Agrega más municipios y sus logos aquí según sea necesario
+    'MUNICIPIO DE MISANTLA, VER' => '../img/logoMisantla.png',
+    'MUNICIPIO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
+    'MUNICIPIO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
+    // Agregar más municipios y sus logos aquí según sea necesario
 ];
 
 // Determinar la ruta del logo basado en el municipio del usuario
@@ -223,7 +224,7 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
 
 // Obtener los datos filtrados
 $datos = obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search);
-if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
+//if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
 
 // Obtener solo un registro para "Información al" y "Responsable de la información"
 $info_al = $datos[0]['informacion_al'] ?? 'No disponible';
@@ -240,6 +241,7 @@ $pdf->elaboro = $elaboro;
 $pdf->autorizo = $autorizo;
 $pdf->superviso = $superviso;
 $pdf->observaciones = $observaciones;
+$pdf->opcion = $opcion;
 
 $pdf->AddPage();
 $pdf->SetFont('Arial', '', 8);
@@ -388,6 +390,28 @@ $pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
 
 $pdf->Ln(5); // Espacio final
 
+}
+// Validar si la consulta retornó datos
+if (!is_array($datos) || count($datos) === 0) {
+    // Manejar el caso de datos vacíos
+    $pdf->SetFont('Arial', 'B', 36);
+    $pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', $opcion), 0, 1, 'C'); // Aquí cerramos correctamente
+
+    // Simular dos filas vacías
+    $pdf->SetFont('Arial', '', 12);
+    $altura_fila = 8; // Altura de cada fila simulada
+    for ($i = 0; $i < 2; $i++) {
+        $pdf->Cell(10, $altura_fila, '', 1, 0, 'C'); // Celda vacía (ajusta el ancho según tu tabla)
+        $pdf->Cell(45, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(35, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(25, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(50, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(20, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(22, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(35, $altura_fila, '', 1, 0, 'C'); // Ajusta según el número de columnas
+        $pdf->Cell(25, $altura_fila, '', 1, 0, 'C');
+        $pdf->Ln(); // Salto de línea para la siguiente fila
+    }
 }
 // Calcular el número de filas
 $total_filas = count($datos);

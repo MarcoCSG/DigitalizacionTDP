@@ -366,7 +366,7 @@ $conexion->close();
                 <span class="tooltip-text">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
             </span>
         </label>
-        <input type="text" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
+        <input type="date" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
 
         <label for="responsable">RESPONSABLE:
             <span class="tooltip">?

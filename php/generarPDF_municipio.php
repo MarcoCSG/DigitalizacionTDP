@@ -21,6 +21,7 @@ class PDF extends FPDF
     public $autorizo;
     public $superviso;
     public $observaciones;
+    public $opcion;
 
     // Encabezado de página
     function Header()
@@ -45,7 +46,7 @@ class PDF extends FPDF
         }
 
         // Agregar logo fijo en la esquina superior derecha con tamaño específico
-       // $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
+        // $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
 
         // Salto de línea después de las imágenes
         $this->Ln($logo_alto - 20); // Ajuste basado en la altura del logo (30 mm de altura - 25 mm)
@@ -124,13 +125,14 @@ $elaboro = isset($_GET['elaboro']) ? htmlspecialchars(trim($_GET['elaboro']), EN
 $superviso = isset($_GET['superviso']) ? htmlspecialchars(trim($_GET['superviso']), ENT_QUOTES, 'UTF-8') : 'SUPERVISO';
 $autorizo = isset($_GET['autorizo']) ? htmlspecialchars(trim($_GET['autorizo']), ENT_QUOTES, 'UTF-8') : 'AUTORIZÓ';
 $observaciones = isset($_GET['observaciones']) ? htmlspecialchars(trim($_GET['observaciones']), ENT_QUOTES, 'UTF-8') : 'OBSERVACIONES';
+$opcion = isset($_GET['opcion']) ? htmlspecialchars(trim($_GET['opcion']), ENT_QUOTES, 'UTF-8') : 'OPCION';
 
 // Definir la correspondencia entre municipios y sus logos
 $logo_mapping = [
-    'H.AYUNTAMIENTO DE MISANTLA, VER' => '../img/logoMisantla.png',
-    'H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
-    'H.AYUNTAMIENTO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
-    // Agrega más municipios y sus logos aquí según sea necesario
+    'MUNICIPIO DE MISANTLA, VER' => '../img/logoMisantla.png',
+    'MUNICIPIO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
+    'MUNICIPIO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
+    // Agregar más municipios y sus logos aquí según sea necesario
 ];
 
 // Determinar la ruta del logo basado en el municipio del usuario
@@ -214,7 +216,7 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
 
 // Obtener los datos filtrados
 $datos = obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search);
-if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
+//if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
 
 // Obtener solo un registro para "Información al" y "Responsable de la información"
 $info_al = $datos[0]['informacion_al'] ?? 'No disponible';
@@ -231,6 +233,7 @@ $pdf->elaboro = $elaboro;
 $pdf->autorizo = $autorizo;
 $pdf->superviso = $superviso;
 $pdf->observaciones = $observaciones;
+$pdf->opcion = $opcion;
 
 $pdf->AddPage();
 
@@ -309,7 +312,8 @@ function PrintUniformRow($pdf, $row, $altura_maxima)
 }
 
 // Función para imprimir la sección de información y firmas
-function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso ) {
+function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso)
+{
     $pdf->Ln(); // Espacio entre la tabla y la información adicional
     $pdf->SetFont('Arial', 'B', 11);
     $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L');
@@ -320,7 +324,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     $pdf->Cell(80, 8, iconv('UTF-8', 'ISO-8859-1', 'RESPONSABLE DE LA INFORMACIÓN:'), 0, 0, 'L');
     $pdf->SetFont('Arial', '', 11);
     $pdf->Cell(0, 8, iconv('UTF-8', 'ISO-8859-1', $responsable), 0, 1, 'L');
-    
+
     $pdf->SetFont('Arial', 'B', 11);
     $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'OBSERVACIONES:'), 0, 1, 'L');
     $pdf->SetFont('Arial', '', 11);
@@ -331,7 +335,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
 
     // Sección de firmas
     $pdf->SetFont('Arial', 'B', 11);
-    
+
     // Definir el ancho total de la página (270mm para A4 horizontal)
     $ancho_total = 270;
     $margen = 10; // Márgenes de la página
@@ -360,23 +364,41 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $autorizo), 0, 1, 'C');
 
-$pdf->Ln(-2); // Espacio antes de los cargos
+    $pdf->Ln(-2); // Espacio antes de los cargos
 
-// Cuarta fila con los cargos (centrados)
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'PRESIDENCIA MUNICIPAL'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'NOMBRE Y FIRMA'), 0, 1, 'C');
+    // Cuarta fila con los cargos (centrados)
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'PRESIDENCIA MUNICIPAL'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'NOMBRE Y FIRMA'), 0, 1, 'C');
 
-$pdf->Ln(-2); // Espacio antes de la segunda línea de texto
+    $pdf->Ln(-2); // Espacio antes de la segunda línea de texto
 
-// Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
-$pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
-$pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', ''), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
+    // Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
+    $pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', ''), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
 
-$pdf->Ln(5); // Espacio final
+    $pdf->Ln(5); // Espacio final
 
+}
+// Validar si la consulta retornó datos
+if (!is_array($datos) || count($datos) === 0) {
+    // Manejar el caso de datos vacíos
+    $pdf->SetFont('Arial', 'B', 36);
+    $pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', $opcion), 0, 1, 'C'); // Aquí cerramos correctamente
+
+    // Simular dos filas vacías
+    $pdf->SetFont('Arial', '', 12);
+    $altura_fila = 8; // Altura de cada fila simulada
+    for ($i = 0; $i < 2; $i++) {
+        $pdf->Cell(15, $altura_fila, '', 1, 0, 'C'); // Celda vacía (ajusta el ancho según tu tabla)
+        $pdf->Cell(80, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(40, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(72, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(60, $altura_fila, '', 1, 0, 'C'); // Ajusta según el número de columnas
+        $pdf->Ln(); // Salto de línea para la siguiente fila
+    }
 }
 // Calcular el número de filas
 $total_filas = count($datos);
@@ -423,7 +445,7 @@ if ($total_filas > 2 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_
 }
 
 // Imprimir la sección de firmas como un solo bloque
-ImprimirSeccionFirmas($pdf, $info_al, $responsable,$observaciones, $elaboro, $autorizo, $superviso);
+ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso);
 
 // Salida del PDF
 $pdf->Output();

@@ -21,6 +21,7 @@ class PDF extends FPDF
     public $autorizo;
     public $superviso;
     public $observaciones;
+    public $opcion;
 
 
     // Encabezado de página
@@ -46,7 +47,7 @@ class PDF extends FPDF
         }
 
         // Agregar logo fijo en la esquina superior derecha con tamaño específico
-       $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
+        $this->Image('../img/logoTDP.png', $this->GetPageWidth() - 20 - $logo_ancho, 18, $logo_ancho, $logo_alto); // Esquina superior derecha
 
         // Salto de línea después de las imágenes
         $this->Ln($logo_alto - 20); // Ajuste basado en la altura del logo (30 mm de altura - 25 mm)
@@ -97,7 +98,8 @@ class PDF extends FPDF
 
 
     // Pie de página
-    function Footer(){
+    function Footer()
+    {
         // Posición: 15 mm desde el final
         $this->SetY(-15);
         // Fuente
@@ -124,13 +126,13 @@ $elaboro = isset($_GET['elaboro']) ? htmlspecialchars(trim($_GET['elaboro']), EN
 $autorizo = isset($_GET['autorizo']) ? htmlspecialchars(trim($_GET['autorizo']), ENT_QUOTES, 'UTF-8') : 'AUTORIZÓ';
 $superviso = isset($_GET['superviso']) ? htmlspecialchars(trim($_GET['superviso']), ENT_QUOTES, 'UTF-8') : 'SUPERVISO';
 $observaciones = isset($_GET['observaciones']) ? htmlspecialchars(trim($_GET['observaciones']), ENT_QUOTES, 'UTF-8') : 'OBSERVACIONES';
-
+$opcion = isset($_GET['opcion']) ? htmlspecialchars(trim($_GET['opcion']), ENT_QUOTES, 'UTF-8') : 'OPCION';
 
 // Definir la correspondencia entre municipios y sus logos
 $logo_mapping = [
-    'H.AYUNTAMIENTO DE MISANTLA, VER' => '../img/logoMisantla.png',
-    'H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
-    'H.AYUNTAMIENTO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
+    'MUNICIPIO DE MISANTLA, VER' => '../img/logoMisantla.png',
+    'MUNICIPIO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
+    'MUNICIPIO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
     // Agregar más municipios y sus logos aquí según sea necesario
 ];
 
@@ -207,7 +209,7 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
 
 // Obtener los datos filtrados
 $datos = obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search);
-if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
+//if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
 
 // Obtener solo un registro para "Información al" y "Responsable de la información"
 $info_al = $datos[0]['informacion_al'] ?? 'No disponible';
@@ -225,6 +227,7 @@ $pdf->elaboro = $elaboro;
 $pdf->autorizo = $autorizo;
 $pdf->superviso = $superviso;
 $pdf->observaciones = $observaciones;
+$pdf->opcion = $opcion;
 
 $pdf->AddPage();
 $pdf->SetFont('Arial', '', 8);
@@ -241,51 +244,55 @@ $ancho_cancelados = 30;
 $pdf->SetDrawColor(0, 0, 0);
 
 // Función para manejar la conversión de cadenas
-function ConvertToISO($texto) {
+function ConvertToISO($texto)
+{
     return iconv('UTF-8', 'ISO-8859-1', $texto);
 }
 
 // Función para obtener la altura de una celda basada en el contenido
-function GetMultiCellHeight($pdf, $ancho, $texto) {
+function GetMultiCellHeight($pdf, $ancho, $texto)
+{
     $x_inicial = $pdf->GetX();
     $y_inicial = $pdf->GetY();
-    
+
     $pdf_clon = clone $pdf;
     $pdf_clon->MultiCell($ancho, 5, $texto, 0, 'C');
     $altura = $pdf_clon->GetY() - $y_inicial;
-    
+
     $pdf->SetXY($x_inicial, $y_inicial);
     return $altura;
 }
 
 // Función para imprimir una celda centrada verticalmente con bordes completos
-function PrintCenteredCell($pdf, $ancho, $altura_maxima, $texto) {
+function PrintCenteredCell($pdf, $ancho, $altura_maxima, $texto)
+{
     $x_inicial = $pdf->GetX();
     $y_inicial = $pdf->GetY();
-    
+
     // Calcular la altura de la celda real
     $altura_texto = GetMultiCellHeight($pdf, $ancho, $texto);
-    
+
     // Calcular el offset para centrar el contenido
     $offset = ($altura_maxima - $altura_texto) / 2;
-    
+
     // Dibujar el borde de la celda de toda la fila
     $pdf->Rect($x_inicial, $y_inicial, $ancho, $altura_maxima);
 
     // Mover a la posición central del texto
     $pdf->SetXY($x_inicial, $y_inicial + $offset);
-    
+
     // Imprimir el texto sin bordes (ya que los bordes fueron dibujados manualmente con Rect)
     $pdf->MultiCell($ancho, 5, ConvertToISO($texto), 0, 'C', false);
-    
+
     // Volver a la posición inicial para la siguiente celda
     $pdf->SetXY($x_inicial + $ancho, $y_inicial);
 }
 
 // Ajustar la función MultiCell y el tamaño de las columnas para que el texto no se sobreponga
-function PrintUniformRow($pdf, $row, $altura_maxima) {
+function PrintUniformRow($pdf, $row, $altura_maxima)
+{
     global $ancho_banco, $ancho_no_cuenta, $ancho_total, $ancho_utilizados, $ancho_por_utilizar, $ancho_cancelados;
-    
+
     // Imprimir las celdas con contenido centrado verticalmente y bordes
     PrintCenteredCell($pdf, $ancho_banco, $altura_maxima, $row['banco']);
     PrintCenteredCell($pdf, $ancho_no_cuenta, $altura_maxima, $row['no_cuenta']);
@@ -299,7 +306,8 @@ function PrintUniformRow($pdf, $row, $altura_maxima) {
 }
 
 // Función para imprimir la sección de información y firmas
-function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso) {
+function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso)
+{
     $pdf->Ln(); // Espacio entre la tabla y la información adicional
     $pdf->SetFont('Arial', 'B', 11);
     $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L');
@@ -321,7 +329,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
 
     // Sección de firmas
     $pdf->SetFont('Arial', 'B', 11);
-    
+
     // Definir el ancho total de la página (270mm para A4 horizontal)
     $ancho_total = 270;
     $margen = 10; // Márgenes de la página
@@ -350,23 +358,42 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $superviso), 0, 0, 'C');
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $autorizo), 0, 1, 'C');
 
-$pdf->Ln(-2); // Espacio antes de los cargos
+    $pdf->Ln(-2); // Espacio antes de los cargos
 
-// Cuarta fila con los cargos (centrados)
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'SECRETARIO TÉCNICO'), 0, 1, 'C');
+    // Cuarta fila con los cargos (centrados)
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'SECRETARIO TÉCNICO'), 0, 1, 'C');
 
-$pdf->Ln(-2); // Espacio antes de la segunda línea de texto
+    $pdf->Ln(-2); // Espacio antes de la segunda línea de texto
 
-// Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
-$pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
-$pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', 'TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
+    // Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
+    $pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', 'TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
 
-$pdf->Ln(5); // Espacio final
+    $pdf->Ln(5); // Espacio final
 
+}
+// Validar si la consulta retornó datos
+if (!is_array($datos) || count($datos) === 0) {
+    // Manejar el caso de datos vacíos
+    $pdf->SetFont('Arial', 'B', 36);
+    $pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', $opcion), 0, 1, 'C'); // Aquí cerramos correctamente
+
+    // Simular dos filas vacías
+    $pdf->SetFont('Arial', '', 12);
+    $altura_fila = 8; // Altura de cada fila simulada
+    for ($i = 0; $i < 2; $i++) {
+        $pdf->Cell(55, $altura_fila, '', 1, 0, 'C'); // Celda vacía (ajusta el ancho según tu tabla)
+        $pdf->Cell(52, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(35, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(45, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(50, $altura_fila, '', 1, 0, 'C'); // Ajusta según el número de columnas
+        $pdf->Cell(30, $altura_fila, '', 1, 0, 'C');
+        $pdf->Ln(); // Salto de línea para la siguiente fila
+    }
 }
 // Calcular el número de filas
 $total_filas = count($datos);
@@ -377,7 +404,8 @@ $espacio_total_disponible = 190; // Altura total de la página sin márgenes
 $altura_fila_minima = 15; // Altura mínima de fila
 
 // Función para calcular la altura de una celda basada en el texto
-function CalcularAlturaCelda($pdf, $texto, $ancho_celda) {
+function CalcularAlturaCelda($pdf, $texto, $ancho_celda)
+{
     $lineas = $pdf->GetStringWidth($texto) / $ancho_celda;
     $altura = ceil($lineas) * 5; // Ajusta el multiplicador para controlar el espacio entre líneas
     return $altura;

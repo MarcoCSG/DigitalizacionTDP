@@ -5,7 +5,6 @@ ob_start();
 // Incluir la subclase PDF
 require('../fpdf/fpdf.php');
 require 'conexion.php';
-
 // Subclase PDF con Header y Footer
 class PDF extends FPDF
 {
@@ -21,6 +20,7 @@ class PDF extends FPDF
     public $autorizo;
     public $superviso;
     public $observaciones;
+    public $opcion;
 
     // Encabezado de página
     function Header()
@@ -106,9 +106,9 @@ class PDF extends FPDF
     }
 }
 
-// Verificar si el usuario ha iniciado sesión
+// Verificar si el usuario ha iniciado sesión 
 session_start();
-if (!isset($_SESSION["municipio"])) {
+if (!isset($_SESSION["usuario"]) || !isset($_SESSION["municipio"])) {
     die("Acceso no autorizado."); // Considera manejar esto de otra forma para evitar salida directa
 }
 
@@ -124,12 +124,13 @@ $elaboro = isset($_GET['elaboro']) ? htmlspecialchars(trim($_GET['elaboro']), EN
 $autorizo = isset($_GET['autorizo']) ? htmlspecialchars(trim($_GET['autorizo']), ENT_QUOTES, 'UTF-8') : 'AUTORIZÓ';
 $superviso = isset($_GET['superviso']) ? htmlspecialchars(trim($_GET['superviso']), ENT_QUOTES, 'UTF-8') : 'SUPERVISO';
 $observaciones = isset($_GET['observaciones']) ? htmlspecialchars(trim($_GET['observaciones']), ENT_QUOTES, 'UTF-8') : 'OBSERVACIONES';
+$opcion = isset($_GET['opcion']) ? htmlspecialchars(trim($_GET['opcion']), ENT_QUOTES, 'UTF-8') : 'OPCION';
 
 // Definir la correspondencia entre municipios y sus logos
 $logo_mapping = [
-    'H.AYUNTAMIENTO DE MISANTLA, VER' => '../img/logoMisantla.png',
-    'H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
-    'H.AYUNTAMIENTO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
+    'MUNICIPIO DE MISANTLA, VER' => '../img/logoMisantla.png',
+    'MUNICIPIO DE SANTIAGO TUXTLA, VER' => '../img/logo_santiago.png',
+    'MUNICIPIO DE CORDOBA, VER' => '../img/logo_Cordoba.png'
     // Agregar más municipios y sus logos aquí según sea necesario
 ];
 
@@ -151,9 +152,13 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
         $stmt_area->execute();
         $result_area = $stmt_area->get_result();
         $row_area = $result_area->fetch_assoc();
-        $area_id = $row_area ? $row_area['id'] : die("Área no encontrada.");
-        $params[] = $area_id;
-        $types .= "i";
+        if ($row_area) {
+            $area_id = $row_area['id'];
+            $params[] = $area_id; // Agregar area_id a los parámetros
+            $types .= "i"; // Agregar tipo entero
+        } else {
+            die("Área no encontrada.");
+        }
         $stmt_area->close();
     }
 
@@ -165,19 +170,23 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
         $stmt_clas->execute();
         $result_clas = $stmt_clas->get_result();
         $row_clas = $result_clas->fetch_assoc();
-        $clasificacion_id = $row_clas ? $row_clas['id'] : die("Clasificación no encontrada.");
-        $params[] = $clasificacion_id;
-        $types .= "i";
+        if ($row_clas) {
+            $clasificacion_id = $row_clas['id'];
+            $params[] = $clasificacion_id; // Agregar clasificacion_id a los parámetros
+            $types .= "i"; // Agregar tipo entero
+        } else {
+            die("Clasificación no encontrada.");
+        }
         $stmt_clas->close();
     }
 
     // Construcción de la consulta para todos los registros, eliminando referencias a usuarios
     $query = "SELECT f.id, f.municipio, f.anio, f.ruta_archivo, 
-                    f1.no, f1.denominacion, f1.publicacion_fecha, f1.informacion_al, 
-                    f1.fecha_autorizacion, f1.responsable, f1.observaciones
-                FROM formatos f
-                JOIN formato_1_2 f1 ON f.id = f1.formato_id
-                WHERE f.municipio = ? AND f.anio = ?";
+    f1.no, f1.denominacion, f1.publicacion_fecha, f1.informacion_al, 
+    f1.fecha_autorizacion, f1.responsable, f1.observaciones
+FROM formatos f
+JOIN formato_1_2 f1 ON f.id = f1.formato_id
+WHERE f.municipio = ? AND f.anio = ?";
 
     if ($area_id !== null) $query .= " AND f.area_id = ?";
     if ($clasificacion_id !== null) $query .= " AND f.clasificaciones_id = ?";
@@ -206,7 +215,7 @@ function obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion
 
 // Obtener los datos filtrados
 $datos = obtenerDatos($conexion, $municipio, $anio, $area_nombre, $clasificacion_codigo, $search);
-if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
+//if (empty($datos)) die("No se encontraron registros para generar el PDF."); // Considera manejar esto de otra forma
 
 // Obtener solo un registro para "Información al" y "Responsable de la información"
 $info_al = $datos[0]['informacion_al'] ?? 'No disponible';
@@ -223,6 +232,7 @@ $pdf->elaboro = $elaboro;
 $pdf->autorizo = $autorizo;
 $pdf->superviso = $superviso;
 $pdf->observaciones = $observaciones;
+$pdf->opcion = $opcion;
 
 $pdf->AddPage();
 
@@ -301,7 +311,8 @@ function PrintUniformRow($pdf, $row, $altura_maxima)
 }
 
 // Función para imprimir la sección de información y firmas
-function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso) {
+function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $elaboro, $autorizo, $superviso)
+{
     $pdf->Ln(); // Espacio entre la tabla y la información adicional
     $pdf->SetFont('Arial', 'B', 11);
     $pdf->Cell(40, 8, iconv('UTF-8', 'ISO-8859-1', 'INFORMACIÓN AL:'), 0, 0, 'L');
@@ -323,7 +334,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
 
     // Sección de firmas
     $pdf->SetFont('Arial', 'B', 11);
-    
+
     // Definir el ancho total de la página (270mm para A4 horizontal)
     $ancho_total = 270;
     $margen = 10; // Márgenes de la página
@@ -352,23 +363,41 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $superviso), 0, 0, 'C');
     $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', $autorizo), 0, 1, 'C');
 
-$pdf->Ln(-2); // Espacio antes de los cargos
+    $pdf->Ln(-2); // Espacio antes de los cargos
 
-// Cuarta fila con los cargos (centrados)
-$pdf->SetFont('Arial', 'B', 10);
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'SECRETARIO TÉCNICO'), 0, 1, 'C');
+    // Cuarta fila con los cargos (centrados)
+    $pdf->SetFont('Arial', 'B', 10);
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'ENCARGADO DE LOS TRABAJOS'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'REPRESENTANTE LEGAL'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 8, iconv('UTF-8', 'ISO-8859-1', 'SECRETARIO TÉCNICO'), 0, 1, 'C');
 
-$pdf->Ln(-2); // Espacio antes de la segunda línea de texto
+    $pdf->Ln(-2); // Espacio antes de la segunda línea de texto
 
-// Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
-$pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
-$pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', 'TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD'), 0, 0, 'C');
-$pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
+    // Segunda línea de texto debajo de "REPRESENTANTE LEGAL" (centrada)
+    $pdf->Cell($ancho_columna, 5, '', 0, 0); // Vacío para que esté alineado
+    $pdf->Cell($ancho_columna, 5, iconv('UTF-8', 'ISO-8859-1', 'TECNOLOGÍA, DISEÑO Y PRODUCTIVIDAD'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 5, '', 0, 1); // Vacío para alineación
 
-$pdf->Ln(5); // Espacio final
+    $pdf->Ln(5); // Espacio final
 
+}
+ // Validar si la consulta retornó datos
+if (!is_array($datos) || count($datos) === 0) {
+    // Manejar el caso de datos vacíos
+    $pdf->SetFont('Arial', 'B', 36);
+    $pdf->Cell(0, 10, iconv('UTF-8', 'ISO-8859-1', $opcion), 0, 1, 'C'); // Aquí cerramos correctamente
+    
+    // Simular dos filas vacías
+    $pdf->SetFont('Arial', '', 12);
+    $altura_fila = 8; // Altura de cada fila simulada
+    for ($i = 0; $i < 2; $i++) {
+        $pdf->Cell(15, $altura_fila, '', 1, 0, 'C'); // Celda vacía (ajusta el ancho según tu tabla)
+        $pdf->Cell(80, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(40, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(72, $altura_fila, '', 1, 0, 'C');
+        $pdf->Cell(60, $altura_fila, '', 1, 0, 'C'); // Ajusta según el número de columnas
+        $pdf->Ln(); // Salto de línea para la siguiente fila
+    }
 }
 // Calcular el número de filas
 $total_filas = count($datos);
@@ -409,7 +438,7 @@ foreach ($datos as $row) {
 }
 
 // Lógica para la sección de firmas
-if ($total_filas > 2 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible)) {
+if (!empty($datos) && ($total_filas > 2 || ($pdf->GetY() + $altura_seccion_firmas > $espacio_total_disponible))) {
     // Si hay más de 6 filas o la sección no cabe en la misma página, agregar nueva página
     $pdf->AddPage();
 }

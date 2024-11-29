@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultado = document.getElementById("resultado");
 
     const datos = {
-        "H.AYUNTAMIENTO DE MISANTLA, VER": {
+        "MUNICIPIO DE MISANTLA, VER": {
             "areas": {
                 "presidencia_er": { 
                     texto: "PRESIDENCIA MARCO",

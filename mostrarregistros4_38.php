@@ -257,165 +257,183 @@ $stmt_count->close();
         ?>
     </h2>
 
-<!-- Botón para el PDF de TDP -->
-<div class="imprimir-pdf-btn">
-    <button onclick="abrirModalTDP()">IMPRIMIR PDF - TDP</button>
-</div>
-
-<!-- Modal para TDP -->
-<div id="modalPDFTDP" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarModalTDP()">&times;</span>
-        <h2>Introduzca el nombre de las personas autorizadas para firmar y cualquier observación pertinente</h2>
-        
-        <label for="elaboroTDP">Nombre de quien Elaboró:
-            <span class="tooltip">?
-                <span class="tooltip-text">Ingrese el nombre de la persona que elaboró el documento.</span>
-            </span>
-        </label>
-        <input type="text" id="elaboroTDP" spellcheck="true" required>
-        
-        <label for="autorizoTDP">Nombre de quien Autorizó:
-            <span class="tooltip">?
-                <span class="tooltip-text">Ingrese el nombre de la persona que autorizó el documento.</span>
-            </span>
-        </label>
-        <input type="text" id="autorizoTDP" spellcheck="true" required>
-        
-        <label for="supervisoTDP">Nombre de quien Supervisó:
-            <span class="tooltip">?
-                <span class="tooltip-text">Ingrese el nombre de la persona que supervisó el documento.</span>
-            </span>
-        </label>
-        <input type="text" id="supervisoTDP" spellcheck="true" required>
-        
-        <label for="observacionesTDP">Observaciones:
-            <span class="tooltip">?
-                <span class="tooltip-text">Ingrese cualquier información adicional relevante.</span>
-            </span>
-        </label>
-        <textarea id="observacionesTDP" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
-        
-        <button onclick="generarPDFTDP()">Generar PDF</button>
+    <!-- Botón para el PDF de TDP -->
+    <div class="imprimir-pdf-btn">
+        <button onclick="abrirModalTDP()">IMPRIMIR PDF - TDP</button>
     </div>
-</div>
 
-<!-- Botón para el PDF de Municipio -->
-<div class="imprimir-pdf-btn">
-    <button onclick="abrirModalMunicipio()">IMPRIMIR PDF - MUNICIPIO</button>
-</div>
+    <!-- Modal para TDP -->
+    <div id="modalPDFTDP" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalTDP()">&times;</span>
+            <h2>Introduzca el nombre de las personas autorizadas para firmar y cualquier observación pertinente</h2>
 
-<!-- Modal para Municipio -->
-<div id="modalPDFMunicipio" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarModalMunicipio()">&times;</span>
-        <h2>Introduzca el nombre de las personas autorizadas para firmar y cualquier observación pertinente</h2>
+            <label for="elaboroTDP">Nombre de quien Elaboró:
+                <span class="tooltip">?
+                    <span class="tooltip-text">Ingrese el nombre completo de la persona que elaboró el documento.</span>
+                </span>
+            </label>
+            <input type="text" id="elaboroTDP" spellcheck="true" required>
 
-        <label for="elaboroMunicipio">Nombre de quien Entrega:
-            <span class="tooltip">?
-                <span class="tooltip-text">El nombre completo, el cargo y la firma del servidor público responsable de la entrega (Presidente Municipal).</span>
-            </span>
-        </label>
-        <input type="text" id="elaboroMunicipio" spellcheck="true" required>
+            <label for="autorizoTDP">Nombre de quien Autorizó:
+                <span class="tooltip">?
+                    <span class="tooltip-text">Ingrese el nombre completo del representante legal de la empresa.</span>
+                </span>
+            </label>
+            <input type="text" id="autorizoTDP" spellcheck="true" required>
 
-        <label for="autorizoMunicipio">Nombre de quien Recibe:
-            <span class="tooltip">?
-                <span class="tooltip-text">El nombre completo y la firma de la persona designada para recibir.</span>
-            </span>
-        </label>
-        <input type="text" id="autorizoMunicipio" spellcheck="true" required>
-        
-        <label for="observacionesMunicipio">Observaciones:
-            <span class="tooltip">?
-                <span class="tooltip-text">Ingrese cualquier información adicional relevante.</span>
-            </span>
-        </label>
-        <textarea id="observacionesMunicipio" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
-        
-        <button onclick="generarPDFMunicipio()">Generar PDF</button>
+            <label for="supervisoTDP">Nombre de quien Supervisó:
+                <span class="tooltip">?
+                    <span class="tooltip-text">Ingrese el nombre completo de la persona que supervisó el documento.</span>
+                </span>
+            </label>
+            <input type="text" id="supervisoTDP" spellcheck="true" required>
+
+            <label for="observacionesTDP">Observaciones:
+                <span class="tooltip">?
+                    <span class="tooltip-text">Ingrese cualquier información adicional relevante.</span>
+                </span>
+            </label>
+            <textarea id="observacionesTDP" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
+
+            <label for="informacion">¿Contiene Información?</label>
+            <select id="informacion" name="informacion">
+                <option value="">Selecciona una opción (opcional)</option>
+                <option value="NO APLICA">NO APLICA</option>
+                <option value="PENDIENTE DE INFORMACIÓN">PENDIENTE DE INFORMACIÓN</option>
+                <option value="NO SE PROPORCIONÓ INFORMACIÓN">NO SE PROPORCIONÓ INFORMACIÓN</option>
+            </select>
+
+            <button onclick="generarPDFTDP()">Generar PDF</button>
+        </div>
     </div>
-</div>
 
-<script>
-// Función para convertir texto a mayúsculas antes de enviarlo
-function obtenerTextoEnMayusculas(elementId) {
-    return document.getElementById(elementId).value.trim().toUpperCase();
-}
+    <!-- Botón para el PDF de Municipio -->
+    <div class="imprimir-pdf-btn">
+        <button onclick="abrirModalMunicipio()">IMPRIMIR PDF - MUNICIPIO</button>
+    </div>
 
-// Funciones para el modal de TDP
-function abrirModalTDP() {
-    document.getElementById("modalPDFTDP").style.display = "block";
-}
+    <!-- Modal para Municipio -->
+    <div id="modalPDFMunicipio" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalMunicipio()">&times;</span>
+            <h2>Introduzca el nombre de las personas autorizadas para firmar y cualquier observación pertinente</h2>
 
-function cerrarModalTDP() {
-    document.getElementById("modalPDFTDP").style.display = "none";
-}
+            <label for="elaboroMunicipio">Nombre de quien Entrega:
+                <span class="tooltip">?
+                    <span class="tooltip-text">El nombre completo, el cargo y la firma del servidor público responsable de la entrega (Presidente Municipal).</span>
+                </span>
+            </label>
+            <input type="text" id="elaboroMunicipio" spellcheck="true" required>
 
-function generarPDFTDP() {
-    const elaboro = obtenerTextoEnMayusculas("elaboroTDP");
-    const autorizo = obtenerTextoEnMayusculas("autorizoTDP");
-    const superviso = obtenerTextoEnMayusculas("supervisoTDP");
-    const observaciones = obtenerTextoEnMayusculas("observacionesTDP");
+            <label for="autorizoMunicipio">Nombre de quien Recibe:
+                <span class="tooltip">?
+                    <span class="tooltip-text">El nombre completo y la firma de la persona designada para recibir.</span>
+                </span>
+            </label>
+            <input type="text" id="autorizoMunicipio" spellcheck="true" required>
 
-    if (!elaboro || !autorizo || !superviso) {
-        alert("Todos los campos son obligatorios.");
-        return;
-    }
+            <label for="observacionesMunicipio">Observaciones:
+                <span class="tooltip">?
+                    <span class="tooltip-text">Ingrese cualquier información adicional relevante.</span>
+                </span>
+            </label>
+            <textarea id="observacionesMunicipio" rows="4" placeholder="Ingrese observaciones aquí..."></textarea>
 
-    const search = "<?php echo addslashes($search); ?>";
-    const anio = "<?php echo addslashes($anio); ?>";
-    const area = "<?php echo addslashes($area_nombre); ?>";
-    const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
+            <label for="informacion_municipio">¿Contiene Información?</label>
+            <select id="informacion_municipio" name="informacion_municipio">
+                <option value="">Selecciona una opción (opcional)</option>
+                <option value="NO APLICA">NO APLICA</option>
+                <option value="PENDIENTE DE INFORMACIÓN">PENDIENTE DE INFORMACIÓN</option>
+                <option value="NO SE PROPORCIONÓ INFORMACIÓN">NO SE PROPORCIONÓ INFORMACIÓN</option>
+            </select>
 
-    const url = `php/generarPDF4_38.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}&observaciones=${encodeURIComponent(observaciones)}`;
-    
-    window.open(url, '_blank');
-    cerrarModalTDP();
-}
+            <button onclick="generarPDFMunicipio()">Generar PDF</button>
+        </div>
+    </div>
 
-// Funciones para el modal de Municipio
-function abrirModalMunicipio() {
-    document.getElementById("modalPDFMunicipio").style.display = "block";
-}
+    <script>
+        // Función para convertir texto a mayúsculas antes de enviarlo
+        function obtenerTextoEnMayusculas(elementId) {
+            return document.getElementById(elementId).value.trim().toUpperCase();
+        }
 
-function cerrarModalMunicipio() {
-    document.getElementById("modalPDFMunicipio").style.display = "none";
-}
+        // Funciones para el modal de TDP
+        function abrirModalTDP() {
+            document.getElementById("modalPDFTDP").style.display = "block";
+        }
 
-function generarPDFMunicipio() {
-    const elaboro = obtenerTextoEnMayusculas("elaboroMunicipio");
-    const autorizo = obtenerTextoEnMayusculas("autorizoMunicipio");
-    const observaciones = obtenerTextoEnMayusculas("observacionesMunicipio");
+        function cerrarModalTDP() {
+            document.getElementById("modalPDFTDP").style.display = "none";
+        }
 
-    if (!elaboro || !autorizo) {
-        alert("Todos los campos son obligatorios.");
-        return;
-    }
+        function generarPDFTDP() {
+            const elaboro = document.getElementById('elaboroTDP').value;
+            const autorizo = document.getElementById('autorizoTDP').value;
+            const superviso = document.getElementById('supervisoTDP').value;
+            const observaciones = document.getElementById('observacionesTDP').value;
 
-    const search = "<?php echo addslashes($search); ?>";
-    const anio = "<?php echo addslashes($anio); ?>";
-    const area = "<?php echo addslashes($area_nombre); ?>";
-    const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
+            // Obtener la opción seleccionada del select (si la tabla no tiene datos)
+            let opcionSeleccionada = document.getElementById('informacion').value;
 
-    const url = `php/generarPDF4_38_municipio.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&observaciones=${encodeURIComponent(observaciones)}`;
-    
-    window.open(url, '_blank');
-    cerrarModalMunicipio();
-}
+            // Si no se selecciona ninguna opción, asignar un valor predeterminado vacío
+            opcionSeleccionada = opcionSeleccionada || "";
 
-// Cerrar el modal al hacer clic fuera de él
-window.onclick = function(event) {
-    const modalTDP = document.getElementById("modalPDFTDP");
-    const modalMunicipio = document.getElementById("modalPDFMunicipio");
-    if (event.target == modalTDP) {
-        cerrarModalTDP();
-    } else if (event.target == modalMunicipio) {
-        cerrarModalMunicipio();
-    }
-}
-</script>
+            const search = "<?php echo addslashes($search); ?>";
+            const anio = "<?php echo addslashes($anio); ?>";
+            const area = "<?php echo addslashes($area_nombre); ?>";
+            const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
+
+            // Construir URL con parámetros
+            const url = `php/generarPDF4_38.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&superviso=${encodeURIComponent(superviso)}&observaciones=${encodeURIComponent(observaciones)}&opcion=${encodeURIComponent(opcionSeleccionada)}`;
+
+            window.open(url, '_blank');
+            cerrarModalTDP();
+        }
+
+        // Funciones para el modal de Municipio
+        function abrirModalMunicipio() {
+            document.getElementById("modalPDFMunicipio").style.display = "block";
+        }
+
+        function cerrarModalMunicipio() {
+            document.getElementById("modalPDFMunicipio").style.display = "none";
+        }
+
+        function generarPDFMunicipio() {
+            const elaboro = document.getElementById("elaboroMunicipio").value;
+            const autorizo = document.getElementById("autorizoMunicipio").value;
+            const observaciones = document.getElementById("observacionesMunicipio").value;
+
+            // Obtener la opción seleccionada del select (si la tabla no tiene datos)
+            let opcionSeleccionada = document.getElementById('informacion_municipio').value;
+
+            // Si no se selecciona ninguna opción, asignar un valor predeterminado vacío
+            opcionSeleccionada = opcionSeleccionada || "";
 
 
+            const search = "<?php echo addslashes($search); ?>";
+            const anio = "<?php echo addslashes($anio); ?>";
+            const area = "<?php echo addslashes($area_nombre); ?>";
+            const clasificacion = "<?php echo addslashes($clasificacion_codigo); ?>";
+
+            const url = `php/generarPDF4_38_municipio.php?search=${encodeURIComponent(search)}&anio=${encodeURIComponent(anio)}&area=${encodeURIComponent(area)}&clasificacion=${encodeURIComponent(clasificacion)}&elaboro=${encodeURIComponent(elaboro)}&autorizo=${encodeURIComponent(autorizo)}&observaciones=${encodeURIComponent(observaciones)}&opcion=${encodeURIComponent(opcionSeleccionada)}`;
+
+            window.open(url, '_blank');
+            cerrarModalMunicipio();
+        }
+
+        // Cerrar el modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modalTDP = document.getElementById("modalPDFTDP");
+            const modalMunicipio = document.getElementById("modalPDFMunicipio");
+            if (event.target == modalTDP) {
+                cerrarModalTDP();
+            } else if (event.target == modalMunicipio) {
+                cerrarModalMunicipio();
+            }
+        }
+    </script>
 
     <?php
     // Mostrar los resultados filtrados

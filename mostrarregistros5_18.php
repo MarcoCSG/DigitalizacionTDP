@@ -450,10 +450,10 @@ $stmt_count->close();
                         <th>LUGAR, MOBILIARIO O EQUIPO</th>
                         <th>CANTIDAD</th>
                         <th>EN PODER DE</th>
-                        <th>CANTIDAD(COPIAS)</th>
-                        <th>Información Al</th>
-                        <th>Responsable</th>
-                        <th>Acciones</th>
+                        <th>CANTIDAD (COPIAS)</th>
+                        <th>INFORMACIÓN AL</th>
+                        <th>RESPONSABLE</th>
+                        <th>ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>";

@@ -205,7 +205,7 @@ $stmt_count->close();
 
 <body>
     <div class="header">
-        <h1 class="titulo">ENTREGA RECEPCION - <?php echo htmlspecialchars($municipio); ?></h1>
+        <h1 class="titulo">ENTREGA RECEPCIÓN - <?php echo htmlspecialchars($municipio); ?></h1>
         <img src="img/logoTDP.png" alt="Logo Empresa" class="imgEmpresa">
     </div>
 

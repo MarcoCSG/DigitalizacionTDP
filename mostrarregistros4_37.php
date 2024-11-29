@@ -444,7 +444,7 @@ $stmt_count->close();
                 <thead>
                     <tr>
                         <th>BANCO.</th>
-                        <th>NUMERO DE CUENTA</th>
+                        <th>NÚMERO DE CUENTA</th>
                         <th>TOTAL</th>
                         <th>UTILIZADOS</th>
                         <th>POR UTILIZAR</th>

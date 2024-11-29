@@ -450,7 +450,7 @@ $stmt_count->close();
                         <th>OBSERVACIONES</th>
                         <th>INFORMACIÓN AL</th>
                         <th>RESPONSABLE</th>
-                        <th>Acciones</th>
+                        <th>ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>";

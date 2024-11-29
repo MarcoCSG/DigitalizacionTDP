@@ -31,7 +31,7 @@ $anio = isset($_GET['anio']) ? intval($_GET['anio']) : date('Y'); // Obtener el 
             <figure>
                 <img class="imgTDP" src="img/logoTDP.png" alt="logo">
             </figure>
-            <h1 class="titulo">ENTREGA RECEPCION <?php echo htmlspecialchars($municipio); ?></h1>
+            <h1 class="titulo">ENTREGA RECEPCIÓN <?php echo htmlspecialchars($municipio); ?></h1>
             <h2 class="subtitulo">SELECCIONE LAS OPCIONES DE BÚSQUEDA</h2>
 
             <section class="search-options">

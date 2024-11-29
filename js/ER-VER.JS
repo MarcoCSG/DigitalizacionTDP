@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "2.3", texto: "2.3 Programa de Actividades Institucionales" },
                     { valor: "2.4", texto: "2.4 Informes de Avance del Programa de Actividades Institucionales" },
                     { valor: "2.5", texto: "2.5 Programas Generales de Inversión (PGI)" },
-                    { valor: "4.1", texto: "4.1 Ley de Ingresos y Proyecto Anual de la Ley de Ingresos 2022" },
+                    { valor: "4.1", texto: "4.1 Ley de Ingresos y Proyecto Anual de la Ley de Ingresos" },
                     { valor: "4.2", texto: "4.2 Presupuestos de Egresos" },
                     { valor: "4.3", texto: "4.3 Estados de Situación Financiera" },
                     { valor: "4.4", texto: "4.4 Estados de Actividades" },
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
             },
                 "secretaria_er": {
-                    texto: "SECRETARIA",
+                    texto: "SECRETARÍA",
                     clasificaciones: [
                     // todas las areas
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
             },
                 "contraloria_er": {
-                    texto: "CONTRALORIA",
+                    texto: "CONTRALORÍA",
                     clasificaciones: [
                     // todas las areas
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
             },
             "obraspublicas_er": {
-                    texto: "OBRAS PUBLICAS",
+                    texto: "OBRAS PÚBLICAS",
                     clasificaciones: [
                     // todas las areas
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     },
 
-        "H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER": {
+        "MUNICIPIO DE SANTIAGO TUXTLA, VER": {
             "areas": {
                 "presidencia_er": { 
                     texto: "PRESIDENCIA",
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "2.3", texto: "2.3 Programa de Actividades Institucionales" },
                     { valor: "2.4", texto: "2.4 Informes de Avance del Programa de Actividades Institucionales" },
                     { valor: "2.5", texto: "2.5 Programas Generales de Inversión (PGI)" },
-                    { valor: "4.1", texto: "4.1 Ley de Ingresos y Proyecto Anual de la Ley de Ingresos 2022" },
+                    { valor: "4.1", texto: "4.1 Ley de Ingresos y Proyecto Anual de la Ley de Ingresos" },
                     { valor: "4.2", texto: "4.2 Presupuestos de Egresos" },
                     { valor: "4.3", texto: "4.3 Estados de Situación Financiera" },
                     { valor: "4.4", texto: "4.4 Estados de Actividades" },
@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
             },
                 "secretaria_er": {
-                    texto: "SECRETARIA",
+                    texto: "SECRETARÍA",
                     clasificaciones: [
                     // todas las areas
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
             },
                 "contraloria_er": {
-                    texto: "CONTRALORIA",
+                    texto: "CONTRALORÍA",
                     clasificaciones: [
                     // todas las areas
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
             },
             "obraspublicas_er": {
-                    texto: "OBRAS PUBLICAS",
+                    texto: "OBRAS PÚBLICAS",
                     clasificaciones: [
                     // todas las areas
                     { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },

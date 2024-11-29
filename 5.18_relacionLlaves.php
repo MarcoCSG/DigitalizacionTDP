@@ -74,9 +74,9 @@ if (empty($area) || empty($clasificacion)) {
                 <label for="no">No.</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El número consecutivo de los documentos relacionados (1, 2, 3, etc.).</span>
+                    <span class="tooltip">El número consecutivo de los documentos relacionados (1, 2, 3).</span>
                 </div>
-                <input type="number" id="no" name="no" placeholder="INGRESE EL NÚMERO" spellcheck="true" > <!-- Agregado name -->
+                <input type="number" id="no" name="no" placeholder="Ingrese el número" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -89,7 +89,7 @@ if (empty($area) || empty($clasificacion)) {
             </div>
 
             <div class="form-group">
-                <label for="lugar_movilidad_equipo">LUGAR, MOVILIARIO O EQUIPO</label>
+                <label for="lugar_movilidad_equipo">LUGAR, MOBILIARIO O EQUIPO</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La denominación del espacio físico o del bien que permite abrir la llave. Ejemplo: Presidencia Municipal, sala de juntas, etc</span>
@@ -104,7 +104,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número de llaves que se están entregando.</span>
                 </div>
-                <input type="number" name="cantidad" id="cantidad" value="<?php echo htmlspecialchars($registro['cantidad']); ?>">
+                <input type="number" name="cantidad" id="cantidad" placeholder="ingrese la cantidad de llaves" value="<?php echo htmlspecialchars($registro['cantidad']); ?>">
             </div>
 
             <div class="form-group">
@@ -117,19 +117,19 @@ if (empty($area) || empty($clasificacion)) {
             </div>
 
             <div class="form-group">
-                <label for="cantidad_copias">CANTIDAD(COPIAS)</label>
+                <label for="cantidad_copias">CANTIDAD (COPIAS)</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número de duplicados que tenga en su poder la persona referida.</span>
                 </div>
-                <input type="number" name="cantidad_copias" id="cantidad_copias" value="<?php echo htmlspecialchars($registro['cantidad_copias']); ?>">
+                <input type="number" name="cantidad_copias" id="cantidad_copias" placeholder="ingrese la cantidad de llaves" value="<?php echo htmlspecialchars($registro['cantidad_copias']); ?>">
             </div>
 
             <div class="form-group">
                 <label for="informacion_al">INFORMACIÓN AL</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato.</span>
                 </div>
                 <input type="date" name="informacion_al" id="informacion_al" value="<?php echo htmlspecialchars($registro['informacion_al']); ?>" required>
             </div>

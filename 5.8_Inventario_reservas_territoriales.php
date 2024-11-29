@@ -74,9 +74,9 @@ if (empty($area) || empty($clasificacion)) {
                 <label for="no">No.</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El número consecutivo de las reservas territoriales relacionadas (1, 2, 3, etc.).</span>
+                    <span class="tooltip">El número consecutivo de las reservas territoriales relacionadas (1, 2, 3).</span>
                 </div>
-                <input type="number" id="no" name="no" placeholder="Ingrese un numero" spellcheck="true" > <!-- Agregado name -->
+                <input type="number" id="no" name="no" placeholder="Ingrese un número" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -85,7 +85,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El nombre de la calle, número, colonia, localidad y código postal donde se ubica.</span>
                 </div>
-                <input type="text" id="ubicacion" name="ubicacion" placeholder="Ingrese la ubicacion" spellcheck="true" > <!-- Agregado name -->
+                <input type="text" id="ubicacion" name="ubicacion" placeholder="Ingrese la ubicación" spellcheck="true" > <!-- Agregado name -->
             </div>
 
 
@@ -95,7 +95,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La descripción de las características de colindancia al norte, sur, este y oeste de la reserva territorial.</span>
                 </div>
-                <textarea id="colindancias" name="colindancias" placeholder="Ingrese colindansias" spellcheck="true" required></textarea>
+                <textarea id="colindancias" name="colindancias" placeholder="Ingrese colindancias" spellcheck="true" required></textarea>
             </div>
 
             <div class="form-group">
@@ -171,9 +171,9 @@ if (empty($area) || empty($clasificacion)) {
                 <label for="informacion_al">INFORMACIÓN AL</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato.</span>
                 </div>
-                <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese su informacion" spellcheck="true" > <!-- Agregado name -->
+                <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese su información" spellcheck="true" > <!-- Agregado name -->
                 </div>
 
             <div class="form-group">

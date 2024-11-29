@@ -452,7 +452,7 @@ $stmt_count->close();
                         <th>IMPORTE</th>
                         <th>INFORMACIÓN AL</th>
                         <th>RESPONSABLE</th>
-                        <th>Acciones</th>
+                        <th>ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>";

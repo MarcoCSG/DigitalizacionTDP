@@ -85,7 +85,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La denominación del material en existencia, propiedad del Ayuntamiento.</span>
                 </div>
-                <input type="text" id="articulo" name="articulo" placeholder="Ingrese el articulo" spellcheck="true" > <!-- Agregado name -->
+                <input type="text" id="articulo" name="articulo" placeholder="Ingrese el artículo" spellcheck="true" > <!-- Agregado name -->
             </div>
 
 
@@ -95,7 +95,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">La expresión o concepto con la que se contabilizan los materiales.</span>
                 </div>
-                <input type="text" id="unidad_medida" name="unidad_medida" placeholder="Ingrese la cantidad de folios" spellcheck="true" > <!-- Agregado name -->
+                <input type="text" id="unidad_medida" name="unidad_medida" placeholder="Ingrese una unidad de medida" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -153,7 +153,7 @@ if (empty($area) || empty($clasificacion)) {
                 <label for="informacion_al">INFORMACIÓN AL</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato.</span>
                 </div>
                 <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese información" spellcheck="true" > 
             </div>

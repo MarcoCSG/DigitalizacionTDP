@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     },
 
-        "H.AYUNTAMIENTO DE SANTIAGO TUXTLA, VER": {
+        "MUNICIPIO DE SANTIAGO TUXTLA, VER": {
             "areas": {
                 "presidencia_er": { 
                     texto: "PRESIDENCIA - SANTIAGO",

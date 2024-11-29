@@ -344,9 +344,9 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     $ancho_columna = $ancho_disponible / 3; // Cada columna ocupará un tercio del ancho disponible
 
     // Primera fila de títulos (ELABORO, SUPERVISO, AUTORIZO)
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'ELABORO:'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'SUPERVISO:'), 0, 0, 'C');
-    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'AUTORIZO:'), 0, 1, 'C');
+    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'ELABORÓ:'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'SUPERVISÓ:'), 0, 0, 'C');
+    $pdf->Cell($ancho_columna, 10, iconv('UTF-8', 'ISO-8859-1', 'AUTORIZÓ:'), 0, 1, 'C');
 
     $pdf->Ln(10); // Espacio antes de las líneas de firma
 

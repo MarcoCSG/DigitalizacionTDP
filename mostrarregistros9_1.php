@@ -445,7 +445,7 @@ $stmt_count->close();
                         <th>ACTIVIDAD</th>
                         <th>FECHA</th>
                         <th>OBSERVACIONES</th>
-                        <th>AREA RESPONSABLE</th>
+                        <th>ÁREA RESPONSABLE</th>
                         <th>INFORMACIÓN Al</th>
                         <th>RESPONSABLE</th>
                         <th>ACCIONES</th>

@@ -76,7 +76,7 @@ if (empty($area) || empty($clasificacion)) {
                     <button type="button" class="help-button">?</button>
                     <span class="tooltip">El número consecutivo de los bienes relacionados.</span>
                 </div>
-                <input type="number" id="no" name="no" placeholder="Ingrese un numero" spellcheck="true" > <!-- Agregado name -->
+                <input type="number" id="no" name="no" placeholder="Ingrese un número" spellcheck="true" > <!-- Agregado name -->
             </div>
 
             <div class="form-group">
@@ -120,7 +120,7 @@ if (empty($area) || empty($clasificacion)) {
                 <label for="informacion_al">INFORMACIÓN AL</label>
                 <div class="tooltip-container">
                     <button type="button" class="help-button">?</button>
-                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato Ejemplo: 15 de diciembre de 2021.</span>
+                    <span class="tooltip">El día, mes y año en que se actualizó la información de este formato.</span>
                 </div>
                 <input type="date" id="informacion_al" name="informacion_al" placeholder="Ingrese su informacion al" spellcheck="true" >
             </div>

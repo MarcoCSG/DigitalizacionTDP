@@ -447,17 +447,17 @@ $stmt_count->close();
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Nombre del Expediente</th>
-                        <th>Serie Documental</th>
-                        <th>Clave</th>
-                        <th>Descripción del Contenido</th>
-                        <th>Resguardo</th>
-                        <th>Confidencial</th>
-                        <th>Vigencia Documental</th>
-                        <th>Área Responsable</th>
-                        <th>Información Al</th>
-                        <th>Responsable</th>
-                        <th>Acciones</th>
+                        <th>NOMBRE DEL EXPEDIENTE</th>
+                        <th>SERIE DOCUMENTAL</th>
+                        <th>CAVE</th>
+                        <th>DESCRIPCIÓN DEL CONTENIDO</th>
+                        <th>RESGUARDO</th>
+                        <th>CONFIDENCIAL</th>
+                        <th>VIGENCIA DOCUMENTAL</th>
+                        <th>ÁREA RESPONSABLE</th>
+                        <th>INFORMACIÓN AL</th>
+                        <th>RESPONSABLE</th>
+                        <th>ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>";

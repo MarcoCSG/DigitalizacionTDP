@@ -448,9 +448,9 @@ $stmt_count->close();
                         <th>Fecha de Publicación</th>
                         <th>Información Al</th>
                         <th>Fecha de Autorización</th>
-                        <th>Responsable</th>
-                        <th>Observaciones</th>
-                        <th>Acciones</th>
+                        <th>RESPONSABLE</th>
+                        <th>OBSERVACIONES</th>
+                        <th>ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>";

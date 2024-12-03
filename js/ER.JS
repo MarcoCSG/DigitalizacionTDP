@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
-                    { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales" },
+                    { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales", form:"1.3_relacion_entidades_paramunicipales.php"},
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" },
                     { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir" },
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
-                    { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales" },
+                    { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales", form:"1.3_relacion_entidades_paramunicipales.php" },
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" },
                     { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir" },

@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
-                    { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales" },
+                    { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales", form:"mostrarregistros1_3.php" },
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" },
                     { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir" },

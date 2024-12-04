@@ -1,11 +1,10 @@
 INSERT INTO `clasificaciones` (`id`, `codigo`, `nombre`, `area_id`) VALUES
-(164, '5.18', '5.18 Relación de Llaves', 1),
-(165, '5.18', '5.18 Relación de Llaves', 2),
-(166, '5.18', '5.18 Relación de Llaves', 3),
-(167, '5.18', '5.18 Relación de Llaves', 4),
-(168, '5.18', '5.18 Relación de Llaves', 5),
-(169, '5.18', '5.18 Relación de Llaves', 6),
-(170, '5.18', '5.18 Relación de Llaves', 7);
+(172, '1.2', '1.2 Relación de Manuales Administrativos', 8),
+(173, '5.11', '5.11 Relación de Archivo de Trámite', 8),
+(174, '5.18', '5.18 Relación de Llaves', 8),
+(175, '9.1', '9.1 Actividades de Atención Prioritaria', 8),
+(176, '3.1', '3.1 Relación de Reglamentos Municipales', 8),
+
 
 
 presidencia_er: [

@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales", form:"mostrarregistros1_3.php" },
-                    { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" },
+                    { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales", form:"mostrarregistros3_1.php"},
                     { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir" },
                     { valor: "3.4", texto: "3.4 Relación de Actas del Consejo de Planeación para el Desarrollo Municipal (COPLADEMUN)" },
@@ -197,6 +197,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "7.2", texto: "7.2 Relación de Recursos de Revisión en Trámite" },
                     { valor: "7.3", texto: "7.3 Relación de Documentación Relativa a Transparencia, Acceso a la Información y Protección de Datos Personales" },
                 ]
+            },
+            "juridico_er": {
+                texto: "JURIDICO",
+                clasificaciones: [
+                    // todas las areas
+                    { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+                    { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
+                    { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
+                    // clasificaciones
+                    { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" , form:"mostrarregistros3_1.php"},
+
+                ],
             },
         },
     },
@@ -306,8 +319,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
-                    { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales" },
-                    { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" },
+                    { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales", form:"mostrarregistros1_3.php" },
+                    { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales", form:"mostrarregistros3_1.php"},
                     { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir" },
                     { valor: "3.4", texto: "3.4 Relación de Actas del Consejo de Planeación para el Desarrollo Municipal (COPLADEMUN)" },
@@ -391,6 +404,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "7.2", texto: "7.2 Relación de Recursos de Revisión en Trámite" },
                     { valor: "7.3", texto: "7.3 Relación de Documentación Relativa a Transparencia, Acceso a la Información y Protección de Datos Personales" },
                 ]
+            },
+            "juridico_er": {
+                texto: "JURIDICO",
+                clasificaciones: [
+                    // todas las areas
+                    { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "mostrarregistros.php" },
+                    { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "mostrarregistros5_11.php" },
+                    { valor: "5.18", texto: "5.18 Relación de Llaves", form: "mostrarregistros5_18.php" },
+                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
+                    // clasificaciones
+                    { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" , form:"mostrarregistros3_1.php"},
+
+                ],
             },
         },
     },

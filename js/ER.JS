@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // clasificaciones
                     { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales", form:"1.3_relacion_entidades_paramunicipales.php"},
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" , form:"3.1_relacion_de_reglamentos.php"},
-                    { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo" },
+                    { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo", form:"3.2_relacion_libros_cabildo.php" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir" },
                     { valor: "3.4", texto: "3.4 Relación de Actas del Consejo de Planeación para el Desarrollo Municipal (COPLADEMUN)" },
                     { valor: "3.5", texto: "3.5 Relación de Actas del Consejo de Desarrollo Municipal (CDM)" },
@@ -227,8 +227,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
                     { valor: "1.3", texto: "1.3 Relación de Entidades Paramunicipales", form:"1.3_relacion_entidades_paramunicipales.php" },
-                    { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales", form:"3.1_relacion_de_reglamentos.php"},
-                    { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo" },
+                    { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales", form:"3.1_relacion_de_reglamentos.php" },
+                    { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo", form:"3.2_relacion_libros_cabildo.php" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir" },
                     { valor: "3.4", texto: "3.4 Relación de Actas del Consejo de Planeación para el Desarrollo Municipal (COPLADEMUN)" },
                     { valor: "3.5", texto: "3.5 Relación de Actas del Consejo de Desarrollo Municipal (CDM)" },

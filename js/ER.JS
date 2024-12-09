@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () { 
     const areaSelect = document.getElementById("area");
     const clasificacionContainer = document.getElementById("clasificacionContainer");
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" , form:"3.1_relacion_de_reglamentos.php"},
                     { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo", form:"3.2_relacion_libros_cabildo.php" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir", form:"3.3_relacion_acuerdos_cabildo_pendientes.php" },
-                    { valor: "3.4", texto: "3.4 Relación de Actas del Consejo de Planeación para el Desarrollo Municipal (COPLADEMUN)" },
+                    { valor: "3.4", texto: "3.4 Relación de Actas del Consejo de Planeación para el Desarrollo Municipal (COPLADEMUN)", form:" 3.4_relacion_actas_consejo_planeacion.php" },
                     { valor: "3.5", texto: "3.5 Relación de Actas del Consejo de Desarrollo Municipal (CDM)" },
                     { valor: "3.6", texto: "3.6 Relación de Juicios en Proceso Promovidos por el Ayuntamiento" },
                     { valor: "3.7", texto: "3.7 Relación de Juicios en Proceso Promovidos en contra del Ayuntamiento" },
@@ -230,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales", form:"3.1_relacion_de_reglamentos.php" },
                     { valor: "3.2", texto: "3.2 Relación de Libros de Actas de Cabildo", form:"3.2_relacion_libros_cabildo.php" },
                     { valor: "3.3", texto: "3.3 Relación de Acuerdos de Cabildo Pendientes de Cumplir", form:"3.3_relacion_acuerdos_cabildo_pendientes.php" },
-                    { valor: "3.4", texto: "3.4 Relación de Actas del Consejo de Planeación para el Desarrollo Municipal (COPLADEMUN)" },
+                    { valor: "3.4", texto: "3.4 Relación de Actas del Consejo de Planeación para el Desarrollo Municipal (COPLADEMUN)", form:" 3.4_relacion_actas_consejo_planeacion.php"},
                     { valor: "3.5", texto: "3.5 Relación de Actas del Consejo de Desarrollo Municipal (CDM)" },
                     { valor: "3.6", texto: "3.6 Relación de Juicios en Proceso Promovidos por el Ayuntamiento" },
                     { valor: "3.7", texto: "3.7 Relación de Juicios en Proceso Promovidos en contra del Ayuntamiento" },

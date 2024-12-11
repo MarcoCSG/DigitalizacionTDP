@@ -26,19 +26,19 @@ $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
 
 // Obtener los datos actuales del registro
 $stmt = $conexion->prepare("SELECT 
-        f13.no, 
-        f13.denominacion, 
-        f13.no_acta, 
-        f13.fecha_aprobacion, 
-        f13.no_gaceta, 
-        f13.fecha_publicacion, 
-        f13.observaciones_3_1, 
-        f13.informacion_al, 
-        f13.responsable 
+        f31.no, 
+        f31.denominacion, 
+        f31.no_acta, 
+        f31.fecha_aprobacion, 
+        f31.no_gaceta, 
+        f31.fecha_publicacion, 
+        f31.observaciones_3_1, 
+        f31.informacion_al, 
+        f31.responsable 
     FROM 
-        formato_3_1 f13 
+        formato_3_1 f31 
     WHERE 
-        f13.formato_id = ?
+        f31.formato_id = ?
 ");
 if (!$stmt) {
     die("Error en la preparación de la consulta: " . $conexion->error);
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $denominacion = isset($_POST['denominacion']) ? trim($_POST['denominacion']) : '';
     $no_acta = isset($_POST['no_acta']) ? trim($_POST['no_acta']) : '';
 
-    $fecha_aprobacion = isset($_POST['fecha_aprobacion']);
+    $fecha_aprobacion = isset($_POST['fecha_aprobacion']) ? $_POST['fecha_aprobacion'] : null;
     if ($fecha_aprobacion) {
         // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
         $fecha_aprobacion = date('d/m/Y', strtotime($fecha_aprobacion));
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $no_gaceta = isset($_POST['no_gaceta']) ? trim($_POST['no_gaceta']) : '';
 
-    $fecha_publicacion = isset($_POST['fecha_publicacion']);
+    $fecha_publicacion = isset($_POST['fecha_publicacion']) ? $_POST['fecha_publicacion'] : null;
     if ($fecha_publicacion) {
         // Convertir la fecha de yyyy-mm-dd a dd/mm/yyyy
         $fecha_publicacion = date('d/m/Y', strtotime($fecha_publicacion));
@@ -331,7 +331,7 @@ $conexion->close();
                     misma.</span>
                 </span>
             </label>
-            <input type="date" name="fecha_publicacion" id="fecha_publicacion" value="<?php echo htmlspecialchars($registro['fecha_publicacion']); ?>" required min="1">
+            <input type="date" name="fecha_publicacion" id="fecha_publicacion" value="<?php echo htmlspecialchars($registro['fecha_publicacion']); ?>" required>
 
             <label for="observaciones_3_1">OBSERVACIONES
                 <span class="tooltip">?

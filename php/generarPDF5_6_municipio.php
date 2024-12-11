@@ -329,7 +329,7 @@ function ImprimirSeccionFirmas($pdf, $info_al, $responsable, $observaciones, $el
     // Ajuste para las observaciones con MultiCell para permitir saltos de línea
     $pdf->MultiCell(0, 8, iconv('UTF-8', 'ISO-8859-1', $observaciones), 0, 'L');
 
-    $pdf->Ln(10); // Espacio antes de las firmas
+    $pdf->Ln(0); // Espacio antes de las firmas
 
     // Sección de firmas
     $pdf->SetFont('Arial', 'B', 11);

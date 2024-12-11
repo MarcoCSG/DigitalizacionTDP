@@ -372,13 +372,13 @@ $stmt_count->close();
         }
 
         function generarPDFTDP() {
-            const elaboro = document.getElementById('elaboroTDP').value;
-            const autorizo = document.getElementById('autorizoTDP').value;
-            const superviso = document.getElementById('supervisoTDP').value;
-            const observaciones = document.getElementById('observacionesTDP').value;
+            const elaboro = obtenerTextoEnMayusculas('elaboroTDP');
+            const autorizo = obtenerTextoEnMayusculas('autorizoTDP');
+            const superviso = obtenerTextoEnMayusculas('supervisoTDP');
+            const observaciones = obtenerTextoEnMayusculas('observacionesTDP');
 
             // Obtener la opción seleccionada del select (si la tabla no tiene datos)
-            let opcionSeleccionada = document.getElementById('informacion').value;
+            let opcionSeleccionada = obtenerTextoEnMayusculas('informacion');
 
             // Si no se selecciona ninguna opción, asignar un valor predeterminado vacío
             opcionSeleccionada = opcionSeleccionada || "";
@@ -405,12 +405,12 @@ $stmt_count->close();
         }
 
         function generarPDFMunicipio() {
-            const elaboro = document.getElementById("elaboroMunicipio").value;
-            const autorizo = document.getElementById("autorizoMunicipio").value;
-            const observaciones = document.getElementById("observacionesMunicipio").value;
+            const elaboro = obtenerTextoEnMayusculas("elaboroMunicipio");
+            const autorizo = obtenerTextoEnMayusculas("autorizoMunicipio");
+            const observaciones = obtenerTextoEnMayusculas("observacionesMunicipio");
 
             // Obtener la opción seleccionada del select (si la tabla no tiene datos)
-            let opcionSeleccionada = document.getElementById('informacion_municipio').value;
+            let opcionSeleccionada = obtenerTextoEnMayusculas('informacion_municipio');
 
             // Si no se selecciona ninguna opción, asignar un valor predeterminado vacío
             opcionSeleccionada = opcionSeleccionada || "";

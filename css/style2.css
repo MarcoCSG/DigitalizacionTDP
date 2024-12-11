@@ -104,3 +104,76 @@ button:hover {
 button span {
     font-size: 30px; /* Tamaño del texto dentro del botón */
 }
+
+footer {
+    background-color: #184461; /* Fondo oscuro para hacer contraste con el contenido */
+    padding: 40px 0;
+    border-top: 2px solid #e0e0e0;
+    text-align: center;
+    color: #e4e5f1; /* Texto claro para que se vea bien sobre fondo oscuro */
+}
+
+.footer-title {
+    font-size: 1.75em;
+    font-weight: 600;
+    color: #e4e5f1; /* Color claro para el título */
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+.footer-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 250px;
+    width: 100%;
+}
+
+.section h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #e4e5f1; /* Títulos de las secciones con color claro */
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    margin: 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+    text-align: center;
+}
+
+.section .button-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Crear dos columnas */
+    gap: 15px;
+    width: 100%;
+}
+
+.section button {
+    padding: 12px 25px;
+    font-size: 1em;
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    color: #fff;
+    background-color: #3a7eac; /* Azul brillante */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Los botones ocupan el 100% del ancho de su celda */
+}
+
+.section button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Efecto de escala al pasar el ratón */
+}
+
+.section button:active {
+    background-color: #004085;
+}

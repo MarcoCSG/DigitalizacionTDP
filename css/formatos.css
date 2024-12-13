@@ -158,3 +158,10 @@ input[type="text"], textarea {
     text-align: center;
     margin-top: 20px;
 }
+.form-group select {
+    width: 100%; /* Ocupa el 100% del ancho disponible */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #a9aead;
+    box-sizing: border-box;
+}

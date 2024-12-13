@@ -139,3 +139,11 @@ form button:hover {
     visibility: visible;
     opacity: 1;
 }
+
+select {
+    width: 100%; /* Ocupa el 100% del ancho disponible */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #a9aead;
+    box-sizing: border-box;
+}

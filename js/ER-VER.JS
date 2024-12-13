@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.5", texto: "5.5 Relación de Bienes no Inventariados", form: "mostrarregistros5_5.php" },
                     { valor: "5.6", texto: "5.6 Relación de Bienes en Préstamo o Comodato", form: "mostrarregistros5_6.php" }, 
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales", form: "mostrarregistros5_8.php" }, 
+                    { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "mostrarregistros5_9.php" },
                     { valor: "5.15", texto: "5.15 Relación de Seguros Contratados" },
                     { valor: "5.16", texto: "5.16 Relación de Combinaciones de Cajas Fuertes" },
                     { valor: "5.20", texto: "5.20 Informe del Cumplimiento de Obligaciones Fiscales" },
@@ -100,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // clasificaciones
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
-                    { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro" },
+                    { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "mostrarregistros5_9.php" },
                 ],
             },
                 "secretaria_er": {
@@ -287,6 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.5", texto: "5.5 Relación de Bienes no Inventariados", form: "mostrarregistros5_5.php" },
                     { valor: "5.6", texto: "5.6 Relación de Bienes en Préstamo o Comodato", form: "mostrarregistros5_6.php" },
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales", form: "mostrarregistros5_8.php" },
+                    { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "mostrarregistros5_9.php" },
                     { valor: "5.15", texto: "5.15 Relación de Seguros Contratados" },
                     { valor: "5.16", texto: "5.16 Relación de Combinaciones de Cajas Fuertes" },
                     { valor: "5.20", texto: "5.20 Informe del Cumplimiento de Obligaciones Fiscales" },
@@ -307,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // clasificaciones
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
-                    { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro" },
+                    { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "mostrarregistros5_9.php" },
                 ],
             },
                 "secretaria_er": {

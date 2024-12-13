@@ -24,17 +24,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `formato_3_8`
+-- Estructura de tabla para la tabla `formato_5_9`
 --
 
-CREATE TABLE `formato_3_8` (
+CREATE TABLE `formato_5_9` (
   `formato_id` int(11) NOT NULL,
   `no`int(11) NOT NULL,
-  `concepto` varchar(255) NOT NULL,
-  `fecha` text NOT NULL,
-  `vigencia_del` varchar(255) NOT NULL,
-  `vigencia_al` text NOT NULL,
-  `monto` text NOT NULL,
+  `informacion` varchar(255),
+  `medio` text NOT NULL,
+  `cantidad` varchar(255) NOT NULL,
   `observaciones` text NOT NULL,
   `informacion_al` text,
   `responsable` text
@@ -45,9 +43,9 @@ CREATE TABLE `formato_3_8` (
 --
 
 --
--- Indices de la tabla `formato_3_8`
+-- Indices de la tabla `formato_5_9`
 --
-ALTER TABLE `formato_3_8`
+ALTER TABLE `formato_5_9`
   ADD PRIMARY KEY (`formato_id`);
 
 --
@@ -55,10 +53,10 @@ ALTER TABLE `formato_3_8`
 --
 
 --
--- Filtros para la tabla `formato_3_8`
+-- Filtros para la tabla `formato_5_9`
 --
-ALTER TABLE `formato_3_8`
-  ADD CONSTRAINT `formato_3_8_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
+ALTER TABLE `formato_5_9`
+  ADD CONSTRAINT `formato_5_9_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

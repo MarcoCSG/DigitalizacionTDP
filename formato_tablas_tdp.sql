@@ -24,16 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `formato_5_9`
+-- Estructura de tabla para la tabla `formato_5_12`
 --
 
-CREATE TABLE `formato_5_9` (
+CREATE TABLE `formato_5_12` (
   `formato_id` int(11) NOT NULL,
   `no`int(11) NOT NULL,
-  `informacion` varchar(255),
-  `medio` text NOT NULL,
-  `cantidad` varchar(255) NOT NULL,
-  `observaciones` text NOT NULL,
+  `unidad_administrativa` varchar(255),
+  `serie_documental` text NOT NULL,
+  `clave` varchar(255) NOT NULL,
+  `descripcion` text NOT NULL,
+  `vigencia_documental` text NOT NULL,
+  `ubicacion` text NOT NULL,
   `informacion_al` text,
   `responsable` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -43,9 +45,9 @@ CREATE TABLE `formato_5_9` (
 --
 
 --
--- Indices de la tabla `formato_5_9`
+-- Indices de la tabla `formato_5_12`
 --
-ALTER TABLE `formato_5_9`
+ALTER TABLE `formato_5_12`
   ADD PRIMARY KEY (`formato_id`);
 
 --
@@ -53,10 +55,10 @@ ALTER TABLE `formato_5_9`
 --
 
 --
--- Filtros para la tabla `formato_5_9`
+-- Filtros para la tabla `formato_5_12`
 --
-ALTER TABLE `formato_5_9`
-  ADD CONSTRAINT `formato_5_9_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
+ALTER TABLE `formato_5_12`
+  ADD CONSTRAINT `formato_5_12_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

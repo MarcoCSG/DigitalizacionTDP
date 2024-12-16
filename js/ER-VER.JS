@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "3.8", texto: "3.8 Relación de Contratos, Convenios o Acuerdos",form:"mostrarregistros3_8.php" },
                     { valor: "5.10", texto: "5.10 Catálogo de Disposición Documental" },
                     { valor: "5.12", texto: "5.12 Relación de Archivo de Concentración", form:"mostrarregistros5_12.php" },
-                    { valor: "5.13", texto: "5.13 Relación de Archivo Histórico" },
+                    { valor: "5.13", texto: "5.13 Relación de Archivo Histórico", form:"mostrarregistros5_13.php"},
                 ],
             },
                 "contraloria_er": {
@@ -332,7 +332,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "3.8", texto: "3.8 Relación de Contratos, Convenios o Acuerdos",form:"mostrarregistros3_8.php" },
                     { valor: "5.10", texto: "5.10 Catálogo de Disposición Documental" },
                     { valor: "5.12", texto: "5.12 Relación de Archivo de Concentración", form:"mostrarregistros5_12.php" },
-                    { valor: "5.13", texto: "5.13 Relación de Archivo Histórico" },
+                    { valor: "5.13", texto: "5.13 Relación de Archivo Histórico", form:"mostrarregistros5_13.php" },
                 ],
             },
                 "contraloria_er": {

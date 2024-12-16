@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "3.7", texto: "3.7 Relación de Juicios en Proceso Promovidos en contra del Ayuntamiento", form: "3.7_relacion_juicios_enContra.php" },
                     { valor: "3.8", texto: "3.8 Relación de Contratos, Convenios o Acuerdos", form:"3.8_relacion_contratos_convenios.php" },
                     { valor: "5.12", texto: "5.12 Relación de Archivo de Concentración", form: "5.12_relacion_archivo_concentracion.php" },
-                    { valor: "5.13", texto: "5.13 Relación de Archivo Histórico" },
+                    { valor: "5.13", texto: "5.13 Relación de Archivo Histórico", form: "5.13_relacion_archivo_historico.php" },
                 ],
             },
                 "contraloria_er": {
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "3.7", texto: "3.7 Relación de Juicios en Proceso Promovidos en contra del Ayuntamiento", form: "3.7_relacion_juicios_enContra.php" },
                     { valor: "3.8", texto: "3.8 Relación de Contratos, Convenios o Acuerdos", form:"3.8_relacion_contratos_convenios.php"  },
                     { valor: "5.12", texto: "5.12 Relación de Archivo de Concentración", form: "5.12_relacion_archivo_concentracion.php" },
-                    { valor: "5.13", texto: "5.13 Relación de Archivo Histórico" },
+                    { valor: "5.13", texto: "5.13 Relación de Archivo Histórico", form: "5.13_relacion_archivo_historico.php" },
                 ],
             },
                 "contraloria_er": {

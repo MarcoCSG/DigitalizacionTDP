@@ -1,4 +1,6 @@
 
+
+
 document.addEventListener("DOMContentLoaded", function () { 
     const areaSelect = document.getElementById("area");
     const clasificacionContainer = document.getElementById("clasificacionContainer");
@@ -21,6 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "5.11_archivotramite.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
             "tesoreria_er": {
@@ -46,6 +52,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.16", texto: "5.16 Relación de Combinaciones de Cajas Fuertes" },
                     { valor: "5.20", texto: "5.20 Informe del Cumplimiento de Obligaciones Fiscales" },
                     { valor: "5.21", texto: "5.21 Relación de Expedientes del Personal" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
             "catastro_er": {
@@ -60,6 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
                     { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "5.9_relacion_informacion_relativa.php" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
                 "secretaria_er": {
@@ -82,6 +96,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "3.8", texto: "3.8 Relación de Contratos, Convenios o Acuerdos", form:"3.8_relacion_contratos_convenios.php" },
                     { valor: "5.12", texto: "5.12 Relación de Archivo de Concentración", form: "5.12_relacion_archivo_concentracion.php" },
                     { valor: "5.13", texto: "5.13 Relación de Archivo Histórico", form: "5.13_relacion_archivo_historico.php" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
                 "contraloria_er": {
@@ -97,6 +115,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "8.2", texto: "8.2 Resumen de Observaciones y Recomendaciones en Proceso de Atención" },
                     { valor: "8.3", texto: "8.3 Decretos que Aprueban el Informe del Resultado de la Fiscalización Superior de las Cuentas Públicas" },
                     { valor: "8.4", texto: "8.4 Seguimiento a los Procedimientos de Investigación y Substanciación de las Observaciones de Carácter Administrativo y Acciones Implementadas para la Atención de las Recomendaciones Determinadas por el ORFIS" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
 
                 ],
             },
@@ -112,6 +134,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "6.3", texto: "6.3 Relación de Obras y Acciones con Contrato en Proceso de Rescisión y/o en Trámite de Recuperación de Fianzas" },
                     { valor: "6.4", texto: "6.4 Inventario de Materiales para la Obra Pública y Mantenimiento" },
                     { valor: "6.5", texto: "6.5 Relación de Expedientes Técnicos Unitarios de Obras Públicas" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
             "regidores_er": {
@@ -122,17 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "5.11_archivotramite.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
-                ],
-            },
-            "areasUsuarias_er": {
-                texto: "AREAS USUARIAS",
-                clasificaciones: [
-                    // todas las areas
-                    { valor: "1.2", texto: "1.2 Relación de Manuales Administrativos", form: "1.2_manuales.php" },
-                    { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "5.11_archivotramite.php" },
-                    { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
-                    { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
-                    // clasificaciones
+                    // clasificaciones areas usuarias
                     { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
                     { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
                     { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
@@ -150,6 +166,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "7.1", texto: "7.1 Relación de Solicitudes de Información y Solicitudes ARCO Pendientes de Atender" },
                     { valor: "7.2", texto: "7.2 Relación de Recursos de Revisión en Trámite" },
                     { valor: "7.3", texto: "7.3 Relación de Documentación Relativa a Transparencia, Acceso a la Información y Protección de Datos Personales" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ]
             },
             "juridico_er": {
@@ -162,6 +182,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" , form:"3.1_relacion_de_reglamentos.php"},
+                    { valor: "3.6", texto: "3.6 Relación de Juicios en Proceso Promovidos por el Ayuntamiento", form: "3.6_relacion_juicios_enProceso.php" },
+                    { valor: "3.7", texto: "3.7 Relación de Juicios en Proceso Promovidos en contra del Ayuntamiento", form: "3.7_relacion_juicios_enContra.php" },
+                    { valor: "3.8", texto: "3.8 Relación de Contratos, Convenios o Acuerdos", form:"3.8_relacion_contratos_convenios.php"  },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
         },
@@ -177,6 +204,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "5.11_archivotramite.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
             "tesoreria_er": {
@@ -202,6 +233,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.16", texto: "5.16 Relación de Combinaciones de Cajas Fuertes" },
                     { valor: "5.20", texto: "5.20 Informe del Cumplimiento de Obligaciones Fiscales" },
                     { valor: "5.21", texto: "5.21 Relación de Expedientes del Personal" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
             "catastro_er": {
@@ -216,6 +251,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
                     { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "5.9_relacion_informacion_relativa.php"  },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
                 "secretaria_er": {
@@ -238,6 +277,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "3.8", texto: "3.8 Relación de Contratos, Convenios o Acuerdos", form:"3.8_relacion_contratos_convenios.php"  },
                     { valor: "5.12", texto: "5.12 Relación de Archivo de Concentración", form: "5.12_relacion_archivo_concentracion.php" },
                     { valor: "5.13", texto: "5.13 Relación de Archivo Histórico", form: "5.13_relacion_archivo_historico.php" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
                 "contraloria_er": {
@@ -253,6 +296,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "8.2", texto: "8.2 Resumen de Observaciones y Recomendaciones en Proceso de Atención" },
                     { valor: "8.3", texto: "8.3 Decretos que Aprueban el Informe del Resultado de la Fiscalización Superior de las Cuentas Públicas" },
                     { valor: "8.4", texto: "8.4 Seguimiento a los Procedimientos de Investigación y Substanciación de las Observaciones de Carácter Administrativo y Acciones Implementadas para la Atención de las Recomendaciones Determinadas por el ORFIS" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
 
                 ],
             },
@@ -268,6 +315,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "6.3", texto: "6.3 Relación de Obras y Acciones con Contrato en Proceso de Rescisión y/o en Trámite de Recuperación de Fianzas" },
                     { valor: "6.4", texto: "6.4 Inventario de Materiales para la Obra Pública y Mantenimiento" },
                     { valor: "6.5", texto: "6.5 Relación de Expedientes Técnicos Unitarios de Obras Públicas" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
             "regidores_er": {
@@ -278,6 +329,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.11", texto: "5.11 Relación de Archivo de Trámite", form: "5.11_archivotramite.php" },
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
             "areasUsuarias_er": {
@@ -289,6 +344,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.18", texto: "5.18 Relación de Llaves", form: "5.18_relacionllaves.php" },
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
+                    // clasificaciones areas usuarias
                     { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
                     { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
                     { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
@@ -306,6 +365,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "7.1", texto: "7.1 Relación de Solicitudes de Información y Solicitudes ARCO Pendientes de Atender" },
                     { valor: "7.2", texto: "7.2 Relación de Recursos de Revisión en Trámite" },
                     { valor: "7.3", texto: "7.3 Relación de Documentación Relativa a Transparencia, Acceso a la Información y Protección de Datos Personales" },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ]
             },
             "juridico_er": {
@@ -318,6 +381,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
                     { valor: "3.1", texto: "3.1 Relación de Reglamentos Municipales" , form:"3.1_relacion_de_reglamentos.php"},
+                    { valor: "3.6", texto: "3.6 Relación de Juicios en Proceso Promovidos por el Ayuntamiento", form: "3.6_relacion_juicios_enProceso.php" },
+                    { valor: "3.7", texto: "3.7 Relación de Juicios en Proceso Promovidos en contra del Ayuntamiento", form: "3.7_relacion_juicios_enContra.php" },
+                    { valor: "3.8", texto: "3.8 Relación de Contratos, Convenios o Acuerdos", form:"3.8_relacion_contratos_convenios.php"  },
+                    // clasificaciones areas usuarias
+                    { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos" },
+                    { valor: "5.17", texto: "5.17 Relación de Claves de Acceso" },
+                    { valor: "5.19", texto: "5.19 Relación de Sellos Oficiales" },
                 ],
             },
         },

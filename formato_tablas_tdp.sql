@@ -24,16 +24,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `formato_5_13`
+-- Estructura de tabla para la tabla `formato_5_14`
 --
 
-CREATE TABLE `formato_5_13` (
+CREATE TABLE `formato_5_14` (
   `formato_id` int(11) NOT NULL,
   `no`int(11) NOT NULL,
-  `serie` varchar(255),
+  `informacion` varchar(255),
+  `medio` varchar(255) NOT NULL,
   `clave` varchar(255) NOT NULL,
-  `descripcion` text NOT NULL,
-  `ubicacion` text NOT NULL,
+  `cantidad` text NOT NULL,
   `observaciones` text NOT NULL,
   `informacion_al` text,
   `responsable` text
@@ -44,9 +44,9 @@ CREATE TABLE `formato_5_13` (
 --
 
 --
--- Indices de la tabla `formato_5_13`
+-- Indices de la tabla `formato_5_14`
 --
-ALTER TABLE `formato_5_13`
+ALTER TABLE `formato_5_14`
   ADD PRIMARY KEY (`formato_id`);
 
 --
@@ -54,10 +54,10 @@ ALTER TABLE `formato_5_13`
 --
 
 --
--- Filtros para la tabla `formato_5_13`
+-- Filtros para la tabla `formato_5_14`
 --
-ALTER TABLE `formato_5_13`
-  ADD CONSTRAINT `formato_5_13_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
+ALTER TABLE `formato_5_14`
+  ADD CONSTRAINT `formato_5_14_ibfk_1` FOREIGN KEY (`formato_id`) REFERENCES `formatos` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

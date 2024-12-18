@@ -1,6 +1,3 @@
-
-
-
 document.addEventListener("DOMContentLoaded", function () { 
     const areaSelect = document.getElementById("area");
     const clasificacionContainer = document.getElementById("clasificacionContainer");
@@ -68,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
-                    { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
+                    { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales",form: "5.8_Inventario_reservas_territoriales.php" },
                     { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "5.9_relacion_informacion_relativa.php" },
                     // clasificaciones areas usuarias
                     { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos", form:"5.14_relacion_archivos_electronicos.php"  },
@@ -249,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "9.1_actividadesDeAtencion.php"},
                     // clasificaciones
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
-                    { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
+                    { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales",form: "5.8_Inventario_reservas_territoriales.php"  },
                     { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "5.9_relacion_informacion_relativa.php"  },
                     // clasificaciones areas usuarias
                     { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos", form:"5.14_relacion_archivos_electronicos.php"  },

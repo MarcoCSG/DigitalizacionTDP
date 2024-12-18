@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
-                    { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
+                    { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales", form: "mostrarregistros5_8.php" },
                     { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "mostrarregistros5_9.php" },
                     // clasificaciones areas usuarias
                     { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos", form: "mostrarregistros5_14.php"  },
@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "9.1", texto: "9.1 Actividades de Atención Prioritaria", form: "mostrarregistros9_1.php" },
                     // clasificaciones
                     { valor: "5.7", texto: "5.7 Cédulas de Bienes Inmuebles" },
-                    { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales" },
+                    { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales", form: "mostrarregistros5_8.php" },
                     { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "mostrarregistros5_9.php" },
                     // clasificaciones areas usuarias
                     { valor: "5.14", texto: "5.14 Relación de Archivos Electrónicos", form: "mostrarregistros5_14.php"  },

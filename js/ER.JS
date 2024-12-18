@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales", form: "5.8_Inventario_reservas_territoriales.php" },
                     { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "5.9_relacion_informacion_relativa.php"  },
                     { valor: "5.15", texto: "5.15 Relación de Seguros Contratados",form:"5.15_relacion_seguros_contratados.php" },
-                    { valor: "5.16", texto: "5.16 Relación de Combinaciones de Cajas Fuertes" },
+                    { valor: "5.16", texto: "5.16 Relación de Combinaciones de Cajas Fuertes", form:"5.16_relacion_combinacionesCF.php" },
                     { valor: "5.20", texto: "5.20 Informe del Cumplimiento de Obligaciones Fiscales" },
                     { valor: "5.21", texto: "5.21 Relación de Expedientes del Personal" },
                     // clasificaciones areas usuarias
@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     { valor: "5.8", texto: "5.8 Inventario de Reservas Territoriales", form: "5.8_Inventario_reservas_territoriales.php" },
                     { valor: "5.9", texto: "5.9 Relación de Información Relativa a Catastro", form: "5.9_relacion_informacion_relativa.php" },
                     { valor: "5.15", texto: "5.15 Relación de Seguros Contratados",form:"5.15_relacion_seguros_contratados.php" },
-                    { valor: "5.16", texto: "5.16 Relación de Combinaciones de Cajas Fuertes" },
+                    { valor: "5.16", texto: "5.16 Relación de Combinaciones de Cajas Fuertes", form:"5.16_relacion_combinacionesCF.php"  },
                     { valor: "5.20", texto: "5.20 Informe del Cumplimiento de Obligaciones Fiscales" },
                     { valor: "5.21", texto: "5.21 Relación de Expedientes del Personal" },
                     // clasificaciones areas usuarias
